@@ -6,4 +6,8 @@
     <RootNamespace>Actions.Core.Domain</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\shared\src\Domain\Shared.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
