@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <AssemblyName>Actions.Core.Domain</AssemblyName>
+    <RootNamespace>Actions.Core.Domain</RootNamespace>
+  </PropertyGroup>
+
+</Project>
