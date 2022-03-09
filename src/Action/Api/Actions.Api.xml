@@ -4,17 +4,114 @@
         <name>Actions.Api</name>
     </assembly>
     <members>
-        <member name="M:Actions.Api.Controllers.ActionController.Get">
+        <member name="M:Actions.Api.Controllers.ActionController.GetActionsAsync(System.String,System.Nullable{Actions.Core.Domain.Actions.Enums.OriginTypeEnum})">
              <summary>
-             Retrieves the list of projects
+             Retrieve the list of actions
              </summary>
              <response code="200">If it is successful</response>
              <response code="401">If has no access</response>
-             <response code="404">If no data is found</response>
              <remarks>
              Sample request:
             
-                 GET /api/v1/admin?page=[1]&amp;count=[20]
+                 GET /api/v1/action
+            
+             </remarks>
+        </member>
+        <member name="M:Actions.Api.Controllers.ActionController.GetActionStatus">
+             <summary>
+             Retrieves the list of action status
+             </summary>
+             <response code="200">If it is successful</response>
+             <remarks>
+             Sample request:
+            
+                 GET /api/v1/action/status
+            
+             </remarks>
+        </member>
+        <member name="M:Actions.Api.Controllers.ActionController.GetStatus">
+             <summary>
+             Retrieves the list of status
+             </summary>
+             <response code="200">If it is successful</response>
+             <remarks>
+             Sample request:
+            
+                 GET /api/v1/action/status
+            
+             </remarks>
+        </member>
+        <member name="M:Actions.Api.Controllers.ActionController.GetRiskCategory">
+             <summary>
+             Retrieves the list of risk category
+             </summary>
+             <response code="200">If it is successful</response>
+             <remarks>
+             Sample request:
+            
+                 GET /api/v1/action/risk-category
+            
+             </remarks>
+        </member>
+        <member name="M:Actions.Api.Controllers.ActionController.GetPriority">
+             <summary>
+             Retrieves the list of priorities
+             </summary>
+             <response code="200">If it is successful</response>
+             <remarks>
+             Sample request:
+            
+                 GET /api/v1/action/priority
+            
+             </remarks>
+        </member>
+        <member name="M:Actions.Api.Controllers.ActionController.GetProjectStep">
+             <summary>
+             Retrieves the list of project step
+             </summary>
+             <response code="200">If it is successful</response>
+             <remarks>
+             Sample request:
+            
+                 GET /api/v1/action/project-step
+            
+             </remarks>
+        </member>
+        <member name="M:Actions.Api.Controllers.ActionController.GetDimension">
+             <summary>
+             Retrieves the list of dimension
+             </summary>
+             <response code="200">If it is successful</response>
+             <remarks>
+             Sample request:
+            
+                 GET /api/v1/action/dimension
+            
+             </remarks>
+        </member>
+        <member name="M:Actions.Api.Controllers.DeviationController.GetActionsAsync(System.String,System.Nullable{Actions.Core.Domain.Actions.Enums.OriginTypeEnum})">
+             <summary>
+             Retrieve the list of deviation
+             </summary>
+             <response code="200">If it is successful</response>
+             <response code="401">If has no access</response>
+             <remarks>
+             Sample request:
+            
+                 GET /api/v1/deviation
+            
+             </remarks>
+        </member>
+        <member name="M:Actions.Api.Controllers.RiskController.GetAsync(System.String,System.Nullable{Actions.Core.Domain.Actions.Enums.OriginTypeEnum})">
+             <summary>
+             Retrieve the list risks 
+             </summary>
+             <response code="200">If it is successful</response>
+             <response code="401">If has no access</response>
+             <remarks>
+             Sample request:
+            
+                 GET /api/v1/risk?originId=&amp;originType==&amp;
             
              </remarks>
         </member>
