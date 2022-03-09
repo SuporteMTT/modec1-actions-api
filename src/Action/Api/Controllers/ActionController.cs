@@ -1,4 +1,5 @@
 ﻿using Actions.Core.Domain.Actions.Enums;
+using Actions.Core.Domain.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -41,7 +42,7 @@ namespace Actions.Api.Controllers
                     description = "Action 2 Vestibulum varius volutpat nulla eu mollis.",
                     responsible = "Responsible Name",
                     dueDate = DateTime.Now,
-                    status = StatusEnum.Active,
+                    status = StatusEnum.Active.Status(),
                     endDate = new DateTime?(new DateTime(2021, 6, 20))
                 },
                 new {
@@ -50,7 +51,7 @@ namespace Actions.Api.Controllers
                     description = "Action 3 Vestibulum varius volutpat nulla eu mollis.​",
                     responsible = "Responsible Name",
                     dueDate = DateTime.Now,
-                    status = StatusEnum.Cancelled,
+                    status = StatusEnum.Cancelled.Status(),
                     endDate = new DateTime?(new DateTime(2021, 7, 17))
                 },
                 new {
@@ -59,7 +60,7 @@ namespace Actions.Api.Controllers
                     description = "Action 4 Vestibulum varius volutpat nulla eu mollis.​",
                     responsible = "Responsible Name",
                     dueDate = DateTime.Now,
-                    status = StatusEnum.Concluded,
+                    status = StatusEnum.Concluded.Status(),
                     endDate = new DateTime?()
                 },
             };
@@ -85,7 +86,7 @@ namespace Actions.Api.Controllers
         }
 
         /// <summary>
-        /// Retrieves the list of status
+        /// Retrieves the list of shared status
         /// </summary>
         /// <response code="200">If it is successful</response>
         /// <remarks>

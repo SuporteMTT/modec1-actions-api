@@ -1,4 +1,5 @@
 ﻿using Actions.Core.Domain.Actions.Enums;
+using Actions.Core.Domain.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -49,7 +50,7 @@ namespace Actions.Api.Controllers
                         onGoing = 2,
                         concludedOrDelayed = 3
                     },
-                    status = StatusEnum.Active,
+                    status = StatusEnum.Active.Status(),
                     closedCancelledDate = DateTime.Now,
                 },
                 new {
@@ -63,7 +64,7 @@ namespace Actions.Api.Controllers
                         onGoing = 1,
                         concludedOrDelayed = 5
                     },
-                    status = StatusEnum.Concluded,
+                    status = StatusEnum.Concluded.Status(),
                     closedCancelledDate = DateTime.Now,
                 },
                 new {
@@ -77,7 +78,7 @@ namespace Actions.Api.Controllers
                         onGoing = 5,
                         concludedOrDelayed = 1
                     },
-                    status = StatusEnum.Cancelled,
+                    status = StatusEnum.Cancelled.Status(),
                     closedCancelledDate = DateTime.Now,
                 },
             };

@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\shared\src\CrossCutting\Shared.Tools.csproj" />
     <ProjectReference Include="..\..\..\..\shared\src\Domain\Shared.Domain.csproj" />
   </ItemGroup>
 
