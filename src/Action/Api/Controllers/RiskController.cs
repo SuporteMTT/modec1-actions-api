@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Actions.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [ApiVersion("1.0")]
     [ApiExplorerSettings(GroupName = "Risk")]

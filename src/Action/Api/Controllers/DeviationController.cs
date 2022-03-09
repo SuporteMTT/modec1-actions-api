@@ -1,4 +1,5 @@
 ﻿using Actions.Core.Domain.Actions.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shared.CrossCutting.Tools;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Actions.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [ApiVersion("1.0")]
     [ApiExplorerSettings(GroupName = "Deviation")]

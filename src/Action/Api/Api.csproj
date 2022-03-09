@@ -24,4 +24,10 @@
     <ProjectReference Include="..\..\Infrastructure\Data\Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Actions.Api.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

@@ -1,14 +1,13 @@
 ﻿using Actions.Core.Domain.Actions.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shared.CrossCutting.Tools;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Actions.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [ApiVersion("1.0")]
     [ApiExplorerSettings(GroupName = "Action")]
@@ -77,7 +76,7 @@ namespace Actions.Api.Controllers
         ///
         /// </remarks>
         [HttpGet]
-        [Route("action-status")]
+        [Route("status")]
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public dynamic GetActionStatus()
@@ -96,7 +95,7 @@ namespace Actions.Api.Controllers
         ///
         /// </remarks>
         [HttpGet]
-        [Route("status")]
+        [Route("shared-status")]
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public dynamic GetStatus()
