@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Actions.Infrasctructure.Data
+namespace Actions.Infrastructure.Data
 {
     public class ActionsContext : DbContext
     {

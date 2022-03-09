@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <AssemblyName>Actions.Infrasctructure.Data</AssemblyName>
-    <RootNamespace>Actions.Infrasctructure.Data</RootNamespace>
+    <AssemblyName>Actions.Infrastructure.Data</AssemblyName>
+    <RootNamespace>Actions.Infrastructure.Data</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

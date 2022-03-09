@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Actions.Infrasctructure.Data.Repositories
+namespace Actions.Infrastructure.Data.Repositories
 {
     public class UserRepository : UnitOfWork, IUserRepository
     {

@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Actions.Infrasctructure.Data.Repositories
+namespace Actions.Infrastructure.Data.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {

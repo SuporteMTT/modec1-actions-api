@@ -4,5 +4,19 @@
         <name>Actions.Api</name>
     </assembly>
     <members>
+        <member name="M:Actions.Api.Controllers.ActionController.Get">
+             <summary>
+             Retrieves the list of projects
+             </summary>
+             <response code="200">If it is successful</response>
+             <response code="401">If has no access</response>
+             <response code="404">If no data is found</response>
+             <remarks>
+             Sample request:
+            
+                 GET /api/v1/admin?page=[1]&amp;count=[20]
+            
+             </remarks>
+        </member>
     </members>
 </doc>
