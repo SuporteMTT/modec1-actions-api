@@ -11,6 +11,7 @@ namespace Actions.Api.Configs
             services.AddScoped<Core.Domain.Shared.Interfaces.IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<Core.Domain.Users.Interfaces.IUserRepository, UserRepository>();
+            services.AddScoped<Core.Domain.Deviations.Interfaces.IDeviationRepository, DeviationRepository>();
             services.AddScoped<Core.Domain.Risks.Interfaces.IRiskRepository, RiskRepository>();
             services.AddScoped<Core.Domain.Risks.Handlers.RisksQueryHandler>();
 
