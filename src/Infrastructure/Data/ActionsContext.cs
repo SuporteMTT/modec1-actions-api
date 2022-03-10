@@ -27,6 +27,7 @@ namespace Actions.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new DeviationConfiguration());
             modelBuilder.ApplyConfiguration(new RiskConfiguration());
 
             modelBuilder.ApplyConfiguration(new UserConfiguration());

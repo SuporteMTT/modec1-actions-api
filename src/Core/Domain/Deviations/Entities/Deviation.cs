@@ -1,6 +1,7 @@
 ﻿using Actions.Core.Domain.Deviations.Enums;
 using Actions.Core.Domain.Risks.Entities;
 using Actions.Core.Domain.Shared.Enums;
+using Actions.Core.Domain.Users.Entities;
 using Shared.Core.Domain.Impl.Entity;
 using System;
 
@@ -18,9 +19,11 @@ namespace Actions.Core.Domain.Deviations.Entities
         public string Cause { get; set; }
         public PriorityEnum Priority { get; set; }
         public DateTime CreatedDate { get; set; }
+        public User CreatedBy { get; set; }
         public string CreatedById { get; set; }
-        public DateTime? ClosedDate { get; set; }
-        public string ClosedById { get; set; }
+        public DateTime? ClosedCancelledDate { get; set; }
+        public User ClosedCancelledBy { get; set; }
+        public string ClosedCancelledById { get; set; }
         public MetadataTypeEnum MetadataType { get; set; }
         public string MetadataId { get; set; }
     }
