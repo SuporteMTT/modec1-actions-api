@@ -1,5 +1,7 @@
-﻿using Actions.Core.Domain.Users.Entities;
+﻿using Actions.Core.Domain.Risks.Entities;
+using Actions.Core.Domain.Users.Entities;
 using Actions.Infrasctructure.Data.Configurations;
+using Actions.Infrastructure.Data.Configurations;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,6 +14,7 @@ namespace Actions.Infrastructure.Data
     public class ActionsContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<Risk> Risks { get; set; }
 
         public ActionsContext(DbContextOptions<ActionsContext> options) : base(options) { }
 
@@ -24,6 +27,8 @@ namespace Actions.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new RiskConfiguration());
+
             modelBuilder.ApplyConfiguration(new UserConfiguration());
 
             modelBuilder.Entity<FeatureProfile>().ToView("FeatureProfile").HasKey(x => x.Id);
