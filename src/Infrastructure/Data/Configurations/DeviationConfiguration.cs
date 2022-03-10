@@ -14,7 +14,7 @@ namespace Actions.Infrastructure.Data.Configurations
     {
         void IEntityTypeConfiguration<Deviation>.Configure(EntityTypeBuilder<Deviation> builder)
         {
-            builder.ToTable("Risk");
+            builder.ToTable("Deviation");
 
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasMaxLength(36);

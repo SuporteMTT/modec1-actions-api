@@ -1,5 +1,6 @@
 using Actions.Core.Domain.Actions.Enums;
 using Actions.Core.Domain.Shared.Enums;
+using Actions.Core.Domain.Users.Entities;
 using Shared.Core.Domain.Impl.Entity;
 using System;
 
@@ -9,6 +10,7 @@ namespace Actions.Core.Domain.Actions.Entities
     {
         public string RelatedId { get; set; }
         public string Description { get; set; }
+        public User Responsible { get; set; }
         public string ResponsibleId { get; set; }
         public DateTime DueDate { get; set; }
         public DateTime OriginalDueDate { get; set; }
@@ -18,6 +20,7 @@ namespace Actions.Core.Domain.Actions.Entities
         public decimal? Cost { get; set; }
         public string Comments { get; set; }
         public DateTime? ClosedDate { get; set; }
+        public User ClosedBy { get; set; }
         public string ClosedById { get; set; }
         public MetadataTypeEnum MetadataType { get; set; }
         public string MetadataId { get; set; }
