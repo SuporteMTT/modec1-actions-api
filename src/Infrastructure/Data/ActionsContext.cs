@@ -1,4 +1,5 @@
-﻿using Actions.Core.Domain.Risks.Entities;
+﻿using Actions.Core.Domain.Deviations.Entities;
+using Actions.Core.Domain.Risks.Entities;
 using Actions.Core.Domain.Users.Entities;
 using Actions.Infrasctructure.Data.Configurations;
 using Actions.Infrastructure.Data.Configurations;
@@ -13,6 +14,8 @@ namespace Actions.Infrastructure.Data
 {
     public class ActionsContext : DbContext
     {
+        public DbSet<Core.Domain.Actions.Entities.Action> Actions { get; set; }
+        public DbSet<Deviation> Deviations { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Risk> Risks { get; set; }
 
@@ -27,6 +30,7 @@ namespace Actions.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new ActionConfiguration());
             modelBuilder.ApplyConfiguration(new DeviationConfiguration());
             modelBuilder.ApplyConfiguration(new RiskConfiguration());
 
