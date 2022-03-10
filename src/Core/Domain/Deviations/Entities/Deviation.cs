@@ -4,7 +4,7 @@ using Actions.Core.Domain.Shared.Enums;
 using Shared.Core.Domain.Impl.Entity;
 using System;
 
-namespace Actions.Core.Domain.Actions.Entities
+namespace Actions.Core.Domain.Deviations.Entities
 {
     public class Deviation : Entity<Deviation, string>
     {
