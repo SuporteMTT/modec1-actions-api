@@ -11,6 +11,7 @@ namespace Actions.Api.Configs
             services.AddScoped<Core.Domain.Shared.Interfaces.IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<Core.Domain.Actions.Interfaces.IActionRepository, ActionRepository>();
+            services.AddScoped<Core.Domain.Actions.Handlers.ActionsQueryHandler>();
 
             services.AddScoped<Core.Domain.Deviations.Interfaces.IDeviationRepository, DeviationRepository>();
             services.AddScoped<Core.Domain.Deviations.Handlers.DeviationsQueryHandler>();
