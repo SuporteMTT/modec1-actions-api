@@ -11,8 +11,4 @@
     <ProjectReference Include="..\..\..\..\shared\src\Domain\Shared.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Actions\Interfaces\" />
-  </ItemGroup>
-
 </Project>

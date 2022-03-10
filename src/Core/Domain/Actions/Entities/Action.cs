@@ -24,5 +24,6 @@ namespace Actions.Core.Domain.Actions.Entities
         public string ClosedById { get; set; }
         public MetadataTypeEnum MetadataType { get; set; }
         public string MetadataId { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }

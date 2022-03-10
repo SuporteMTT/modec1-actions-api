@@ -15,6 +15,6 @@ namespace Actions.Core.Domain.Actions.Dtos
         public string Responsible { get; set; }
         public DateTime DueDate { get; set; }
         public StatusDTO Status { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime ActualEndDate { get; set; }
     }
 }
