@@ -1,5 +1,5 @@
 ﻿
-namespace Actions.Core.Domain.Actions.Enums
+namespace Actions.Core.Domain.Risks.Enums
 {
     public enum DimensionEnum
     {

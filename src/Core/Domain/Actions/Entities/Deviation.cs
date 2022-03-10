@@ -1,10 +1,8 @@
 ﻿using Actions.Core.Domain.Actions.Enums;
+using Actions.Core.Domain.Risks.Entities;
+using Actions.Core.Domain.Shared.Enums;
 using Shared.Core.Domain.Impl.Entity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Actions.Core.Domain.Actions.Entities
 {
@@ -15,6 +13,7 @@ namespace Actions.Core.Domain.Actions.Entities
         public string Description { get; set; }
         public StatusEnum Status { get; set; }
         public RiskCategoryEnum Category { get; set; }
+        public Risk AssociatedRisk { get; set; }
         public string AssociatedRiskId { get; set; }
         public string Cause { get; set; }
         public PriorityEnum Priority { get; set; }
@@ -22,7 +21,7 @@ namespace Actions.Core.Domain.Actions.Entities
         public string CreatedById { get; set; }
         public DateTime? ClosedDate { get; set; }
         public string ClosedById { get; set; }
-        public OriginTypeEnum OriginType { get; set; }
-        public string OriginId { get; set; }
+        public MetadataTypeEnum MetadataType { get; set; }
+        public string MetadataId { get; set; }
     }
 }

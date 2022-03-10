@@ -1,4 +1,5 @@
 using Actions.Core.Domain.Actions.Enums;
+using Actions.Core.Domain.Shared.Enums;
 using Shared.Core.Domain.Impl.Entity;
 using System;
 
@@ -18,7 +19,7 @@ namespace Actions.Core.Domain.Actions.Entities
         public string Comments { get; set; }
         public DateTime? ClosedDate { get; set; }
         public string ClosedById { get; set; }
-        public OriginTypeEnum OriginType { get; set; }
-        public string OriginId { get; set; }
+        public MetadataTypeEnum MetadataType { get; set; }
+        public string MetadataId { get; set; }
     }
 }

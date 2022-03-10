@@ -1,5 +1,6 @@
 ﻿using Actions.Core.Domain.Actions.Enums;
 using Actions.Core.Domain.Shared;
+using Actions.Core.Domain.Shared.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -33,8 +34,8 @@ namespace Actions.Api.Controllers
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public dynamic GetActionsAsync(
-            [FromQuery] string originId = null,
-            [FromQuery] OriginTypeEnum? originType = null
+            [FromQuery] string metadataId = null,
+            [FromQuery] MetadataTypeEnum? metadataType = null
         )
         {
             return new[]

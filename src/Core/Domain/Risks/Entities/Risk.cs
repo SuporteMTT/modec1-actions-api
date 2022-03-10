@@ -1,13 +1,16 @@
-using Actions.Core.Domain.Actions.Enums;
+using Actions.Core.Domain.Risks.Enums;
+using Actions.Core.Domain.Shared.Enums;
+using Actions.Core.Domain.Users.Entities;
 using Shared.Core.Domain.Impl.Entity;
 using System;
 
-namespace Actions.Core.Domain.Actions.Entities
+namespace Actions.Core.Domain.Risks.Entities
 {
     public class Risk : Entity<Risk, string>
     {
         public string Code { get; set; }
         public StatusEnum Status { get; set; }
+        public User User { get; set; }
         public string OwnerId { get; set; }
         public string AssociatedTaskId { get; set; }
         public string Name { get; set; }
@@ -26,7 +29,7 @@ namespace Actions.Core.Domain.Actions.Entities
         public string ClosedCancelledById { get; set; }
         public RiskJustificationEnum Justification { get; set; }
         public string RealImpact { get; set; }
-        public OriginTypeEnum OriginType { get; set; }
-        public string OriginId { get; set; }
+        public MetadataTypeEnum MetadataType { get; set; }
+        public string MetadataId { get; set; }
     }
 }

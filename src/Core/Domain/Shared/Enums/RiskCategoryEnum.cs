@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Actions.Core.Domain.Actions.Enums
+namespace Actions.Core.Domain.Shared.Enums
 {
     public enum RiskCategoryEnum
     {
