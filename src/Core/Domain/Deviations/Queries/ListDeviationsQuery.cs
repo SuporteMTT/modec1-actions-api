@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Actions.Core.Domain.Queries
+namespace Actions.Core.Domain.Deviations.Queries
 {
     public class ListDeviationsQuery
     {

@@ -1,6 +1,6 @@
 ﻿using Actions.Core.Domain.Deviations.Dtos;
 using Actions.Core.Domain.Deviations.Interfaces;
-using Actions.Core.Domain.Queries;
+using Actions.Core.Domain.Deviations.Queries;
 using Actions.Core.Domain.Shared.Interfaces.Entities;
 using Shared.Core.Domain.Impl.Validator;
 using Shared.Core.Domain.Interface.Entity;
