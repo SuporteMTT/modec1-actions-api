@@ -1,7 +1,7 @@
 ﻿
 using Shared.Core.Domain.Impl.Attributes;
 
-namespace Actions.Core.Domain.Actions.Enums
+namespace Actions.Core.Domain.Deviations.Enums
 {
     public enum PriorityEnum
     {

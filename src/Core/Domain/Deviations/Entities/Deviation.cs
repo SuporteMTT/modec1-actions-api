@@ -1,4 +1,4 @@
-﻿using Actions.Core.Domain.Actions.Enums;
+﻿using Actions.Core.Domain.Deviations.Enums;
 using Actions.Core.Domain.Risks.Entities;
 using Actions.Core.Domain.Shared.Enums;
 using Shared.Core.Domain.Impl.Entity;
