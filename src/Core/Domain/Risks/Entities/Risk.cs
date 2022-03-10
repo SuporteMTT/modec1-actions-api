@@ -10,7 +10,7 @@ namespace Actions.Core.Domain.Risks.Entities
     {
         public string Code { get; set; }
         public StatusEnum Status { get; set; }
-        public User User { get; set; }
+        public User Owner { get; set; }
         public string OwnerId { get; set; }
         public string AssociatedTaskId { get; set; }
         public string Name { get; set; }
