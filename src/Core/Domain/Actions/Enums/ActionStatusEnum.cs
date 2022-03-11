@@ -5,14 +5,14 @@ namespace Actions.Core.Domain.Actions.Enums
 {
     public enum ActionStatusEnum
     {
-        [Description("Not Started")]
+        [Description("Not Initiated")]
         [Color("#a3a5a5")]
-        NotStarted = 1,
+        NotInitiated = 1,
         [Color("#486b00")]
         Started = 2,
-        [Color("#c00000")]
-        Overdue = 3,
         [Color("#203d57")]
-        Completed = 4,
+        Concluded = 4,
+        [Color("#c00000")]
+        Delayed = 3,
     }
 }

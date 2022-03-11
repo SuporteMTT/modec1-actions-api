@@ -1,4 +1,5 @@
 ﻿using Actions.Core.Domain.Deviations.Entities;
+using Actions.Core.Domain.ResponsePlans.Entities;
 using Actions.Core.Domain.Risks.Entities;
 using Actions.Core.Domain.Users.Entities;
 using Actions.Infrasctructure.Data.Configurations;
@@ -18,6 +19,7 @@ namespace Actions.Infrastructure.Data
         public DbSet<Deviation> Deviations { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Risk> Risks { get; set; }
+        public DbSet<ResponsePlan> ResponsePlans { get; set; }
 
         public ActionsContext(DbContextOptions<ActionsContext> options) : base(options) { }
 
@@ -33,6 +35,7 @@ namespace Actions.Infrastructure.Data
             modelBuilder.ApplyConfiguration(new ActionConfiguration());
             modelBuilder.ApplyConfiguration(new DeviationConfiguration());
             modelBuilder.ApplyConfiguration(new RiskConfiguration());
+            modelBuilder.ApplyConfiguration(new ResponsePlanConfiguration());
 
             modelBuilder.ApplyConfiguration(new UserConfiguration());
 
