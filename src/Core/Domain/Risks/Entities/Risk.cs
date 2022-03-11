@@ -47,7 +47,7 @@ namespace Actions.Core.Domain.Risks.Entities
             Dimension = dimension;
             DimensionDescription = dimensionDescription;
             ProjectStep = projectStep;
-            CreateById = createById;
+            CreatedById = createById;
             Justification = justification;
             RealImpact = realImpact;
             MetadataType = metadataType;
@@ -98,7 +98,6 @@ namespace Actions.Core.Domain.Risks.Entities
         public StatusEnum Status { get; set; }
         public User Owner { get; set; }
         public string OwnerId { get; set; }
-        public string AssociatedTaskId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Cause { get; set; }
@@ -110,7 +109,7 @@ namespace Actions.Core.Domain.Risks.Entities
         public ProjectStepEnum ProjectStep { get; set; }
 
         public DateTime CreatedDate { get; set; }
-        public string CreateById { get; set; }
+        public string CreatedById { get; set; }
         public DateTime? ClosedCancelledDate { get; set; }
         public string ClosedCancelledById { get; set; }
         public RiskJustificationEnum Justification { get; set; }

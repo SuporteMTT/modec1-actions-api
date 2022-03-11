@@ -1,11 +1,6 @@
 ﻿using Actions.Core.Domain.Risks.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Actions.Infrastructure.Data.Configurations
 {
@@ -35,7 +30,7 @@ namespace Actions.Infrastructure.Data.Configurations
             builder.Property(x => x.ProjectStep).IsRequired();
 
             builder.Property(x => x.CreatedDate).IsRequired();
-            builder.Property(x => x.CreateById).IsRequired();
+            builder.Property(x => x.CreatedById).IsRequired();
             builder.Property(x => x.ClosedCancelledDate);
             builder.Property(x => x.ClosedCancelledById);
             builder.Property(x => x.Justification);
