@@ -115,5 +115,19 @@
             
              </remarks>
         </member>
+        <member name="M:Actions.Api.Controllers.RiskController.PostAsync(Actions.Core.Domain.Risks.Handlers.RisksCommandHandler,Actions.Core.Domain.Risks.Commands.CreateRiskCommand)">
+            <summary>
+            Insert a risk
+            </summary>
+            <response code="200">If it is successful</response>
+            <response code="400">If invalid data is sent</response>
+            <response code="401">If has no access</response>
+            <remarks>
+            Sample request:
+            
+                POST /api/v1/risk
+                 
+            </remarks>
+        </member>
     </members>
 </doc>
