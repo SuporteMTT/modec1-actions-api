@@ -16,7 +16,10 @@ namespace Actions.Core.Domain.Risks.Dtos
         public string Name { get; set; }
         public string Cause { get; set; }
         public string Owner { get; set; }
-        public ActionsStatusCountDto Actions { get; set; }
+        public int? NotInitated { get; set; }
+        public int? OnGoing { get; set; }
+        public int? Concluded { get; set; }
+        public int? Delayed { get; set; }
         public StatusDTO Status { get; set; }
         public DateTime? ClosedCancelledDate { get; set; }
     }

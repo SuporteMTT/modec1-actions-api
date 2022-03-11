@@ -1,5 +1,6 @@
 ﻿using Actions.Core.Domain.Actions.Enums;
 using Actions.Core.Domain.Shared;
+using Actions.Core.Domain.Shared.Dtos;
 using Actions.Core.Domain.Shared.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -46,11 +47,10 @@ namespace Actions.Api.Controllers
                     riskLevel = RiskLevelEnum.High_Risk_High_Impact_X_High_Probability,
                     cause = "cause sample text",
                     owner = "Owner Name",
-                    actions = new {
-                        notInitiated =  5,
-                        onGoing = 2,
-                        concludedOrDelayed = 3
-                    },
+                    notInitiated = 5,
+                    onGoing = 2,
+                    concluded = 3,
+                    delayed = 4,
                     status = StatusEnum.Active.Status(),
                     closedCancelledDate = DateTime.Now,
                 },
@@ -61,11 +61,10 @@ namespace Actions.Api.Controllers
                     riskLevel = RiskLevelEnum.High_Risk_High_Impact_X_High_Probability,
                     cause = "cause sample text",
                     owner = "Owner Name",
-                    actions = new {
-                        notInitiated =  2,
-                        onGoing = 1,
-                        concludedOrDelayed = 6
-                    },
+                    notInitiated = 2,
+                    onGoing = 1,
+                    concluded = 6,
+                    delayed = 4,
                     status = StatusEnum.Cancelled.Status(),
                     closedCancelledDate = DateTime.Now,
                 },
@@ -76,11 +75,10 @@ namespace Actions.Api.Controllers
                     riskLevel = RiskLevelEnum.Low_Risk_Medium_Impact_X_Very_Low_Probability,
                     cause = "cause sample text",
                     owner = "Owner Name",
-                    actions = new {
-                        notInitiated =  5,
-                        onGoing = 2,
-                        concludedOrDelayed = 3
-                    },
+                    notInitiated = 5,
+                    onGoing = 2,
+                    concluded = 3,
+                    delayed = 4,
                     status = StatusEnum.Active.Status(),
                     closedCancelledDate = DateTime.Now,
                 },
@@ -91,11 +89,10 @@ namespace Actions.Api.Controllers
                     riskLevel = RiskLevelEnum.Low_Risk_Medium_Impact_X_Very_Low_Probability,
                     cause = "cause sample text",
                     owner = "Owner Name",
-                    actions = new {
-                        notInitiated =  5,
-                        onGoing = 2,
-                        concludedOrDelayed = 3
-                    },
+                    notInitiated = 5,
+                    onGoing = 2,
+                    concluded = 3,
+                    delayed = 4,
                     status = StatusEnum.Active.Status(),
                     closedCancelledDate = DateTime.Now,
                 },
@@ -106,11 +103,10 @@ namespace Actions.Api.Controllers
                     riskLevel = RiskLevelEnum.Low_Risk_Medium_Impact_X_Very_Low_Probability,
                     cause = "cause sample text",
                     owner = "Owner Name",
-                    actions = new {
-                        notInitiated =  5,
-                        onGoing = 2,
-                        concludedOrDelayed = 3
-                    },
+                    notInitiated = 5,
+                    onGoing = 2,
+                    concluded = 3,
+                    delayed = 4,
                     status = StatusEnum.Concluded.Status(),
                     closedCancelledDate = DateTime.Now,
                 }

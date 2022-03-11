@@ -1,5 +1,7 @@
 ﻿using Actions.Core.Domain.Actions.Enums;
+using Actions.Core.Domain.Deviations.Enums;
 using Actions.Core.Domain.Shared;
+using Actions.Core.Domain.Shared.Dtos;
 using Actions.Core.Domain.Shared.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -43,42 +45,39 @@ namespace Actions.Api.Controllers
                 new {
                     id = GuidExtensions.GenerateGuid(),
                     createdDate = DateTime.Now,
-                    priority = "priority",
+                    priority = PriorityEnum.High.Status(),
                     name = "Deviation 2 Vestibulum varius volutpat nulla eu mollis.",
                     cause = "cause text sample",
-                    actions = new {
-                        notInitiated =  5,
-                        onGoing = 2,
-                        concludedOrDelayed = 3
-                    },
+                    notInitiated = 5,
+                    onGoing = 2,
+                    concluded = 3,
+                    delayed = 4,
                     status = StatusEnum.Active.Status(),
                     closedCancelledDate = DateTime.Now,
                 },
                 new {
                     id = GuidExtensions.GenerateGuid(),
                     createdDate = DateTime.Now,
-                    priority = "priority",
+                    priority = PriorityEnum.Medium.Status(),
                     name = "Deviation 3 Vestibulum varius volutpat nulla eu mollis.​",
                     cause = "cause text sample",
-                    actions = new {
-                        notInitiated =  4,
-                        onGoing = 1,
-                        concludedOrDelayed = 5
-                    },
+                    notInitiated = 4,
+                    onGoing = 1,
+                    concluded = 4,
+                    delayed = 3,
                     status = StatusEnum.Concluded.Status(),
                     closedCancelledDate = DateTime.Now,
                 },
                 new {
                     id = GuidExtensions.GenerateGuid(),
                     createdDate = DateTime.Now,
-                    priority = "priority",
+                    priority = PriorityEnum.Low.Status(),
                     name = "Deviation 4 Vestibulum varius volutpat nulla eu mollis.​",
                     cause = "cause text sample",
-                    actions = new {
-                        notInitiated =  5,
-                        onGoing = 5,
-                        concludedOrDelayed = 1
-                    },
+                    notInitiated = 5,
+                    onGoing = 5,
+                    concluded = 1,
+                    delayed = 3,
                     status = StatusEnum.Cancelled.Status(),
                     closedCancelledDate = DateTime.Now,
                 },

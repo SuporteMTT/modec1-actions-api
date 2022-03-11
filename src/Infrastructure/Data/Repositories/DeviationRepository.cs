@@ -37,12 +37,10 @@ namespace Actions.Infrastructure.Data.Repositories
                         Name = o.Name,
                         Priority = o.Priority,
                         Status = o.Status.Status(),
-                        Actions = new Core.Domain.Shared.Dtos.ActionsStatusCountDto
-                        {
-                            ConcludedOrDelayed = null,
-                            NotInitiated = null,
-                            OnGoing = null
-                        }
+                        NotInitated = null,
+                        OnGoing = null,
+                        Concluded = null,
+                        Delayed = null
                     },
                     Total = condition.Count()
                 })
