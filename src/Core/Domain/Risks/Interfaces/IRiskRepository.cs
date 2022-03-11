@@ -15,5 +15,8 @@ namespace Actions.Core.Domain.Risks.Interfaces
             int? page = null,
             int? count = null
         );
+
+        Task<string> GetLastCode(string departmentCode);
+        Task<RiskDto> GetAsync(string id);
     }
 }

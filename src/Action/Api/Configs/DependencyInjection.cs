@@ -18,6 +18,7 @@ namespace Actions.Api.Configs
 
             services.AddScoped<Core.Domain.Risks.Interfaces.IRiskRepository, RiskRepository>();
             services.AddScoped<Core.Domain.Risks.Handlers.RisksQueryHandler>();
+            services.AddScoped<Core.Domain.Risks.Handlers.RisksCommandHandler>();
 
             services.AddScoped<Core.Domain.Users.Interfaces.IUserRepository, UserRepository>();
 
