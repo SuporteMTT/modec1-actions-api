@@ -23,7 +23,7 @@ namespace Actions.Core.Domain.Risks.Entities
         public string DimensionDescription { get; set; }
         public ProjectStepEnum ProjectStep { get; set; }
 
-        public DateTime CreateDate { get; set; }
+        public DateTime CreatedDate { get; set; }
         public string CreateById { get; set; }
         public DateTime? ClosedCancelledDate { get; set; }
         public string ClosedCancelledById { get; set; }

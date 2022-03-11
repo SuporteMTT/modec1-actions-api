@@ -30,7 +30,8 @@ namespace Actions.Infrastructure.Data.Configurations
             builder.HasOne(x => x.ClosedBy).WithMany().HasForeignKey(x => x.ClosedById);
 
             builder.Property(x => x.ClosedDate);
-            
+            builder.Property(x => x.CreatedDate);
+
         }
     }
 }

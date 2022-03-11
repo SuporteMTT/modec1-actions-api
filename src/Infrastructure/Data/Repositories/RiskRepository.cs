@@ -25,13 +25,13 @@ namespace Actions.Infrastructure.Data.Repositories
                 .Where(x => x.MetadataId == metadataId && x.MetadataType == metadataType);
 
             var results = await condition
-                .OrderBy(r => r.CreateDate)
+                .OrderBy(r => r.CreatedDate)
                 .Select(o => new
                 {
                     Data = new RiskListDto()
                     {
                         Id = o.Id,
-                        CreateDate = o.CreateDate,
+                        CreateDate = o.CreatedDate,
                         Cause = o.Cause,
                         ClosedCancelledDate = o.ClosedCancelledDate,
                         Name = o.Name,
