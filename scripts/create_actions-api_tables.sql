@@ -1,8 +1,8 @@
 create table Risk (
-    Id varchar(36) not null PRIMARY KEY,
+    Id varchar(36) not null,
     Code varchar(100) not null,
     Status int not null,
-    OwnerId varchar(36) not null FOREIGN KEY REFERENCES [User](Id),
+    OwnerId varchar(36) not null,
     Name varchar(100) not null,
     Description varchar(MAX) not null,
     Cause varchar(MAX),
@@ -13,34 +13,47 @@ create table Risk (
     DimensionDescription varchar(MAX),
     ProjectStep int not null,
     CreatedDate datetime not null,
-    CreatedById varchar(36) not null FOREIGN KEY REFERENCES [User](Id),
+    CreatedById varchar(36) not null,
     ClosedCancelledDate datetime,
-    ClosedCancelledById varchar(36) FOREIGN KEY REFERENCES [User](Id),
+    ClosedCancelledById varchar(36),
     Justification int,
-    RealImpact varchar(MAX)
+    RealImpact varchar(MAX),
+    MetadataType int not null,
+    MetadataId varchar(36) not null,
+    CONSTRAINT PK_Risk_Id PRIMARY KEY CLUSTERED (Id),
+    CONSTRAINT FK_Risk_User_OwnerId FOREIGN KEY (OwnerId) REFERENCES [User](Id),
+    CONSTRAINT FK_Risk_User_CreatedById FOREIGN KEY (CreatedById) REFERENCES [User](Id),
+    CONSTRAINT FK_Risk_User_ClosedCancelledById FOREIGN KEY (ClosedCancelledById) REFERENCES [User](Id),
+
 );
 
 create table Deviation (
-    Id varchar(36) not null PRIMARY KEY,
+    Id varchar(36) not null,
     Code varchar(100) not null,
     Status int not null,
     Name varchar(100) not null,
     Description varchar(MAX) not null,
     Cause varchar(MAX),
     Category int not null,    
-    AssociatedRiskId varchar(36) FOREIGN KEY REFERENCES [Risk](Id),
+    AssociatedRiskId varchar(36),
     Priority int not null,
     CreatedDate datetime not null,
-    CreatedById varchar(36) not null FOREIGN KEY REFERENCES [User](Id),
+    CreatedById varchar(36) not null,
     ClosedCancelledDate datetime,
-    ClosedCancelledById varchar(36) FOREIGN KEY REFERENCES [User](Id)
+    ClosedCancelledById varchar(36),
+    MetadataType int not null,
+    MetadataId varchar(36) not null,
+    CONSTRAINT PK_Deviation_Id PRIMARY KEY CLUSTERED (Id),
+    CONSTRAINT FK_Deviation_Risk_AssociatedRiskId FOREIGN KEY (AssociatedRiskId) REFERENCES [Risk](Id),
+    CONSTRAINT FK_Deviation_User_CreatedById FOREIGN KEY (CreatedById) REFERENCES [User](Id),
+    CONSTRAINT FK_Deviation_User_ClosedCancelledById FOREIGN KEY (ClosedCancelledById) REFERENCES [User](Id),
 );
 
 create table Action (
-    Id varchar(36) not null PRIMARY KEY,
+    Id varchar(36) not null,
     RelatedId varchar(36),
     Description varchar(100) not null,
-    ResponsibleId varchar(36) not null FOREIGN KEY REFERENCES [User](Id),
+    ResponsibleId varchar(36) not null,
     DueDate datetime not null,
     OriginalDueDate datetime,
     Status int not null,
@@ -49,14 +62,19 @@ create table Action (
     Cost decimal(18,2),
     Comments varchar(MAX),
     ClosedDate datetime,
-    ClosedById varchar(36) FOREIGN KEY REFERENCES [User](Id),
+    ClosedById varchar(36),
     CreatedDate datetime not null,
+    MetadataType int not null,
+    MetadataId varchar(36) not null,
+    CONSTRAINT PK_Action_Id PRIMARY KEY CLUSTERED (Id),
+    CONSTRAINT FK_Action_User_ResponsibleId FOREIGN KEY (ResponsibleId) REFERENCES [User](Id),
+    CONSTRAINT FK_Action_User_ClosedById FOREIGN KEY (ClosedById) REFERENCES [User](Id),
 );
 
 create table ResponsePlan (
-    Id varchar(36) not null PRIMARY KEY,
+    Id varchar(36) not null,
     ActionDescription varchar(200) not null,
-    ResponsibleId varchar(36) not null FOREIGN KEY REFERENCES [User](Id),
+    ResponsibleId varchar(36) not null,
     DueDate datetime not null,
     OriginalDueDate datetime,
     Status int not null,
@@ -66,19 +84,28 @@ create table ResponsePlan (
     Comments varchar(MAX),
     CreatedDate datetime not null,
     ClosedDate datetime,
-    ClosedById varchar(36) FOREIGN KEY REFERENCES [User](Id),
-    MetadataId varchar(36)
+    ClosedById varchar(36),
+    MetadataId varchar(36),
+    CONSTRAINT PK_ResponsePlan_Id PRIMARY KEY CLUSTERED (Id),
+    CONSTRAINT FK_ResponsePlan_User_ResponsibleId FOREIGN KEY (ResponsibleId) REFERENCES [User](Id),
+    CONSTRAINT FK_ResponsePlan_User_ClosedById FOREIGN KEY (ClosedById) REFERENCES [User](Id),
 );
 
 create table StatusHistory (
-    Id varchar(36) not null PRIMARY KEY,
+    Id varchar(36) not null,
     Date datetime not null,
-    UserId varchar(36) not null FOREIGN KEY REFERENCES [User](Id),
-    Status int not null
+    UserId varchar(36) not null,
+    Status int not null,
+    MetadataId varchar(36) not null,
+    CONSTRAINT PK_StatusHistory_Id PRIMARY KEY CLUSTERED (Id),
+    CONSTRAINT FK_StatusHistory_User_UserId FOREIGN KEY (UserId) REFERENCES [User](Id),
 );
 
 create table RisksTasks (
-    Id varchar(36) not null PRIMARY KEY,
-    RiskId varchar(36) not null FOREIGN KEY REFERENCES [Risk](Id),
-    TaskId varchar(36) not null FOREIGN KEY REFERENCES [ProjectTask](Id),
+    Id varchar(36) not null,
+    RiskId varchar(36) not null,
+    TaskId varchar(36) not null,
+    CONSTRAINT PK_RisksTasks_Id PRIMARY KEY CLUSTERED (Id),
+    CONSTRAINT FK_RisksTasks_Risk_RiskId FOREIGN KEY (RiskId) REFERENCES [Risk](Id),
+    CONSTRAINT FK_RisksTasks_ProjectTask_TaskId FOREIGN KEY (TaskId) REFERENCES [Risk](Id),
 );
