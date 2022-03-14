@@ -2,13 +2,73 @@
 using Actions.Core.Domain.Risks.Entities;
 using Actions.Core.Domain.Shared.Enums;
 using Actions.Core.Domain.Users.Entities;
+using FluentValidation;
 using Shared.Core.Domain.Impl.Entity;
+using Shared.CrossCutting.Tools;
 using System;
 
 namespace Actions.Core.Domain.Deviations.Entities
 {
     public class Deviation : Entity<Deviation, string>
     {
+        protected Deviation () {}
+
+        protected Deviation (
+            string id,
+            string code,
+            StatusEnum status,
+            string name,
+            string description,
+            string cause,
+            RiskCategoryEnum category,
+            PriorityEnum priority,
+            string associatedRiskId,
+            string createById,
+            MetadataTypeEnum metadataType,
+            string metadataId,
+            DateTime createdDate
+        )
+        {
+            Id = id;
+            Code = code;
+            Status = status;
+            Name = name;
+            Description = description;
+            Cause = cause;
+            Category = category;
+            CreatedById = createById;
+            MetadataType = metadataType;
+            MetadataId = metadataId;
+            CreatedDate = createdDate;          
+        }
+
+        public Deviation (
+            string code,
+            string name,
+            string description,
+            string cause,
+            RiskCategoryEnum category,
+            PriorityEnum priority,
+            string associatedRiskId,
+            string createById,
+            MetadataTypeEnum metadataType,
+            string metadataId
+        ) : this(
+            GuidExtensions.GenerateGuid(), 
+            code,
+            StatusEnum.Active,
+            name,
+            description,
+            cause,
+            category,
+            priority,
+            associatedRiskId,
+            createById,
+            metadataType,
+            metadataId,
+            DateTime.Now
+        ) {}
+
         public string Code { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -26,5 +86,41 @@ namespace Actions.Core.Domain.Deviations.Entities
         public string ClosedCancelledById { get; set; }
         public MetadataTypeEnum MetadataType { get; set; }
         public string MetadataId { get; set; }
+
+        internal void UpdateData(
+            StatusEnum status,
+            string name,
+            string description,
+            string cause,
+            RiskCategoryEnum category,            
+            PriorityEnum priority,
+            string associatedRiskId,
+            string closedCancelledById
+        )
+        {
+            Status = status;
+            Name = name;
+            Description = description;
+            Cause = cause;
+            Category = category;
+            Priority = priority;
+            AssociatedRiskId = associatedRiskId;
+            ClosedCancelledById = closedCancelledById;
+
+            if ((status == StatusEnum.Concluded || status == StatusEnum.Cancelled) && Status == StatusEnum.Active) 
+                ClosedCancelledDate = DateTime.Now;
+        }
+    }
+
+    public class DeviationValidator : AbstractValidator<Deviation>
+    {
+        public DeviationValidator()
+        {
+            RuleFor(x => x.Name).NotEmpty().WithMessage("Name is required");
+            RuleFor(x => x.Description).NotEmpty().WithMessage("Description is required");
+            RuleFor(x => x.Category).IsInEnum().WithMessage("Category is required");
+            RuleFor(x => x.MetadataId).NotEmpty();
+            RuleFor(x => x.MetadataType).IsInEnum();
+        }
     }
 }

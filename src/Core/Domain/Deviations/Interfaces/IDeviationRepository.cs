@@ -14,5 +14,7 @@ namespace Actions.Core.Domain.Deviations.Interfaces
             int? page = null,
             int? count = null
         );
+        Task<DeviationDto> GetAsync(string id);
+        Task<string> GetLastCode(string departmentCode);
     }
 }
