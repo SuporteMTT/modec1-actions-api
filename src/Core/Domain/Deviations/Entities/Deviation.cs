@@ -39,7 +39,8 @@ namespace Actions.Core.Domain.Deviations.Entities
             CreatedById = createById;
             MetadataType = metadataType;
             MetadataId = metadataId;
-            CreatedDate = createdDate;          
+            CreatedDate = createdDate;
+            AssociatedRiskId = associatedRiskId;
         }
 
         public Deviation (

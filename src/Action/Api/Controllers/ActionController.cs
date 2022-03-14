@@ -1,4 +1,7 @@
-﻿using Actions.Core.Domain.Actions.Enums;
+﻿using Actions.Core.Domain.Actions.Commands;
+using Actions.Core.Domain.Actions.Dtos;
+using Actions.Core.Domain.Actions.Enums;
+using Actions.Core.Domain.Actions.Handlers;
 using Actions.Core.Domain.Deviations.Enums;
 using Actions.Core.Domain.Risks.Enums;
 using Actions.Core.Domain.Shared;
@@ -8,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shared.CrossCutting.Tools;
 using System;
+using System.Threading.Tasks;
 
 namespace Actions.Api.Controllers
 {
@@ -69,6 +73,7 @@ namespace Actions.Api.Controllers
             };
         }
 
+        #region lists of selects in form
         /// <summary>
         /// Retrieves the list of action status
         /// </summary>
@@ -181,6 +186,31 @@ namespace Actions.Api.Controllers
         public dynamic GetDimension()
         {
             return EnumExtensions.ToJson<DimensionEnum>();
+        }
+        #endregion
+        
+        /// <summary>
+        /// Insert a action
+        /// </summary>
+        /// <response code="200">If it is successful</response>
+        /// <response code="400">If invalid data is sent</response>
+        /// <response code="401">If has no access</response>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     POST /api/v1/action
+        ///      
+        /// </remarks>
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionDto> PostAsync(
+            [FromServices] ActionsCommandHandler handler,
+            [FromBody] CreateActionCommand request
+        )
+        {
+            return await handler.Handle(request);
         }
     }
 }

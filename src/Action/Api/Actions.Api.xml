@@ -89,6 +89,20 @@
             
              </remarks>
         </member>
+        <member name="M:Actions.Api.Controllers.ActionController.PostAsync(Actions.Core.Domain.Actions.Handlers.ActionsCommandHandler,Actions.Core.Domain.Actions.Commands.CreateActionCommand)">
+            <summary>
+            Insert a action
+            </summary>
+            <response code="200">If it is successful</response>
+            <response code="400">If invalid data is sent</response>
+            <response code="401">If has no access</response>
+            <remarks>
+            Sample request:
+            
+                POST /api/v1/action
+                 
+            </remarks>
+        </member>
         <member name="M:Actions.Api.Controllers.DeviationController.GetActionsAsync(System.String,System.Nullable{Actions.Core.Domain.Shared.Enums.MetadataTypeEnum})">
              <summary>
              Retrieve the list of deviation
@@ -99,6 +113,19 @@
              Sample request:
             
                  GET /api/v1/deviation
+            
+             </remarks>
+        </member>
+        <member name="M:Actions.Api.Controllers.DeviationController.GetByIdAsync(Actions.Core.Domain.Deviations.Handlers.DeviationsQueryHandler,System.String)">
+             <summary>
+             Retrieve a deviation by id 
+             </summary>
+             <response code="200">If it is successful</response>
+             <response code="401">If has no access</response>
+             <remarks>
+             Sample request:
+            
+                 GET /api/v1/deviation/{id}
             
              </remarks>
         </member>
