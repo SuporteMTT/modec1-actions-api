@@ -115,6 +115,19 @@
             
              </remarks>
         </member>
+        <member name="M:Actions.Api.Controllers.RiskController.GetByIdAsync(Actions.Core.Domain.Risks.Handlers.RisksQueryHandler,System.String)">
+             <summary>
+             Retrieve a risk by id 
+             </summary>
+             <response code="200">If it is successful</response>
+             <response code="401">If has no access</response>
+             <remarks>
+             Sample request:
+            
+                 GET /api/v1/risk/{id}
+            
+             </remarks>
+        </member>
         <member name="M:Actions.Api.Controllers.RiskController.PostAsync(Actions.Core.Domain.Risks.Handlers.RisksCommandHandler,Actions.Core.Domain.Risks.Commands.CreateRiskCommand)">
             <summary>
             Insert a risk

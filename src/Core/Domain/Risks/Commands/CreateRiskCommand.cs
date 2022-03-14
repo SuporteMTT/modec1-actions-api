@@ -7,7 +7,7 @@ namespace Actions.Core.Domain.Risks.Commands
     public class CreateRiskCommand
     {
         public string OwnerId { get; set; }
-        public string AssociatedTaskId { get; set; }
+        public string[] AssociatedTaskIds { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Cause { get; set; }

@@ -30,5 +30,12 @@ namespace Actions.Core.Domain.Risks.Handlers
             return await _repository.GetAsync(query.MetadataId, query.MetadataType, query.Page, query.Count);
         }
 
+        public async Task<RiskDto> Handle(GetRiskByIdQuery query)
+        {
+            query.ValidateAndThrow();
+
+            return await _repository.GetAsync(query.Id);
+        }
+
     }
 }

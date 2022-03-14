@@ -31,8 +31,14 @@ namespace Actions.Infrastructure.Data.Configurations
 
             builder.Property(x => x.CreatedDate).IsRequired();
             builder.Property(x => x.CreatedById).IsRequired();
+
+            builder.HasOne(x => x.CreatedBy).WithMany().HasForeignKey(x => x.CreatedById);
+
             builder.Property(x => x.ClosedCancelledDate);
             builder.Property(x => x.ClosedCancelledById);
+
+            builder.HasOne(x => x.ClosedCancelledBy).WithMany().HasForeignKey(x => x.ClosedCancelledById);
+            
             builder.Property(x => x.Justification);
             builder.Property(x => x.RealImpact);
         }

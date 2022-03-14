@@ -2,6 +2,7 @@
 using Actions.Core.Domain.Risks.Commands;
 using Actions.Core.Domain.Risks.Dtos;
 using Actions.Core.Domain.Risks.Handlers;
+using Actions.Core.Domain.Risks.Queries;
 using Actions.Core.Domain.Shared;
 using Actions.Core.Domain.Shared.Dtos;
 using Actions.Core.Domain.Shared.Enums;
@@ -114,6 +115,29 @@ namespace Actions.Api.Controllers
                     closedCancelledDate = DateTime.Now,
                 }
             };
+        }
+
+        /// <summary>
+        /// Retrieve a risk by id 
+        /// </summary>
+        /// <response code="200">If it is successful</response>
+        /// <response code="401">If has no access</response>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /api/v1/risk/{id}
+        ///
+        /// </remarks>
+        [HttpGet("{id}")]
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<RiskDto> GetByIdAsync(
+            [FromServices] RisksQueryHandler handler,
+            [FromRoute] string id)
+        {
+            return await handler.Handle(new GetRiskByIdQuery(id));
         }
 
         /// <summary>

@@ -109,8 +109,10 @@ namespace Actions.Core.Domain.Risks.Entities
         public ProjectStepEnum ProjectStep { get; set; }
 
         public DateTime CreatedDate { get; set; }
+        public User CreatedBy { get; set; }
         public string CreatedById { get; set; }
         public DateTime? ClosedCancelledDate { get; set; }
+        public User ClosedCancelledBy { get; set; }
         public string ClosedCancelledById { get; set; }
         public RiskJustificationEnum Justification { get; set; }
         public string RealImpact { get; set; }

@@ -63,17 +63,24 @@ namespace Actions.Infrastructure.Data.Repositories
             return await context.Set<Risk>().Where(risk => risk.Id == id).Select(risk => new RiskDto
             {
                 Id = risk.Id,
-                CreateDate = risk.CreatedDate,
-                Cause = risk.Cause,
-                ClosedCancelledDate = risk.ClosedCancelledDate,
+                Code = risk.Code,
+                Status = risk.Status,
+                Owner = risk.Owner != null ? new Core.Domain.Users.Dtos.UserDto{ Id = risk.Owner.Id, Name = risk.Owner.Name } : null,
                 Name = risk.Name,
-                Owner = risk.Owner.Name,
+                Description = risk.Description,
+                Cause = risk.Cause,
+                Impact = risk.Impact,
+                Category = risk.Category,
                 Level = risk.Level,
-                Status = risk.Status.Status(),
-                NotInitated = null,
-                OnGoing = null,
-                Concluded = null,
-                Delayed = null
+                Dimension = risk.Dimension,
+                DimensionDescription = risk.DimensionDescription,
+                ProjectStep = risk.ProjectStep,
+                CreatedDate = risk.CreatedDate,
+                CreatedBy = risk.CreatedBy.Name,
+                ClosedCancelledDate = risk.ClosedCancelledDate,
+                ClosedCancelledBy = risk.ClosedCancelledBy != null ? risk.ClosedCancelledBy.Name : null,
+                Justification = risk.Justification,
+                RealImpact = risk.RealImpact
             }) .FirstOrDefaultAsync();
         }
 
