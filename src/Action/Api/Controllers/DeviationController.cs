@@ -1,5 +1,8 @@
 ﻿using Actions.Core.Domain.Actions.Enums;
+using Actions.Core.Domain.Deviations.Commands;
+using Actions.Core.Domain.Deviations.Dtos;
 using Actions.Core.Domain.Deviations.Enums;
+using Actions.Core.Domain.Deviations.Handlers;
 using Actions.Core.Domain.Shared;
 using Actions.Core.Domain.Shared.Dtos;
 using Actions.Core.Domain.Shared.Enums;
@@ -82,6 +85,30 @@ namespace Actions.Api.Controllers
                     closedCancelledDate = DateTime.Now,
                 },
             };
+        }
+
+        /// <summary>
+        /// Insert a deviation
+        /// </summary>
+        /// <response code="200">If it is successful</response>
+        /// <response code="400">If invalid data is sent</response>
+        /// <response code="401">If has no access</response>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     POST /api/v1/deviation
+        ///      
+        /// </remarks>
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<DeviationDto> PostAsync(
+            [FromServices] DeviationsCommandHandler handler,
+            [FromBody] CreateDeviationCommand request
+        )
+        {
+            return await handler.Handle(request);
         }
     }
 }
