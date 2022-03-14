@@ -25,5 +25,12 @@ namespace Actions.Core.Domain.Deviations.Handlers
 
             return await _repository.GetAsync(query.MetadataId, query.MetadataType, query.Page, query.Count);
         }
+
+        public async Task<DeviationDto> Handle(GetDeviationByIdQuery query)
+        {
+            query.ValidateAndThrow();
+
+            return await _repository.GetAsync(query.Id);
+        }
     }
 }
