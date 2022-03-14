@@ -12,9 +12,11 @@ namespace Actions.Api.Configs
 
             services.AddScoped<Core.Domain.Actions.Interfaces.IActionRepository, ActionRepository>();
             services.AddScoped<Core.Domain.Actions.Handlers.ActionsQueryHandler>();
+            services.AddScoped<Core.Domain.Actions.Handlers.ActionsCommandHandler>();
 
             services.AddScoped<Core.Domain.Deviations.Interfaces.IDeviationRepository, DeviationRepository>();
             services.AddScoped<Core.Domain.Deviations.Handlers.DeviationsQueryHandler>();
+            services.AddScoped<Core.Domain.Deviations.Handlers.DeviationsCommandHandler>();
 
             services.AddScoped<Core.Domain.Risks.Interfaces.IRiskRepository, RiskRepository>();
             services.AddScoped<Core.Domain.Risks.Handlers.RisksQueryHandler>();

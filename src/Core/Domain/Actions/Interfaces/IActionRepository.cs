@@ -14,5 +14,6 @@ namespace Actions.Core.Domain.Actions.Interfaces
             int? page = null,
             int? count = null
         );
+        Task<ActionDto> GetAsync(string id);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Actions.Core.Domain.Actions.Dtos;
+using Actions.Core.Domain.Actions.Entities;
 using Actions.Core.Domain.Actions.Interfaces;
 using Actions.Core.Domain.Shared;
 using Actions.Core.Domain.Shared.Enums;
@@ -50,6 +51,29 @@ namespace Actions.Infrastructure.Data.Repositories
                 Data = actions,
                 Total = total
             };
+        }
+
+        public async Task<ActionDto> GetAsync(string id)
+        {
+            return await context.Set<Action>().Where(action => action.Id == id).Select(action => new ActionDto
+            {
+                Id = action.Id,
+                Description = action.Description,
+                Responsible = action.Responsible != null ? new Core.Domain.Users.Dtos.UserDto 
+                { 
+                    Id = action.Responsible.Id, 
+                    Name = action.Responsible.Name
+                } : null,
+                DueDate = action.DueDate,
+                OriginalDueDate = action.OriginalDueDate,
+                Status = action.Status,
+                ActualStartDate = action.ActualStartDate,
+                ActualEndDate = action.ActualEndDate,
+                Cost = action.Cost,               
+                Comments = action.Comments,
+                ClosedDate = action.ClosedDate,
+                ClosedBy = action.ClosedBy != null ? action.ClosedBy.Name : null,                              
+            }) .FirstOrDefaultAsync();
         }
     }
 }
