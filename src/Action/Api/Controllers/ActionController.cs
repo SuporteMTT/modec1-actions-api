@@ -2,6 +2,7 @@
 using Actions.Core.Domain.Actions.Dtos;
 using Actions.Core.Domain.Actions.Enums;
 using Actions.Core.Domain.Actions.Handlers;
+using Actions.Core.Domain.Actions.Queries;
 using Actions.Core.Domain.Deviations.Enums;
 using Actions.Core.Domain.Risks.Enums;
 using Actions.Core.Domain.Shared;
@@ -188,7 +189,30 @@ namespace Actions.Api.Controllers
             return EnumExtensions.ToJson<DimensionEnum>();
         }
         #endregion
-        
+
+        /// <summary>
+        /// Retrieve a action by id 
+        /// </summary>
+        /// <response code="200">If it is successful</response>
+        /// <response code="401">If has no access</response>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /api/v1/action/{id}
+        ///
+        /// </remarks>
+        [HttpGet("{id}")]
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionDto> GetByIdAsync(
+            [FromServices] ActionsQueryHandler handler,
+            [FromRoute] string id)
+        {
+            return await handler.Handle(new GetActionByIdQuery(id));
+        }
+
         /// <summary>
         /// Insert a action
         /// </summary>
