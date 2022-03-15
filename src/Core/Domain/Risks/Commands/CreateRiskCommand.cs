@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Actions.Core.Domain.ResponsePlans.Dtos;
 using Actions.Core.Domain.Risks.Enums;
 using Actions.Core.Domain.Shared.Enums;
 using FluentValidation;
@@ -21,6 +23,7 @@ namespace Actions.Core.Domain.Risks.Commands
         public string RealImpact { get; set; }
         public MetadataTypeEnum MetadataType { get; set; }
         public string MetadataId { get; set; }
+        public ICollection<ResponsePlanDto> ResponsePlans { get; set; }
     }
 
     public class CreateRiskCommandValidator : AbstractValidator<CreateRiskCommand>

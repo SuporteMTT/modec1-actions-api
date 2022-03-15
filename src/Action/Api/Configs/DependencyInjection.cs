@@ -22,6 +22,9 @@ namespace Actions.Api.Configs
             services.AddScoped<Core.Domain.Risks.Handlers.RisksQueryHandler>();
             services.AddScoped<Core.Domain.Risks.Handlers.RisksCommandHandler>();
 
+            services.AddScoped<Core.Domain.ResponsePlans.Interfaces.IResponsePlanRepository, ResponsePlanRepository>();
+            services.AddScoped<Core.Domain.ResponsePlans.Handlers.ResponsePlansCommandHandler>();
+
             services.AddScoped<Core.Domain.Users.Interfaces.IUserRepository, UserRepository>();
 
         }
