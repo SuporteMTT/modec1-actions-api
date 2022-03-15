@@ -141,6 +141,30 @@ namespace Actions.Api.Controllers
         }
 
         /// <summary>
+        /// Search risk(s)
+        /// </summary>
+        /// <response code="200">If it is successful</response>
+        /// <response code="401">If has no access</response>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /api/v1/risk/search/{search}/metadataId{metadataId}
+        ///
+        /// </remarks>
+        [HttpGet("search/{search}/metadataId/{metadataId}")]
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ICollection<RiskAutocompleteDto>> GetByIdAsync(
+            [FromServices] RisksQueryHandler handler,
+            [FromRoute] string search,
+            [FromRoute] string metadataId)
+        {
+            return await handler.Handle(new GetRiskSearchQuery(search, metadataId));
+        }
+
+        /// <summary>
         /// Insert a risk
         /// </summary>
         /// <response code="200">If it is successful</response>

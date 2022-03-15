@@ -37,5 +37,12 @@ namespace Actions.Core.Domain.Risks.Handlers
             return await _repository.GetAsync(query.Id);
         }
 
+        public async Task<ICollection<RiskAutocompleteDto>> Handle(GetRiskSearchQuery query)
+        {
+            query.ValidateAndThrow();
+
+            return await _repository.GetAsync(query.Search, query.MetadataId);
+        }
+
     }
 }

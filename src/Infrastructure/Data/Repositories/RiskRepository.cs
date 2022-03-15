@@ -6,6 +6,7 @@ using Actions.Core.Domain.Shared.Enums;
 using Microsoft.EntityFrameworkCore;
 using Shared.Core.Domain.Impl.Entity;
 using Shared.Core.Domain.Interface.Entity;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -84,6 +85,24 @@ namespace Actions.Infrastructure.Data.Repositories
             }) .FirstOrDefaultAsync();
         }
 
+        public async Task<ICollection<RiskAutocompleteDto>> GetAsync(string search, string metadataId)
+        {
+            var query = (from risk in context.Set<Risk>()
+                         where (risk.MetadataId == metadataId &&
+                         (string.IsNullOrWhiteSpace(search) || (risk.Code + risk.Name).Contains(search)))
+                         orderby (risk.Code + risk.Name)
+                         select new RiskAutocompleteDto
+                         {
+                             Id = risk.Id,
+                             Name = $"{risk.Code} {risk.Name}",
+                         });
+
+            if (!string.IsNullOrWhiteSpace(search))
+                query = query.Take(10);
+
+            return await query.ToListAsync();
+        }
+        
         public async Task<string> GetLastCode(string departmentCode)
         {
 
