@@ -37,7 +37,7 @@ namespace Actions.Infrastructure.Data.Repositories
                         ClosedCancelledDate = o.ClosedCancelledDate,
                         Name = o.Name,
                         Owner = o.Owner.Name,
-                        Level = o.Level,
+                        Level = o.Level.Status(),
                         Status = o.Status.Status(),
                         NotInitated = null,
                         OnGoing = null,

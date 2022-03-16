@@ -12,7 +12,7 @@ namespace Actions.Core.Domain.Risks.Dtos
     {
         public string Id { get; set; }
         public DateTime CreateDate { get; set; }
-        public RiskLevelEnum Level { get; set; }
+        public StatusDTO Level { get; set; }
         public string Name { get; set; }
         public string Cause { get; set; }
         public string Owner { get; set; }
