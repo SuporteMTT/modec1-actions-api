@@ -1,11 +1,15 @@
 ﻿using Actions.Core.Domain.Actions.Dtos;
 using Actions.Core.Domain.Actions.Entities;
 using Actions.Core.Domain.Actions.Interfaces;
+using Actions.Core.Domain.Deviations.Entities;
+using Actions.Core.Domain.Risks.Entities;
 using Actions.Core.Domain.Shared;
+using Actions.Core.Domain.Shared.Dtos;
 using Actions.Core.Domain.Shared.Enums;
 using Microsoft.EntityFrameworkCore;
 using Shared.Core.Domain.Impl.Entity;
 using Shared.Core.Domain.Interface.Entity;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -74,6 +78,36 @@ namespace Actions.Infrastructure.Data.Repositories
                 ClosedDate = action.ClosedDate,
                 ClosedBy = action.ClosedBy != null ? action.ClosedBy.Name : null,                              
             }) .FirstOrDefaultAsync();
+        }
+
+        public async Task<ICollection<ShortObjectDto>> GetAsync(string search, string metadataId)
+        {
+            var queryRisk = (from risk in context.Set<Risk>()
+                         where (risk.MetadataId == metadataId &&
+                         (string.IsNullOrWhiteSpace(search) || (risk.Code + risk.Name).Contains(search)))
+                         orderby (risk.Code + risk.Name)
+                         select new ShortObjectDto
+                         {
+                             Id = risk.Id,
+                             Name = $"{risk.Code} {risk.Name}",
+                         }).ToList();
+
+            var queryDeviation = (from deviation in context.Set<Deviation>()
+                         where (deviation.MetadataId == metadataId &&
+                         (string.IsNullOrWhiteSpace(search) || (deviation.Code + deviation.Name).Contains(search)))
+                         orderby (deviation.Code + deviation.Name)               
+                         select new ShortObjectDto
+                         {
+                             Id = deviation.Id,
+                             Name = $"{deviation.Code} {deviation.Name}",
+                         }).ToList();
+
+            var query = queryRisk.Concat(queryDeviation).AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(search))
+                query = query.Take(10);
+
+            return await Task.Run(() => query.ToList());
         }
     }
 }

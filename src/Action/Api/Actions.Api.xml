@@ -102,6 +102,19 @@
             
              </remarks>
         </member>
+        <member name="M:Actions.Api.Controllers.ActionController.GetByIdAsync(Actions.Core.Domain.Actions.Handlers.ActionsQueryHandler,System.String,System.String)">
+             <summary>
+             Search risk(s) and deviation(s)
+             </summary>
+             <response code="200">If it is successful</response>
+             <response code="401">If has no access</response>
+             <remarks>
+             Sample request:
+            
+                 GET /api/v1/action/riskdeviation/search/{search}/metadataId{metadataId}
+            
+             </remarks>
+        </member>
         <member name="M:Actions.Api.Controllers.ActionController.PostAsync(Actions.Core.Domain.Actions.Handlers.ActionsCommandHandler,Actions.Core.Domain.Actions.Commands.CreateActionCommand)">
             <summary>
             Insert a action

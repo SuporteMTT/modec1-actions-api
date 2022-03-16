@@ -6,12 +6,14 @@ using Actions.Core.Domain.Actions.Queries;
 using Actions.Core.Domain.Deviations.Enums;
 using Actions.Core.Domain.Risks.Enums;
 using Actions.Core.Domain.Shared;
+using Actions.Core.Domain.Shared.Dtos;
 using Actions.Core.Domain.Shared.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shared.CrossCutting.Tools;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Actions.Api.Controllers
@@ -50,7 +52,7 @@ namespace Actions.Api.Controllers
                     description = "Action 2 Vestibulum varius volutpat nulla eu mollis.",
                     responsible = "Responsible Name",
                     dueDate = DateTime.Now,
-                    status = StatusEnum.Active.Status(),
+                    status = ActionStatusEnum.Started.Status(),
                     endDate = new DateTime?(new DateTime(2021, 6, 20))
                 },
                 new {
@@ -59,7 +61,7 @@ namespace Actions.Api.Controllers
                     description = "Action 3 Vestibulum varius volutpat nulla eu mollis.​",
                     responsible = "Responsible Name",
                     dueDate = DateTime.Now,
-                    status = StatusEnum.Cancelled.Status(),
+                    status = ActionStatusEnum.NotInitiated.Status(),
                     endDate = new DateTime?(new DateTime(2021, 7, 17))
                 },
                 new {
@@ -68,7 +70,7 @@ namespace Actions.Api.Controllers
                     description = "Action 4 Vestibulum varius volutpat nulla eu mollis.​",
                     responsible = "Responsible Name",
                     dueDate = DateTime.Now,
-                    status = StatusEnum.Concluded.Status(),
+                    status = ActionStatusEnum.Concluded.Status(),
                     endDate = new DateTime?()
                 },
             };
@@ -211,6 +213,30 @@ namespace Actions.Api.Controllers
             [FromRoute] string id)
         {
             return await handler.Handle(new GetActionByIdQuery(id));
+        }
+
+        /// <summary>
+        /// Search risk(s) and deviation(s)
+        /// </summary>
+        /// <response code="200">If it is successful</response>
+        /// <response code="401">If has no access</response>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /api/v1/action/riskdeviation/search/{search}/metadataId{metadataId}
+        ///
+        /// </remarks>
+        [HttpGet("riskdeviation/search/{search}/metadataId/{metadataId}")]
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ICollection<ShortObjectDto>> GetByIdAsync(
+            [FromServices] ActionsQueryHandler handler,
+            [FromRoute] string search,
+            [FromRoute] string metadataId)
+        {
+            return await handler.Handle(new GetDeviationAndRiskSearchQuery(search, metadataId));
         }
 
         /// <summary>

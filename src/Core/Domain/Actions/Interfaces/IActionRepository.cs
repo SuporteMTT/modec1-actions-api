@@ -1,7 +1,9 @@
 ﻿using Actions.Core.Domain.Actions.Dtos;
+using Actions.Core.Domain.Shared.Dtos;
 using Actions.Core.Domain.Shared.Enums;
 using Actions.Core.Domain.Shared.Interfaces;
 using Shared.Core.Domain.Interface.Entity;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Actions.Core.Domain.Actions.Interfaces
@@ -15,5 +17,6 @@ namespace Actions.Core.Domain.Actions.Interfaces
             int? count = null
         );
         Task<ActionDto> GetAsync(string id);
+        Task<ICollection<ShortObjectDto>> GetAsync(string search, string metadataId);
     }
 }

@@ -1,9 +1,11 @@
 ﻿using Actions.Core.Domain.Actions.Dtos;
 using Actions.Core.Domain.Actions.Interfaces;
 using Actions.Core.Domain.Actions.Queries;
+using Actions.Core.Domain.Shared.Dtos;
 using Actions.Core.Domain.Shared.Interfaces.Entities;
 using Shared.Core.Domain.Impl.Validator;
 using Shared.Core.Domain.Interface.Entity;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Actions.Core.Domain.Actions.Handlers
@@ -31,6 +33,13 @@ namespace Actions.Core.Domain.Actions.Handlers
             query.ValidateAndThrow();
 
             return await _repository.GetAsync(query.Id);
+        }
+
+        public async Task<ICollection<ShortObjectDto>> Handle(GetDeviationAndRiskSearchQuery query)
+        {
+            query.ValidateAndThrow();
+
+            return await _repository.GetAsync(query.Search, query.MetadataId);
         }
     }
 }
