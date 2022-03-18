@@ -93,15 +93,17 @@ namespace Actions.Core.Domain.Actions.Entities
             string responsibleId,
             DateTime dueDate,
             ActionStatusEnum status,
-            DateTime actualStartDate,
-            DateTime actualEndDate,
+            DateTime? actualStartDate,
+            DateTime? actualEndDate,
             string comments,
             string closedById,
             string relatedId,
-            decimal? cost,
-            string originalDueDate
+            decimal? cost
         )
         {
+            if (!OriginalDueDate.HasValue && DueDate != dueDate)
+                OriginalDueDate = DueDate;
+            
             Description = description;
             ResponsibleId = responsibleId;
             DueDate = dueDate;
@@ -117,6 +119,50 @@ namespace Actions.Core.Domain.Actions.Entities
                 ClosedDate = DateTime.Now;
                 ClosedById = closedById;
             }
+        }
+
+        internal bool HasModified(
+            string description,
+            string responsibleId,
+            DateTime dueDate,
+            ActionStatusEnum status,
+            DateTime? actualStartDate,
+            DateTime? actualEndDate,
+            string comments,
+            string relatedId,
+            decimal? cost
+        )
+        {
+            var hasModified = false;
+
+            if (Description != description)
+                hasModified = true;
+
+            if (ResponsibleId != responsibleId)
+                hasModified = true;
+
+            if (DueDate != dueDate)
+                hasModified = true;
+
+            if (Status != status)
+                hasModified = true;
+
+            if (ActualStartDate != actualStartDate)
+                hasModified = true;
+
+            if (ActualEndDate != actualEndDate)
+                hasModified = true;
+
+            if (Comments != comments)
+                hasModified = true;
+
+            if (Cost != cost)
+                hasModified = true;
+
+            if (RelatedId != relatedId)
+                hasModified = true;
+
+            return hasModified;
         }
     }
 
