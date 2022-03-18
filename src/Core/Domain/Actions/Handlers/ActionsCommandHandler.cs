@@ -1,8 +1,11 @@
 using System.Threading.Tasks;
 using Actions.Core.Domain.Actions.Commands;
 using Actions.Core.Domain.Actions.Dtos;
+using Actions.Core.Domain.Actions.Enums;
 using Actions.Core.Domain.Actions.Interfaces;
 using Actions.Core.Domain.Shared.Interfaces.Entities;
+using Actions.Core.Domain.StatusHistories.Enums;
+using Actions.Core.Domain.StatusHistories.Handlers;
 using Shared.Core.Domain.Impl.Validator;
 
 namespace Actions.Core.Domain.Actions.Handlers
@@ -11,11 +14,18 @@ namespace Actions.Core.Domain.Actions.Handlers
     {
         private readonly ITokenUtil _tokenUtil;
         private readonly IActionRepository _repository;
+        private readonly StatusHistoriesCommandHandler _statusHistoryCommandHandler;
 
-        public ActionsCommandHandler(IActionRepository repository, ITokenUtil tokenUtil)
+        public ActionsCommandHandler
+        (
+            IActionRepository repository,
+            ITokenUtil tokenUtil,
+            StatusHistoriesCommandHandler statusHistoryCommandHandler
+        )
         {
             _tokenUtil = tokenUtil;
             _repository = repository;
+            _statusHistoryCommandHandler = statusHistoryCommandHandler;
         }
 
         public async Task<ActionDto> Handle(CreateActionCommand request)
@@ -47,6 +57,37 @@ namespace Actions.Core.Domain.Actions.Handlers
             return await _repository.GetAsync(action.Id);
         }
 
+        public async Task Handle(UpdateActionCommand request)
+        {
+            if (request is null) throw new System.ArgumentNullException(nameof(request), "The object received is not valid");
+
+            request.ValidateAndThrow();
+
+            var action = await _repository.GetAsNoTrackingAsync(x => x.Id == request.Id);
+
+            if (action.HasModified(request.Description, request.ResponsibleId, request.DueDate, request.Status, request.ActualStartDate,
+                                request.ActualEndDate,request.Coments, request.RelatedId, request.Cost))
+            {
+                if (action.Status != request.Status)
+                {
+                    await _statusHistoryCommandHandler.Handle(
+                        new StatusHistories.Commands.CreateStatusHistoryCommand(
+                            System.DateTime.Now, 
+                            _tokenUtil.Id, 
+                            ToStatusHistoryEnum(request.Status),
+                            action.Id)
+                    );
+                }
+
+                action.UpdateData(request.Description, request.ResponsibleId, request.DueDate, request.Status, request.ActualStartDate,
+                                request.ActualEndDate,request.Coments, _tokenUtil.Id, request.RelatedId, request.Cost);
+                
+                 _repository.Update(action);
+
+                await _repository.SaveChangesAsync();
+            }
+        }
+
         public async Task Handle(DeleteActionCommand request)
         {
             request.ValidateAndThrow();
@@ -54,6 +95,24 @@ namespace Actions.Core.Domain.Actions.Handlers
             await _repository.DeleteById(request.Id);
 
             await _repository.SaveChangesAsync();
+        }
+
+        private StatusHistoryEnum ToStatusHistoryEnum(ActionStatusEnum status)
+        {
+            switch (status)
+            {
+                case ActionStatusEnum.Started:
+                    return StatusHistoryEnum.Started;
+                case ActionStatusEnum.NotInitiated:
+                    return StatusHistoryEnum.NotInitiated;
+                case ActionStatusEnum.Concluded:
+                    return StatusHistoryEnum.Concluded;
+                case ActionStatusEnum.Delayed:
+                    return StatusHistoryEnum.Delayed;
+
+                default:
+                    return StatusHistoryEnum.NotInitiated;
+            }
         }
     }
 }

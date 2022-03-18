@@ -11,6 +11,7 @@ using Shared.Core.Domain.Impl.Entity;
 using Shared.Core.Domain.Interface.Entity;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Actions.Infrastructure.Data.Repositories
@@ -108,6 +109,14 @@ namespace Actions.Infrastructure.Data.Repositories
                 query = query.Take(10);
 
             return await Task.Run(() => query.ToList());
+        }
+
+        async Task<Action> IActionRepository.GetAsNoTrackingAsync(Expression<System.Func<Action, bool>> expression)
+        {
+            return await context.Set<Action>()
+                .AsNoTracking()
+                .Where(expression)
+                .SingleOrDefaultAsync();
         }
 
         async Task IActionRepository.DeleteById(string id)
