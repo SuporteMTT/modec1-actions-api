@@ -16,5 +16,6 @@ namespace Actions.Core.Domain.Deviations.Interfaces
         );
         Task<DeviationDto> GetAsync(string id);
         Task<string> GetLastCode(string departmentCode);
+        Task DeleteById(string id);
     }
 }

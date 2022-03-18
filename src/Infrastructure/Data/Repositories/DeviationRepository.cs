@@ -98,5 +98,14 @@ namespace Actions.Infrastructure.Data.Repositories
 
             return $"{codeStart}-{int.Parse(lastCode) + 1:0000}";
         }
+
+        async Task IDeviationRepository.DeleteById(string id)
+        {
+            var deviationToDelete = await (from deviation in context.Set<Deviation>()
+                            where deviation.Id == id select deviation).SingleOrDefaultAsync();
+
+            if (deviationToDelete != null && !string.IsNullOrWhiteSpace(deviationToDelete.Id))
+                context.Remove(deviationToDelete);
+        }
     }
 }

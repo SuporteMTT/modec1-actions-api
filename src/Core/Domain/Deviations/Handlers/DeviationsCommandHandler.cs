@@ -49,5 +49,15 @@ namespace Actions.Core.Domain.Deviations.Handlers
 
             return await _repository.GetAsync(deviation.Id);
         }
+
+        public async Task Handle(DeleteDeviationCommand request)
+        {
+            request.ValidateAndThrow();
+
+            await _repository.DeleteById(request.Id);
+
+            await _repository.SaveChangesAsync();
+
+        }
     }
 }
