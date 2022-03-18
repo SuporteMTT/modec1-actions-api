@@ -55,5 +55,15 @@ namespace Actions.Core.Domain.Risks.Handlers
 
             return await _repository.GetAsync(risk.Id);
         }
+
+        public async Task Handle(DeleteRiskCommand request)
+        {
+            request.ValidateAndThrow();
+
+            await _repository.DeleteById(request.Id);
+
+            await _repository.SaveChangesAsync();
+
+        }
     }
 }

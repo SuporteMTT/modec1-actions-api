@@ -20,5 +20,6 @@ namespace Actions.Core.Domain.Risks.Interfaces
         Task<string> GetLastCode(string departmentCode);
         Task<RiskDto> GetAsync(string id);
         Task<ICollection<RiskAutocompleteDto>> GetAsync(string search, string metadataId);
+        Task DeleteById(string id);
     }
 }

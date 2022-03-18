@@ -121,6 +121,13 @@ namespace Actions.Infrastructure.Data.Repositories
             return $"{codeStart}-{int.Parse(lastCode) + 1:0000}";
         }
 
+        async Task IRiskRepository.DeleteById(string id)
+        {
+            var riskToDelete = await (from risk in context.Set<Risk>()
+                            where risk.Id == id select risk).SingleOrDefaultAsync();
 
+            if (riskToDelete != null && !string.IsNullOrWhiteSpace(riskToDelete.Id))
+                context.Remove(riskToDelete);
+        }
     }
 }
