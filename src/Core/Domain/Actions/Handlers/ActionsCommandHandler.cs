@@ -46,5 +46,14 @@ namespace Actions.Core.Domain.Actions.Handlers
 
             return await _repository.GetAsync(action.Id);
         }
+
+        public async Task Handle(DeleteActionCommand request)
+        {
+            request.ValidateAndThrow();
+
+            await _repository.DeleteById(request.Id);
+
+            await _repository.SaveChangesAsync();
+        }
     }
 }

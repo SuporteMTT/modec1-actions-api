@@ -18,5 +18,6 @@ namespace Actions.Core.Domain.Actions.Interfaces
         );
         Task<ActionDto> GetAsync(string id);
         Task<ICollection<ShortObjectDto>> GetAsync(string search, string metadataId);
+        Task DeleteById(string id);
     }
 }

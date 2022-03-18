@@ -109,5 +109,14 @@ namespace Actions.Infrastructure.Data.Repositories
 
             return await Task.Run(() => query.ToList());
         }
+
+        async Task IActionRepository.DeleteById(string id)
+        {
+            var actionToDelete = await (from action in context.Set<Action>()
+                            where action.Id == id select action).SingleOrDefaultAsync();
+
+            if (actionToDelete != null && !string.IsNullOrWhiteSpace(actionToDelete.Id))
+                context.Remove(actionToDelete);
+        }
     }
 }
