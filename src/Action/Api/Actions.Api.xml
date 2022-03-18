@@ -129,6 +129,21 @@
                  
             </remarks>
         </member>
+        <member name="M:Actions.Api.Controllers.ActionController.PutAsync(Actions.Core.Domain.Actions.Handlers.ActionsCommandHandler,Actions.Core.Domain.Actions.Commands.UpdateActionCommand)">
+             <summary>
+             Change a action
+             </summary>
+             <response code="200">If it is successful</response>
+             <response code="400">If invalid data is sent</response>
+             <response code="401">If has no access</response>
+             <response code="404">If no data is found</response>
+             <remarks>
+             Sample request:
+            
+                 PUT /api/v1/action
+            
+             </remarks>
+        </member>
         <member name="M:Actions.Api.Controllers.ActionController.Delete(Actions.Core.Domain.Actions.Handlers.ActionsCommandHandler,System.String)">
             <summary>
             Delete action by id
