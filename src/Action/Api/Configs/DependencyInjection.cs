@@ -23,6 +23,7 @@ namespace Actions.Api.Configs
             services.AddScoped<Core.Domain.Risks.Handlers.RisksCommandHandler>();
 
             services.AddScoped<Core.Domain.StatusHistories.Interfaces.IStatusHistoryRepository, StatusHistoryRepository>();
+            services.AddScoped<Core.Domain.StatusHistories.Handlers.StatusHistoriesCommandHandler>();
 
             services.AddScoped<Core.Domain.ResponsePlans.Interfaces.IResponsePlanRepository, ResponsePlanRepository>();
             services.AddScoped<Core.Domain.ResponsePlans.Handlers.ResponsePlansCommandHandler>();
