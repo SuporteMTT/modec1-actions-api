@@ -1,7 +1,7 @@
 ﻿using Actions.Core.Domain.Deviations.Entities;
 using Actions.Core.Domain.ResponsePlans.Entities;
 using Actions.Core.Domain.Risks.Entities;
-using Actions.Core.Domain.StatusHistory.Entities;
+using Actions.Core.Domain.StatusHistories.Entities;
 using Actions.Core.Domain.Users.Entities;
 using Actions.Infrasctructure.Data.Configurations;
 using Actions.Infrastructure.Data.Configurations;

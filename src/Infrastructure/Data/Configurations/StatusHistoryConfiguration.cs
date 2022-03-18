@@ -1,4 +1,4 @@
-﻿using Actions.Core.Domain.StatusHistory.Entities;
+﻿using Actions.Core.Domain.StatusHistories.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

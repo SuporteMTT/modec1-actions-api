@@ -1,11 +1,11 @@
 using System;
-using Actions.Core.Domain.StatusHistory.Enums;
+using Actions.Core.Domain.StatusHistories.Enums;
 using Actions.Core.Domain.Users.Entities;
 using FluentValidation;
 using Shared.Core.Domain.Impl.Entity;
 using Shared.CrossCutting.Tools;
 
-namespace Actions.Core.Domain.StatusHistory.Entities
+namespace Actions.Core.Domain.StatusHistories.Entities
 {
     public class StatusHistory : Entity<StatusHistory, string>
     {

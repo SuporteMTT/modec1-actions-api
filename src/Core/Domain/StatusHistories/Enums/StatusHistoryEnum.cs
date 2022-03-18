@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using Shared.Core.Domain.Impl.Attributes;
 
-namespace Actions.Core.Domain.StatusHistory.Enums
+namespace Actions.Core.Domain.StatusHistories.Enums
 {
     public enum StatusHistoryEnum
     {
