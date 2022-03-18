@@ -129,6 +129,20 @@
                  
             </remarks>
         </member>
+        <member name="M:Actions.Api.Controllers.ActionController.Delete(Actions.Core.Domain.Actions.Handlers.ActionsCommandHandler,System.String)">
+            <summary>
+            Delete action by id
+            </summary>
+            <response code="200">If it is successful</response>
+            <response code="400">If invalid data is sent</response>
+            <response code="401">If has no access</response>
+            <remarks>
+            Sample request:
+            
+                DELETE /api/v1/action/{id}
+                 
+            </remarks>
+        </member>
         <member name="M:Actions.Api.Controllers.DeviationController.GetActionsAsync(System.String,System.Nullable{Actions.Core.Domain.Shared.Enums.MetadataTypeEnum})">
              <summary>
              Retrieve the list of deviation

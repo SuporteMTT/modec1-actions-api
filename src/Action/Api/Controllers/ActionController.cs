@@ -262,5 +262,27 @@ namespace Actions.Api.Controllers
         {
             return await handler.Handle(request);
         }
+
+        /// <summary>
+        /// Delete action by id
+        /// </summary>
+        /// <response code="200">If it is successful</response>
+        /// <response code="400">If invalid data is sent</response>
+        /// <response code="401">If has no access</response>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     DELETE /api/v1/action/{id}
+        ///      
+        /// </remarks>
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [Route("{id}")]
+        async public Task Delete(
+            [FromServices] ActionsCommandHandler handler,
+            [FromRoute] string id)
+        {
+            await handler.Handle(new DeleteActionCommand(id));
+        }
     }
 }
