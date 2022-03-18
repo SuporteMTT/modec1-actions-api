@@ -134,5 +134,27 @@ namespace Actions.Api.Controllers
         {
             return await handler.Handle(request);
         }
+
+        /// <summary>
+        /// Delete deviation by id
+        /// </summary>
+        /// <response code="200">If it is successful</response>
+        /// <response code="400">If invalid data is sent</response>
+        /// <response code="401">If has no access</response>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     DELETE /api/v1/deviation/{id}
+        ///      
+        /// </remarks>
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [Route("{id}")]
+        async public Task Delete(
+            [FromServices] DeviationsCommandHandler handler,
+            [FromRoute] string id)
+        {
+            await handler.Handle(new DeleteDeviationCommand(id));
+        }
     }
 }
