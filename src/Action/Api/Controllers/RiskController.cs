@@ -189,6 +189,29 @@ namespace Actions.Api.Controllers
         }
 
         /// <summary>
+        /// Change a risk
+        /// </summary>
+        /// <response code="200">If it is successful</response>
+        /// <response code="400">If invalid data is sent</response>
+        /// <response code="401">If has no access</response>
+        /// <response code="404">If no data is found</response>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     PUT /api/v1/risk
+        ///
+        /// </remarks>
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        async public Task PutAsync(
+            [FromServices] RisksCommandHandler handler,
+            [FromBody] UpdateRiskCommand request
+        )
+        {
+            await handler.Handle(request);
+        }
+
+        /// <summary>
         /// Delete risk by id
         /// </summary>
         /// <response code="200">If it is successful</response>
