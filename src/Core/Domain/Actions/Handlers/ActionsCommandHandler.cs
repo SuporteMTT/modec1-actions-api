@@ -1,11 +1,10 @@
 using System.Threading.Tasks;
 using Actions.Core.Domain.Actions.Commands;
 using Actions.Core.Domain.Actions.Dtos;
-using Actions.Core.Domain.Actions.Enums;
 using Actions.Core.Domain.Actions.Interfaces;
 using Actions.Core.Domain.Shared.Interfaces.Entities;
-using Actions.Core.Domain.StatusHistories.Enums;
 using Actions.Core.Domain.StatusHistories.Handlers;
+using Actions.Core.Domain.StatusHistories.Helpers;
 using Shared.Core.Domain.Impl.Validator;
 
 namespace Actions.Core.Domain.Actions.Handlers
@@ -54,6 +53,14 @@ namespace Actions.Core.Domain.Actions.Handlers
             
             await _repository.SaveChangesAsync();
 
+            await _statusHistoryCommandHandler.Handle(
+                        new StatusHistories.Commands.CreateStatusHistoryCommand(
+                            System.DateTime.Now,
+                            _tokenUtil.Id,
+                            StatusHistoryEnumHelper.ToStatusHistoryEnum(action.Status),
+                            action.Id)
+                    );
+
             return await _repository.GetAsync(action.Id);
         }
 
@@ -74,7 +81,7 @@ namespace Actions.Core.Domain.Actions.Handlers
                         new StatusHistories.Commands.CreateStatusHistoryCommand(
                             System.DateTime.Now, 
                             _tokenUtil.Id, 
-                            ToStatusHistoryEnum(request.Status),
+                            StatusHistoryEnumHelper.ToStatusHistoryEnum(request.Status),
                             action.Id)
                     );
                 }
@@ -95,24 +102,6 @@ namespace Actions.Core.Domain.Actions.Handlers
             await _repository.DeleteById(request.Id);
 
             await _repository.SaveChangesAsync();
-        }
-
-        private StatusHistoryEnum ToStatusHistoryEnum(ActionStatusEnum status)
-        {
-            switch (status)
-            {
-                case ActionStatusEnum.Started:
-                    return StatusHistoryEnum.Started;
-                case ActionStatusEnum.NotInitiated:
-                    return StatusHistoryEnum.NotInitiated;
-                case ActionStatusEnum.Concluded:
-                    return StatusHistoryEnum.Concluded;
-                case ActionStatusEnum.Delayed:
-                    return StatusHistoryEnum.Delayed;
-
-                default:
-                    return StatusHistoryEnum.NotInitiated;
-            }
         }
     }
 }
