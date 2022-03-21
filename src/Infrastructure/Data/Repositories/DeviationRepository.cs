@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Shared.Core.Domain.Impl.Entity;
 using Shared.Core.Domain.Interface.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Actions.Infrastructure.Data.Repositories
@@ -97,6 +98,14 @@ namespace Actions.Infrastructure.Data.Repositories
                 return $"{codeStart}-0001";
 
             return $"{codeStart}-{int.Parse(lastCode) + 1:0000}";
+        }
+
+        async Task<Deviation> IDeviationRepository.GetAsNoTrackingAsync(Expression<System.Func<Deviation, bool>> expression)
+        {
+            return await context.Set<Deviation>()
+                .AsNoTracking()
+                .Where(expression)
+                .SingleOrDefaultAsync();
         }
 
         async Task IDeviationRepository.DeleteById(string id)

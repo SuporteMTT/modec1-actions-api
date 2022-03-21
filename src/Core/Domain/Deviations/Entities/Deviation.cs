@@ -111,6 +111,42 @@ namespace Actions.Core.Domain.Deviations.Entities
             if ((status == StatusEnum.Concluded || status == StatusEnum.Cancelled) && Status == StatusEnum.Active) 
                 ClosedCancelledDate = DateTime.Now;
         }
+
+        internal bool HasModified(
+            string name,
+            string description,
+            StatusEnum status,
+            RiskCategoryEnum category,            
+            string associatedRiskId,
+            string cause,
+            PriorityEnum priority
+        )
+        {
+            var hasModified = false;
+
+            if (Status != status)
+                hasModified = true;
+
+            if (Name != name)
+                hasModified = true;
+
+            if (Description != description)
+                hasModified = true;
+
+            if (Cause != cause)
+                hasModified = true;
+
+            if (Category != category)
+                hasModified = true;
+
+            if (Priority != priority)
+                hasModified = true;
+
+            if (AssociatedRiskId != associatedRiskId)
+                hasModified = true;
+
+            return hasModified;
+        }
     }
 
     public class DeviationValidator : AbstractValidator<Deviation>

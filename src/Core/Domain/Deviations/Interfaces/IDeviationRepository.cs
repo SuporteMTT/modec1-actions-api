@@ -1,7 +1,9 @@
 ﻿using Actions.Core.Domain.Deviations.Dtos;
+using Actions.Core.Domain.Deviations.Entities;
 using Actions.Core.Domain.Shared.Enums;
 using Actions.Core.Domain.Shared.Interfaces;
 using Shared.Core.Domain.Interface.Entity;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Actions.Core.Domain.Deviations.Interfaces
@@ -16,6 +18,7 @@ namespace Actions.Core.Domain.Deviations.Interfaces
         );
         Task<DeviationDto> GetAsync(string id);
         Task<string> GetLastCode(string departmentCode);
+        Task<Deviation> GetAsNoTrackingAsync(Expression<System.Func<Deviation, bool>> expression);
         Task DeleteById(string id);
     }
 }
