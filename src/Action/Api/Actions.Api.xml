@@ -309,5 +309,18 @@
                  
             </remarks>
         </member>
+        <member name="M:Actions.Api.Controllers.StatusHistoryController.GetAsync(Actions.Core.Domain.StatusHistories.Handlers.StatusHistoriesQueryHandler,System.Int32,System.Int32,System.String)">
+             <summary>
+             Retrieve the list of status history
+             </summary>
+             <response code="200">If it is successful</response>
+             <response code="401">If has no access</response>
+             <remarks>
+             Sample request:
+            
+                 GET /api/v1/statushistory?page=[1]&amp;count=[20]
+            
+             </remarks>
+        </member>
     </members>
 </doc>
