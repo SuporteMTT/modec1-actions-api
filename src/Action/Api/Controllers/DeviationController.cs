@@ -136,6 +136,29 @@ namespace Actions.Api.Controllers
         }
 
         /// <summary>
+        /// Change a deviation
+        /// </summary>
+        /// <response code="200">If it is successful</response>
+        /// <response code="400">If invalid data is sent</response>
+        /// <response code="401">If has no access</response>
+        /// <response code="404">If no data is found</response>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     PUT /api/v1/deviation
+        ///
+        /// </remarks>
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        async public Task PutAsync(
+            [FromServices] DeviationsCommandHandler handler,
+            [FromBody] UpdateDeviationCommand request
+        )
+        {
+            await handler.Handle(request);
+        }
+
+        /// <summary>
         /// Delete deviation by id
         /// </summary>
         /// <response code="200">If it is successful</response>

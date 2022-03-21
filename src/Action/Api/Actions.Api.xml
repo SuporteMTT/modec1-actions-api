@@ -198,6 +198,21 @@
                  
             </remarks>
         </member>
+        <member name="M:Actions.Api.Controllers.DeviationController.PutAsync(Actions.Core.Domain.Deviations.Handlers.DeviationsCommandHandler,Actions.Core.Domain.Deviations.Commands.UpdateDeviationCommand)">
+             <summary>
+             Change a deviation
+             </summary>
+             <response code="200">If it is successful</response>
+             <response code="400">If invalid data is sent</response>
+             <response code="401">If has no access</response>
+             <response code="404">If no data is found</response>
+             <remarks>
+             Sample request:
+            
+                 PUT /api/v1/deviation
+            
+             </remarks>
+        </member>
         <member name="M:Actions.Api.Controllers.DeviationController.Delete(Actions.Core.Domain.Deviations.Handlers.DeviationsCommandHandler,System.String)">
             <summary>
             Delete deviation by id
