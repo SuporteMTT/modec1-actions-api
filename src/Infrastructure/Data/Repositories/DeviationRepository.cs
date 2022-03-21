@@ -1,4 +1,5 @@
-﻿using Actions.Core.Domain.Deviations.Dtos;
+﻿using Actions.Core.Domain.Departments.Entities;
+using Actions.Core.Domain.Deviations.Dtos;
 using Actions.Core.Domain.Deviations.Entities;
 using Actions.Core.Domain.Deviations.Interfaces;
 using Actions.Core.Domain.Shared;
@@ -82,9 +83,12 @@ namespace Actions.Infrastructure.Data.Repositories
             }) .FirstOrDefaultAsync();
         }
 
-        public async Task<string> GetLastCode(string departmentCode)
+        public async Task<string> GetLastCode(string departmentId)
         {
-
+            var departmentCode = (from department in context.Set<Department>()
+                                  where department.Id == departmentId
+                                  select department.Code).SingleOrDefault();
+                                  
             var codeStart = $"D-{departmentCode}";
             var startCodeLength = codeStart.Length;
 

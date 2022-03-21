@@ -1,4 +1,5 @@
-﻿using Actions.Core.Domain.Deviations.Entities;
+﻿using Actions.Core.Domain.Departments.Entities;
+using Actions.Core.Domain.Deviations.Entities;
 using Actions.Core.Domain.ResponsePlans.Entities;
 using Actions.Core.Domain.Risks.Entities;
 using Actions.Core.Domain.StatusHistories.Entities;
@@ -17,6 +18,7 @@ namespace Actions.Infrastructure.Data
         public DbSet<Risk> Risks { get; set; }
         public DbSet<ResponsePlan> ResponsePlans { get; set; }
         public DbSet<StatusHistory> StatusHistories { get; set; }
+        public DbSet<Department> Departments { get; set; }
 
         public ActionsContext(DbContextOptions<ActionsContext> options) : base(options) { }
 
@@ -36,6 +38,7 @@ namespace Actions.Infrastructure.Data
             modelBuilder.ApplyConfiguration(new StatusHistoryConfiguration());
 
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new DepartmentConfiguration());
 
             modelBuilder.Entity<FeatureProfile>().ToView("FeatureProfile").HasKey(x => x.Id);
         }

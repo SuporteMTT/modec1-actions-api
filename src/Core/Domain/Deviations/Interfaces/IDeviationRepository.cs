@@ -17,7 +17,7 @@ namespace Actions.Core.Domain.Deviations.Interfaces
             int? count = null
         );
         Task<DeviationDto> GetAsync(string id);
-        Task<string> GetLastCode(string departmentCode);
+        Task<string> GetLastCode(string departmentId);
         Task<Deviation> GetAsNoTrackingAsync(Expression<System.Func<Deviation, bool>> expression);
         Task DeleteById(string id);
     }

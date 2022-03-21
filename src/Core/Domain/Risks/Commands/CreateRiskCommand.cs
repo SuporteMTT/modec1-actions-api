@@ -23,6 +23,7 @@ namespace Actions.Core.Domain.Risks.Commands
         public string RealImpact { get; set; }
         public MetadataTypeEnum MetadataType { get; set; }
         public string MetadataId { get; set; }
+        public string DepartmentId { get; set; }
         public ICollection<ResponsePlanDto> ResponsePlans { get; set; }
     }
 

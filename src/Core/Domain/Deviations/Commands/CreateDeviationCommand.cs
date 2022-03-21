@@ -17,6 +17,7 @@ namespace Actions.Core.Domain.Deviations.Commands
         public PriorityEnum Priority { get; set; }
         public MetadataTypeEnum MetadataType { get; set; }
         public string MetadataId { get; set; }
+        public string DepartmentId { get; set; }
         public ICollection<ResponsePlanDto> ResponsePlans { get; set; }
     }
 

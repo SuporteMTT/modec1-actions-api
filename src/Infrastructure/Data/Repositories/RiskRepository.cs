@@ -1,4 +1,5 @@
-﻿using Actions.Core.Domain.Risks.Dtos;
+﻿using Actions.Core.Domain.Departments.Entities;
+using Actions.Core.Domain.Risks.Dtos;
 using Actions.Core.Domain.Risks.Entities;
 using Actions.Core.Domain.Risks.Interfaces;
 using Actions.Core.Domain.Shared;
@@ -104,8 +105,11 @@ namespace Actions.Infrastructure.Data.Repositories
             return await query.ToListAsync();
         }
         
-        public async Task<string> GetLastCode(string departmentCode)
+        public async Task<string> GetLastCode(string departmentId)
         {
+            var departmentCode = (from department in context.Set<Department>()
+                                  where department.Id == departmentId
+                                  select department.Code).SingleOrDefault();
 
             var codeStart = $"R-{departmentCode}";
             var startCodeLength = codeStart.Length;

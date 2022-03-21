@@ -35,7 +35,7 @@ namespace Actions.Core.Domain.Deviations.Handlers
 
             request.ValidateAndThrow();
 
-            var code = await _repository.GetLastCode("BPM");
+            var code = await _repository.GetLastCode(request.DepartmentId);
 
             var deviation = new Deviation(
                 code,

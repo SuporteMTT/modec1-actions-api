@@ -34,7 +34,7 @@ namespace Actions.Core.Domain.Risks.Handlers
 
             request.ValidateAndThrow();
 
-            var code = await _repository.GetLastCode("BPM");
+            var code = await _repository.GetLastCode(request.DepartmentId);
 
             var risk = new Risk(
                 code,

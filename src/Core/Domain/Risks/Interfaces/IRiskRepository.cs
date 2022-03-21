@@ -19,7 +19,7 @@ namespace Actions.Core.Domain.Risks.Interfaces
             int? count = null
         );
 
-        Task<string> GetLastCode(string departmentCode);
+        Task<string> GetLastCode(string departmentId);
         Task<RiskDto> GetAsync(string id);
         Task<ICollection<RiskAutocompleteDto>> GetAsync(string search, string metadataId);
         Task<Risk> GetAsNoTrackingAsync(Expression<System.Func<Risk, bool>> expression);
