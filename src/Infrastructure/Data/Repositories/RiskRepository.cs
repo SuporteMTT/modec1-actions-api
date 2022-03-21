@@ -8,6 +8,7 @@ using Shared.Core.Domain.Impl.Entity;
 using Shared.Core.Domain.Interface.Entity;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Actions.Infrastructure.Data.Repositories
@@ -119,6 +120,14 @@ namespace Actions.Infrastructure.Data.Repositories
                 return $"{codeStart}-0001";
 
             return $"{codeStart}-{int.Parse(lastCode) + 1:0000}";
+        }
+
+        async Task<Risk> IRiskRepository.GetAsNoTrackingAsync(Expression<System.Func<Risk, bool>> expression)
+        {
+            return await context.Set<Risk>()
+                .AsNoTracking()
+                .Where(expression)
+                .SingleOrDefaultAsync();
         }
 
         async Task IRiskRepository.DeleteById(string id)

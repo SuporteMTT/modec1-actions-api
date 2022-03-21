@@ -5,6 +5,8 @@ using Actions.Core.Domain.Risks.Dtos;
 using Actions.Core.Domain.Risks.Entities;
 using Actions.Core.Domain.Risks.Interfaces;
 using Actions.Core.Domain.Shared.Interfaces.Entities;
+using Actions.Core.Domain.StatusHistories.Handlers;
+using Actions.Core.Domain.StatusHistories.Helpers;
 using Shared.Core.Domain.Impl.Validator;
 
 namespace Actions.Core.Domain.Risks.Handlers
@@ -13,11 +15,17 @@ namespace Actions.Core.Domain.Risks.Handlers
     {
         private readonly ITokenUtil _tokenUtil;
         private readonly IRiskRepository _repository;
+        private readonly StatusHistoriesCommandHandler _statusHistoryCommandHandler;
 
-        public RisksCommandHandler(IRiskRepository repository, ITokenUtil tokenUtil)
+        public RisksCommandHandler(
+            IRiskRepository repository, 
+            ITokenUtil tokenUtil,
+            StatusHistoriesCommandHandler statusHistoryCommandHandler
+        )
         {
             _tokenUtil = tokenUtil;
             _repository = repository;
+            _statusHistoryCommandHandler = statusHistoryCommandHandler;
         }
 
         public async Task<RiskDto> Handle(CreateRiskCommand request)
@@ -53,7 +61,46 @@ namespace Actions.Core.Domain.Risks.Handlers
             
             await _repository.SaveChangesAsync();
 
+            await _statusHistoryCommandHandler.Handle(
+                new StatusHistories.Commands.CreateStatusHistoryCommand(
+                    System.DateTime.Now, 
+                    _tokenUtil.Id, 
+                    StatusHistories.Enums.StatusHistoryEnum.Active,
+                    risk.Id)
+            );
+
             return await _repository.GetAsync(risk.Id);
+        }
+
+        public async Task Handle(UpdateRiskCommand request)
+        {
+            if (request is null) throw new System.ArgumentNullException(nameof(request), "The object received is not valid");
+
+            request.ValidateAndThrow();
+
+            var risk = await _repository.GetAsNoTrackingAsync(x => x.Id == request.Id);
+
+            if (risk.HasModified(request.Status, request.OwnerId, request.Name, request.Description, request.Cause, request.Impact, request.Category,
+                                request.Level, request.Dimension, request.DimensionDescription, request.ProjectStep, request.Justification, request.RealImpact))
+            {
+                risk.UpdateData(request.Status, request.OwnerId, request.Name, request.Description, request.Cause, request.Impact, request.Category,
+                                request.Level, request.Dimension, request.DimensionDescription, request.ProjectStep, request.Justification, request.RealImpact, _tokenUtil.Id);
+                
+                 _repository.Update(risk);
+
+                await _repository.SaveChangesAsync();
+
+                if (risk.Status != request.Status)
+                {
+                    await _statusHistoryCommandHandler.Handle(
+                        new StatusHistories.Commands.CreateStatusHistoryCommand(
+                            System.DateTime.Now, 
+                            _tokenUtil.Id, 
+                            StatusHistoryEnumHelper.ToStatusHistoryEnum(request.Status),
+                            risk.Id)
+                    );
+                }
+            }
         }
 
         public async Task Handle(DeleteRiskCommand request)
@@ -63,7 +110,6 @@ namespace Actions.Core.Domain.Risks.Handlers
             await _repository.DeleteById(request.Id);
 
             await _repository.SaveChangesAsync();
-
         }
     }
 }

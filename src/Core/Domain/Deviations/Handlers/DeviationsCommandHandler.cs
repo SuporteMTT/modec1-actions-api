@@ -56,6 +56,14 @@ namespace Actions.Core.Domain.Deviations.Handlers
             
             await _repository.SaveChangesAsync();
 
+            await _statusHistoryCommandHandler.Handle(
+                new StatusHistories.Commands.CreateStatusHistoryCommand(
+                    System.DateTime.Now, 
+                    _tokenUtil.Id, 
+                    StatusHistories.Enums.StatusHistoryEnum.Active,
+                    deviation.Id)
+            );
+
             return await _repository.GetAsync(deviation.Id);
         }
 

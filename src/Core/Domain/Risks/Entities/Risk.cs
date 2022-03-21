@@ -154,6 +154,66 @@ namespace Actions.Core.Domain.Risks.Entities
             if ((status == StatusEnum.Concluded || status == StatusEnum.Cancelled) && Status == StatusEnum.Active) 
                 ClosedCancelledDate = DateTime.Now;
         }
+
+        internal bool HasModified(
+            StatusEnum status,
+            string ownerId,
+            string name,
+            string description,
+            string cause,
+            string impact,
+            RiskCategoryEnum category,
+            RiskLevelEnum level,
+            DimensionEnum dimension,
+            string dimensionDescription,
+            ProjectStepEnum projectStep,
+            RiskJustificationEnum justification,
+            string realImpact
+        )
+        {
+            var hasModified = false;
+
+            if (Status != status)
+                hasModified = true;
+
+            if (OwnerId != ownerId)
+                hasModified = true;
+
+            if (Name != name)
+                hasModified = true;
+
+            if (Description != description)
+                hasModified = true;
+
+            if (Cause != cause)
+                hasModified = true;
+
+            if (Impact != impact)
+                hasModified = true;
+
+            if (Category != category)
+                hasModified = true;
+
+            if (Level != level)
+                hasModified = true;
+
+            if (Dimension != dimension)
+                hasModified = true;
+
+            if (DimensionDescription != dimensionDescription)
+                hasModified = true;
+
+            if (ProjectStep != projectStep)
+                hasModified = true;
+
+            if (Justification != justification)
+                hasModified = true;
+
+            if (RealImpact != realImpact)
+                hasModified = true;
+            
+            return hasModified;
+        }
     }
 
     public class RiskValidator : AbstractValidator<Risk>

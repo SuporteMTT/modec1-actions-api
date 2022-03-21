@@ -54,12 +54,12 @@ namespace Actions.Core.Domain.Actions.Handlers
             await _repository.SaveChangesAsync();
 
             await _statusHistoryCommandHandler.Handle(
-                        new StatusHistories.Commands.CreateStatusHistoryCommand(
-                            System.DateTime.Now,
-                            _tokenUtil.Id,
-                            StatusHistoryEnumHelper.ToStatusHistoryEnum(action.Status),
-                            action.Id)
-                    );
+                new StatusHistories.Commands.CreateStatusHistoryCommand(
+                    System.DateTime.Now,
+                    _tokenUtil.Id,
+                    StatusHistories.Enums.StatusHistoryEnum.Active,
+                    action.Id)
+            );
 
             return await _repository.GetAsync(action.Id);
         }
