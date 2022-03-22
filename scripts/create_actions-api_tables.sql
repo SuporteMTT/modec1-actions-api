@@ -105,4 +105,5 @@ create table RiskTask (
     RiskId varchar(36) not null,
     TaskId varchar(36) not null,
     CONSTRAINT FK_RisksTasks_Risk_RiskId FOREIGN KEY (RiskId) REFERENCES [Risk](Id),
+    CONSTRAINT FK_RisksTasks_ProjectTask_TaskId FOREIGN KEY (TaskId) REFERENCES [ProjectTask](Id),
 );

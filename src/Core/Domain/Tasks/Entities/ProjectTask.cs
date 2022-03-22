@@ -4,7 +4,7 @@ using Shared.Core.Domain.Impl.Entity;
 
 namespace Actions.Core.Domain.Tasks.Entities
 {
-    public class Task : Entity<Task, string>
+    public class ProjectTask : Entity<ProjectTask, string>
     {
         public string ProjectId { get; set; }
         public bool ShowInGantt { get; set; }

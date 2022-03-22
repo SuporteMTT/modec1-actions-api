@@ -5,14 +5,15 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Actions.Infrasctructure.Data.Configurations
 {
-    [ExcludeFromCodeCoverage]
-    public class TaskConfiguration : IEntityTypeConfiguration<Task>
+    public class ProjectTaskConfiguration : IEntityTypeConfiguration<ProjectTask>
     {
-        void IEntityTypeConfiguration<Task>.Configure(EntityTypeBuilder<Task> builder)
+        [ExcludeFromCodeCoverage]
+        void IEntityTypeConfiguration<ProjectTask>.Configure(EntityTypeBuilder<ProjectTask> builder)
         {
-            builder.ToTable("Task");
+            builder.ToTable("ProjectTask");
 
             builder.HasKey(x => x.Id);
+            builder.Property(x => x.Id).HasMaxLength(36);
 
             builder.Property(x => x.ProjectId);
 

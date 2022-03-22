@@ -135,14 +135,14 @@ namespace Actions.Core.Domain.Risks.Handlers
         private async Task ManagerTasks(string riskId, string[] tasksIds)
         {
             var riskTasks = await _riskTaskRepository.GetAsNoTrackingByProjectId(riskId);
-            var tasksIdsDb = riskTasks.Select(riskTask => riskTask.TaskId);
-            var listToRemove = riskTasks.Where(riskTask => !tasksIds.Contains(riskTask.TaskId));
+            var tasksIdsDb = riskTasks.Select(riskTask => riskTask.ProjectTaskId);
+            var listToRemove = riskTasks.Where(riskTask => !tasksIds.Contains(riskTask.ProjectTaskId));
             foreach (var item in listToRemove)
             {
                 var riskTask = new RiskTask
                 {
                     RiskId = riskId,
-                    TaskId = item.TaskId
+                    ProjectTaskId = item.ProjectTaskId
                 };
                 _riskTaskRepository.Delete(riskTask);
             }
@@ -152,7 +152,7 @@ namespace Actions.Core.Domain.Risks.Handlers
                 var projectClient = new RiskTask
                 {
                     RiskId = riskId,
-                    TaskId = taskId
+                    ProjectTaskId = taskId
                 };
                 _riskTaskRepository.Insert(projectClient);
             }

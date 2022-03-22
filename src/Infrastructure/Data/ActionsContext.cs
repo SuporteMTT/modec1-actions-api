@@ -1,9 +1,9 @@
-﻿using System.Threading.Tasks;
-using Actions.Core.Domain.Departments.Entities;
+﻿using Actions.Core.Domain.Departments.Entities;
 using Actions.Core.Domain.Deviations.Entities;
 using Actions.Core.Domain.ResponsePlans.Entities;
 using Actions.Core.Domain.Risks.Entities;
 using Actions.Core.Domain.StatusHistories.Entities;
+using Actions.Core.Domain.Tasks.Entities;
 using Actions.Core.Domain.Users.Entities;
 using Actions.Infrasctructure.Data.Configurations;
 using Actions.Infrastructure.Data.Configurations;
@@ -20,7 +20,7 @@ namespace Actions.Infrastructure.Data
         public DbSet<ResponsePlan> ResponsePlans { get; set; }
         public DbSet<StatusHistory> StatusHistories { get; set; }
         public DbSet<Department> Departments { get; set; }
-        public DbSet<Task> Tasks { get; set; }
+        public DbSet<ProjectTask> ProjectTasks { get; set; }
         public DbSet<RiskTask> RiskTasks { get; set; }
 
         public ActionsContext(DbContextOptions<ActionsContext> options) : base(options) { }
@@ -42,7 +42,7 @@ namespace Actions.Infrastructure.Data
             modelBuilder.ApplyConfiguration(new StatusHistoryConfiguration());
 
             modelBuilder.ApplyConfiguration(new DepartmentConfiguration());
-            modelBuilder.ApplyConfiguration(new TaskConfiguration());
+            modelBuilder.ApplyConfiguration(new ProjectTaskConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
 
             modelBuilder.Entity<FeatureProfile>().ToView("FeatureProfile").HasKey(x => x.Id);
