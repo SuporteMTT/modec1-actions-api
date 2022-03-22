@@ -101,11 +101,8 @@ create table StatusHistory (
     CONSTRAINT FK_StatusHistory_User_UserId FOREIGN KEY (UserId) REFERENCES [User](Id),
 );
 
-create table RisksTasks (
-    Id varchar(36) not null,
+create table RiskTask (
     RiskId varchar(36) not null,
     TaskId varchar(36) not null,
-    CONSTRAINT PK_RisksTasks_Id PRIMARY KEY CLUSTERED (Id),
     CONSTRAINT FK_RisksTasks_Risk_RiskId FOREIGN KEY (RiskId) REFERENCES [Risk](Id),
-    CONSTRAINT FK_RisksTasks_ProjectTask_TaskId FOREIGN KEY (TaskId) REFERENCES [Risk](Id),
 );
