@@ -22,6 +22,8 @@ namespace Actions.Api.Configs
             services.AddScoped<Core.Domain.Risks.Handlers.RisksQueryHandler>();
             services.AddScoped<Core.Domain.Risks.Handlers.RisksCommandHandler>();
 
+            services.AddScoped<Core.Domain.Risks.Interfaces.IRiskTaskRepository, RiskTaskRepository>();
+
             services.AddScoped<Core.Domain.StatusHistories.Interfaces.IStatusHistoryRepository, StatusHistoryRepository>();
             services.AddScoped<Core.Domain.StatusHistories.Handlers.StatusHistoriesQueryHandler>();
             services.AddScoped<Core.Domain.StatusHistories.Handlers.StatusHistoriesCommandHandler>();
