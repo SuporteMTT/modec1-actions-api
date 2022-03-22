@@ -4,6 +4,7 @@ using Actions.Core.Domain.Deviations.Commands;
 using Actions.Core.Domain.Deviations.Dtos;
 using Actions.Core.Domain.Deviations.Entities;
 using Actions.Core.Domain.Deviations.Interfaces;
+using Actions.Core.Domain.ResponsePlans.Handlers;
 using Actions.Core.Domain.Shared.Interfaces.Entities;
 using Actions.Core.Domain.StatusHistories.Handlers;
 using Actions.Core.Domain.StatusHistories.Helpers;
@@ -16,17 +17,20 @@ namespace Actions.Core.Domain.Deviations.Handlers
         private readonly ITokenUtil _tokenUtil;
         private readonly IDeviationRepository _repository;
         private readonly StatusHistoriesCommandHandler _statusHistoryCommandHandler;
+        private readonly ResponsePlansCommandHandler _responsePlansCommandHandler;
 
         public DeviationsCommandHandler
         (
             IDeviationRepository repository,
             ITokenUtil tokenUtil,
-            StatusHistoriesCommandHandler statusHistoryCommandHandler
+            StatusHistoriesCommandHandler statusHistoryCommandHandler,
+            ResponsePlansCommandHandler responsePlansCommandHandler
         )
         {
             _tokenUtil = tokenUtil;
             _repository = repository;
             _statusHistoryCommandHandler = statusHistoryCommandHandler;
+            _responsePlansCommandHandler = responsePlansCommandHandler;
         }
 
         public async Task<DeviationDto> Handle(CreateDeviationCommand request)
@@ -53,6 +57,8 @@ namespace Actions.Core.Domain.Deviations.Handlers
             deviation.ValidateAndThrow();
 
             _repository.Insert(deviation);
+
+            _responsePlansCommandHandler.Handle(new ResponsePlans.Commands.ProcessListResponsePlan(deviation.Id, request.ResponsePlans));
             
             await _repository.SaveChangesAsync();
 
@@ -96,6 +102,10 @@ namespace Actions.Core.Domain.Deviations.Handlers
                     );
                 }
             }
+
+            _responsePlansCommandHandler.Handle(new ResponsePlans.Commands.ProcessListResponsePlan(deviation.Id, request.ResponsePlans));
+
+            await _repository.SaveChangesAsync();
         }
 
         public async Task Handle(DeleteDeviationCommand request)

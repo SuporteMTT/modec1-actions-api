@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Actions.Core.Domain.ResponsePlans.Handlers;
 using Actions.Core.Domain.Risks.Commands;
 using Actions.Core.Domain.Risks.Dtos;
 using Actions.Core.Domain.Risks.Entities;
@@ -18,18 +19,21 @@ namespace Actions.Core.Domain.Risks.Handlers
         private readonly IRiskRepository _repository;
         private readonly IRiskTaskRepository _riskTaskRepository;
         private readonly StatusHistoriesCommandHandler _statusHistoryCommandHandler;
+        private readonly ResponsePlansCommandHandler _responsePlansCommandHandler;
 
         public RisksCommandHandler(
             IRiskRepository repository,
             IRiskTaskRepository riskTaskRepository,
             ITokenUtil tokenUtil,
-            StatusHistoriesCommandHandler statusHistoryCommandHandler
+            StatusHistoriesCommandHandler statusHistoryCommandHandler,
+            ResponsePlansCommandHandler responsePlansCommandHandler
         )
         {
             _tokenUtil = tokenUtil;
             _repository = repository;
             _riskTaskRepository = riskTaskRepository;
             _statusHistoryCommandHandler = statusHistoryCommandHandler;
+            _responsePlansCommandHandler = responsePlansCommandHandler;
         }
 
         public async Task<RiskDto> Handle(CreateRiskCommand request)
@@ -65,6 +69,8 @@ namespace Actions.Core.Domain.Risks.Handlers
             
             if (request.MetadataType == Shared.Enums.MetadataTypeEnum.Project)
                 await ManagerTasks(risk.Id, request.AssociatedTaskIds);
+
+            _responsePlansCommandHandler.Handle(new ResponsePlans.Commands.ProcessListResponsePlan(risk.Id, request.ResponsePlans));
             
             await _repository.SaveChangesAsync();
 
@@ -111,6 +117,10 @@ namespace Actions.Core.Domain.Risks.Handlers
                     );
                 }
             }
+
+            _responsePlansCommandHandler.Handle(new ResponsePlans.Commands.ProcessListResponsePlan(risk.Id, request.ResponsePlans));
+
+            await _repository.SaveChangesAsync();
         }
 
         public async Task Handle(DeleteRiskCommand request)
