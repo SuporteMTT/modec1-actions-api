@@ -11,7 +11,7 @@ namespace Actions.Core.Domain.Shared.Enums
         [Description("Concluded")]
         [Color("#44ca42")]
         Concluded = 2,
-        [Description("Concelled")]
+        [Description("Cancelled")]
         [Color("#ddd")]
         Cancelled = 3
     }
