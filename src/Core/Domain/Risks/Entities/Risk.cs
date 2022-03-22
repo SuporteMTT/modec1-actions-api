@@ -5,6 +5,7 @@ using FluentValidation;
 using Shared.Core.Domain.Impl.Entity;
 using Shared.CrossCutting.Tools;
 using System;
+using System.Collections.Generic;
 
 namespace Actions.Core.Domain.Risks.Entities
 {
@@ -118,6 +119,8 @@ namespace Actions.Core.Domain.Risks.Entities
         public string RealImpact { get; set; }
         public MetadataTypeEnum MetadataType { get; set; }
         public string MetadataId { get; set; }
+
+        public ICollection<RiskTask> RiskTask { get; set; }
 
         internal void UpdateData(
             StatusEnum status,
