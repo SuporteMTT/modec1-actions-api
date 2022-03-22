@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Actions.Core.Domain.Risks.Commands;
 using Actions.Core.Domain.Risks.Dtos;
@@ -15,16 +16,19 @@ namespace Actions.Core.Domain.Risks.Handlers
     {
         private readonly ITokenUtil _tokenUtil;
         private readonly IRiskRepository _repository;
+        private readonly IRiskTaskRepository _riskTaskRepository;
         private readonly StatusHistoriesCommandHandler _statusHistoryCommandHandler;
 
         public RisksCommandHandler(
-            IRiskRepository repository, 
+            IRiskRepository repository,
+            IRiskTaskRepository riskTaskRepository,
             ITokenUtil tokenUtil,
             StatusHistoriesCommandHandler statusHistoryCommandHandler
         )
         {
             _tokenUtil = tokenUtil;
             _repository = repository;
+            _riskTaskRepository = riskTaskRepository;
             _statusHistoryCommandHandler = statusHistoryCommandHandler;
         }
 
@@ -59,6 +63,9 @@ namespace Actions.Core.Domain.Risks.Handlers
 
             _repository.Insert(risk);
             
+            if (request.MetadataType == Shared.Enums.MetadataTypeEnum.Project)
+                await ManagerTasks(risk.Id, request.AssociatedTaskIds);
+            
             await _repository.SaveChangesAsync();
 
             await _statusHistoryCommandHandler.Handle(
@@ -79,6 +86,9 @@ namespace Actions.Core.Domain.Risks.Handlers
             request.ValidateAndThrow();
 
             var risk = await _repository.GetAsNoTrackingAsync(x => x.Id == request.Id);
+
+            if (request.MetadataType == Shared.Enums.MetadataTypeEnum.Project)
+                await ManagerTasks(risk.Id, request.AssociatedTaskIds);
 
             if (risk.HasModified(request.Status, request.OwnerId, request.Name, request.Description, request.Cause, request.Impact, request.Category,
                                 request.Level, request.Dimension, request.DimensionDescription, request.ProjectStep, request.Justification, request.RealImpact))
@@ -110,6 +120,32 @@ namespace Actions.Core.Domain.Risks.Handlers
             await _repository.DeleteById(request.Id);
 
             await _repository.SaveChangesAsync();
+        }
+
+        private async Task ManagerTasks(string riskId, string[] tasksIds)
+        {
+            var riskTasks = await _riskTaskRepository.GetAsNoTrackingByProjectId(riskId);
+            var tasksIdsDb = riskTasks.Select(riskTask => riskTask.TaskId);
+            var listToRemove = riskTasks.Where(riskTask => !tasksIds.Contains(riskTask.TaskId));
+            foreach (var item in listToRemove)
+            {
+                var riskTask = new RiskTask
+                {
+                    RiskId = riskId,
+                    TaskId = item.TaskId
+                };
+                _riskTaskRepository.Delete(riskTask);
+            }
+            var listToAdd = tasksIdsDb?.Count() == 0 ? tasksIds : tasksIds.Where(id => !tasksIdsDb.Contains(id));
+            foreach (var taskId in listToAdd)
+            {
+                var projectClient = new RiskTask
+                {
+                    RiskId = riskId,
+                    TaskId = taskId
+                };
+                _riskTaskRepository.Insert(projectClient);
+            }
         }
     }
 }
