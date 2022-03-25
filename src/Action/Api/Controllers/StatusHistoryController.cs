@@ -1,4 +1,7 @@
-﻿using Actions.Core.Domain.StatusHistories.Handlers;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Actions.Core.Domain.StatusHistories.Dtos;
+using Actions.Core.Domain.StatusHistories.Handlers;
 using Actions.Core.Domain.StatusHistories.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -27,7 +30,7 @@ namespace Actions.Api.Controllers
         [HttpGet]
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public dynamic GetAsync(
+        public Task<ICollection<StatusHistoryListDto>> GetAsync(
             [FromServices] StatusHistoriesQueryHandler handler,
             int page = 1,
             int count = 10,

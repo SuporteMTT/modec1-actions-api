@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
-using Actions.Core.Domain.Actions.Interfaces;
 using Actions.Core.Domain.Shared.Interfaces.Entities;
 using Actions.Core.Domain.StatusHistories.Commands;
 using Actions.Core.Domain.StatusHistories.Entities;
+using Actions.Core.Domain.StatusHistories.Interfaces;
 using Shared.Core.Domain.Impl.Validator;
 
 namespace Actions.Core.Domain.StatusHistories.Handlers
@@ -10,9 +10,9 @@ namespace Actions.Core.Domain.StatusHistories.Handlers
     public class StatusHistoriesCommandHandler
     {
         private readonly ITokenUtil _tokenUtil;
-        private readonly IActionRepository _repository;
+        private readonly IStatusHistoryRepository _repository;
 
-        public StatusHistoriesCommandHandler(IActionRepository repository, ITokenUtil tokenUtil)
+        public StatusHistoriesCommandHandler(IStatusHistoryRepository repository, ITokenUtil tokenUtil)
         {
             _tokenUtil = tokenUtil;
             _repository = repository;

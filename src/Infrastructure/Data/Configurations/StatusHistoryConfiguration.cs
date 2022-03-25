@@ -18,7 +18,7 @@ namespace Actions.Infrastructure.Data.Configurations
             builder.Property(x => x.UserId).IsRequired().HasMaxLength(36);
             builder.Property(x => x.MetadataId).IsRequired().HasMaxLength(36);
 
-            builder.HasOne(x => x.User).WithMany().HasForeignKey(x => x.UserId);
+            builder.HasOne(x => x.User).WithMany(x => x.StatusHistory).HasForeignKey(x => x.UserId);
         }
     }
 }

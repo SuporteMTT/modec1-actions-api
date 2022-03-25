@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Actions.Core.Domain.Shared;
 using Actions.Core.Domain.StatusHistories.Dtos;
@@ -46,6 +47,21 @@ namespace Actions.Infrastructure.Data.Repositories
                 Data = actions,
                 Total = total
             };
+        }
+
+        async Task<ICollection<StatusHistoryListDto>> IStatusHistoryRepository.GetAsync(string metadataId)
+        {
+            return await context.Set<StatusHistory>()
+                .Include(x => x.User)
+                .Where(x => x.MetadataId == metadataId)
+                .Select(o => new StatusHistoryListDto
+                {
+                    Id = o.Id,
+                    Date = o.Date,
+                    UserName = o.User.Name,
+                    Status = o.Status.Status()
+                })
+                .ToArrayAsync();
         }
     }
 }

@@ -232,7 +232,6 @@ namespace Actions.Core.Domain.Risks.Entities
             RuleFor(x => x.Dimension).IsInEnum().WithMessage("Dimension is required");
             RuleFor(x => x.ProjectStep).IsInEnum().WithMessage("Project Step is required");
             RuleFor(x => x.Justification).IsInEnum().WithMessage("Justification is required");
-            RuleFor(x => x.RealImpact).NotEmpty().WithMessage("Real Impact is required");
             RuleFor(x => x.MetadataId).NotEmpty();
             RuleFor(x => x.MetadataType).IsInEnum();
             When(x => x.Dimension == DimensionEnum.Other, () =>

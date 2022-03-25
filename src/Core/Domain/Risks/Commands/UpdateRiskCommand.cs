@@ -41,7 +41,6 @@ namespace Actions.Core.Domain.Risks.Commands
             RuleFor(x => x.Dimension).IsInEnum().WithMessage("Dimension is required");
             RuleFor(x => x.ProjectStep).IsInEnum().WithMessage("Project Step is required");
             RuleFor(x => x.Justification).IsInEnum().WithMessage("Justification is required");
-            RuleFor(x => x.RealImpact).NotEmpty().NotNull().WithMessage("Real Impact is required");
             RuleFor(x => x.MetadataId).NotEmpty();
             RuleFor(x => x.MetadataType).NotNull();
         }

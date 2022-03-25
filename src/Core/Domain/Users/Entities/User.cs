@@ -1,4 +1,5 @@
-﻿using Shared.Core.Domain.Impl.Entity;
+﻿using Actions.Core.Domain.StatusHistories.Entities;
+using Shared.Core.Domain.Impl.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,7 @@ namespace Actions.Core.Domain.Users.Entities
         public string SecondaryProfileId { get; set; }
         public byte[] Photo { get; set; }
         public bool? HasPhoto { get; set; }
+
+        public ICollection<StatusHistory> StatusHistory { get; set; }
     }
 }

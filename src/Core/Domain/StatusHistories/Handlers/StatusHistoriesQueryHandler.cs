@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Actions.Core.Domain.Shared.Interfaces.Entities;
 using Actions.Core.Domain.StatusHistories.Dtos;
@@ -19,11 +20,11 @@ namespace Actions.Core.Domain.StatusHistories.Handlers
             _repository = repository;
         }
 
-        public async Task<IPagination<StatusHistoryListDto>> Handle(GetStatusHistoriesQuery query)
+        public async Task<ICollection<StatusHistoryListDto>> Handle(GetStatusHistoriesQuery query)
         {
             query.ValidateAndThrow();
 
-            return await _repository.GetAsync(query.MetadataId, query.Page, query.Count);        
+            return await _repository.GetAsync(query.MetadataId);        
         }
     }
 }
