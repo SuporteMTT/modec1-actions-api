@@ -4,7 +4,7 @@
         <name>Actions.Api</name>
     </assembly>
     <members>
-        <member name="M:Actions.Api.Controllers.ActionController.GetActionsAsync(System.String,System.Nullable{Actions.Core.Domain.Shared.Enums.MetadataTypeEnum})">
+        <member name="M:Actions.Api.Controllers.ActionController.GetActionsAsync(Actions.Core.Domain.Actions.Handlers.ActionsQueryHandler,System.String,Actions.Core.Domain.Shared.Enums.MetadataTypeEnum,System.Int32,System.Int32)">
              <summary>
              Retrieve the list of actions
              </summary>

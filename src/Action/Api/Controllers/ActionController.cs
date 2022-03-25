@@ -39,41 +39,19 @@ namespace Actions.Api.Controllers
         [HttpGet]
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public dynamic GetActionsAsync(
-            [FromQuery] string metadataId = null,
-            [FromQuery] MetadataTypeEnum? metadataType = null
+        public async Task<ICollection<ActionListDto>> GetActionsAsync(            
+            [FromServices] ActionsQueryHandler handler,
+            [FromQuery] string metadataId,
+            [FromQuery] MetadataTypeEnum metadataType,
+            [FromQuery] int page = 1,
+            [FromQuery] int count = 10
         )
         {
-            return new[]
-            {
-                new {
-                    id = GuidExtensions.GenerateGuid(),
-                    createdDate = DateTime.Now,
-                    description = "Action 2 Vestibulum varius volutpat nulla eu mollis.",
-                    responsible = "Responsible Name",
-                    dueDate = DateTime.Now,
-                    status = ActionStatusEnum.Started.Status(),
-                    endDate = new DateTime?(new DateTime(2021, 6, 20))
-                },
-                new {
-                    id = GuidExtensions.GenerateGuid(),
-                    createdDate = DateTime.Now,
-                    description = "Action 3 Vestibulum varius volutpat nulla eu mollis.​",
-                    responsible = "Responsible Name",
-                    dueDate = DateTime.Now,
-                    status = ActionStatusEnum.NotInitiated.Status(),
-                    endDate = new DateTime?(new DateTime(2021, 7, 17))
-                },
-                new {
-                    id = GuidExtensions.GenerateGuid(),
-                    createdDate = DateTime.Now,
-                    description = "Action 4 Vestibulum varius volutpat nulla eu mollis.​",
-                    responsible = "Responsible Name",
-                    dueDate = DateTime.Now,
-                    status = ActionStatusEnum.Concluded.Status(),
-                    endDate = new DateTime?()
-                },
-            };
+            var actions = await handler.Handle(new ListActionsQuery(metadataId, metadataType, page, count));
+
+            this.Response.Headers.Add("X-Total-Count", actions.Total.ToString());
+
+            return actions.Data;
         }
 
         #region lists of selects in form
