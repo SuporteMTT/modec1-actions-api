@@ -38,6 +38,7 @@ namespace Actions.Core.Domain.Deviations.Entities
             Category = category;
             CreatedById = createById;
             MetadataType = metadataType;
+            Priority = priority;
             MetadataId = metadataId;
             CreatedDate = createdDate;
             AssociatedRiskId = associatedRiskId;

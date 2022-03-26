@@ -39,53 +39,62 @@ namespace Actions.Api.Controllers
         [HttpGet]
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public dynamic GetActionsAsync(
-            [FromQuery] string metadataId = null,
-            [FromQuery] MetadataTypeEnum? metadataType = null
+        public async Task<ICollection<DeviationListDto>> GetActionsAsync(
+            [FromServices] DeviationsQueryHandler handler,
+            [FromQuery] string metadataId,
+            [FromQuery] MetadataTypeEnum metadataType,
+            [FromQuery] int page = 1,
+            [FromQuery] int count = 10
         )
         {
-            return new[]
-            {
-                new {
-                    id = GuidExtensions.GenerateGuid(),
-                    createdDate = DateTime.Now,
-                    priority = PriorityEnum.High.Status(),
-                    name = "Deviation 2 Vestibulum varius volutpat nulla eu mollis.",
-                    cause = "cause text sample",
-                    notInitiated = 5,
-                    onGoing = 2,
-                    concluded = 3,
-                    delayed = 4,
-                    status = StatusEnum.Active.Status(),
-                    closedCancelledDate = DateTime.Now,
-                },
-                new {
-                    id = GuidExtensions.GenerateGuid(),
-                    createdDate = DateTime.Now,
-                    priority = PriorityEnum.Medium.Status(),
-                    name = "Deviation 3 Vestibulum varius volutpat nulla eu mollis.​",
-                    cause = "cause text sample",
-                    notInitiated = 4,
-                    onGoing = 1,
-                    concluded = 4,
-                    delayed = 3,
-                    status = StatusEnum.Concluded.Status(),
-                    closedCancelledDate = DateTime.Now,
-                },
-                new {
-                    id = GuidExtensions.GenerateGuid(),
-                    createdDate = DateTime.Now,
-                    priority = PriorityEnum.Low.Status(),
-                    name = "Deviation 4 Vestibulum varius volutpat nulla eu mollis.​",
-                    cause = "cause text sample",
-                    notInitiated = 5,
-                    onGoing = 5,
-                    concluded = 1,
-                    delayed = 3,
-                    status = StatusEnum.Cancelled.Status(),
-                    closedCancelledDate = DateTime.Now,
-                },
-            };
+
+            var deviations = await handler.Handle(new ListDeviationsQuery(metadataId, metadataType, page, count));
+
+            this.Response.Headers.Add("X-Total-Count", deviations.Total.ToString());
+
+            return deviations.Data;
+            // return new[]
+            // {
+            //     new {
+            //         id = GuidExtensions.GenerateGuid(),
+            //         createdDate = DateTime.Now,
+            //         priority = PriorityEnum.High.Status(),
+            //         name = "Deviation 2 Vestibulum varius volutpat nulla eu mollis.",
+            //         cause = "cause text sample",
+            //         notInitiated = 5,
+            //         onGoing = 2,
+            //         concluded = 3,
+            //         delayed = 4,
+            //         status = StatusEnum.Active.Status(),
+            //         closedCancelledDate = DateTime.Now,
+            //     },
+            //     new {
+            //         id = GuidExtensions.GenerateGuid(),
+            //         createdDate = DateTime.Now,
+            //         priority = PriorityEnum.Medium.Status(),
+            //         name = "Deviation 3 Vestibulum varius volutpat nulla eu mollis.​",
+            //         cause = "cause text sample",
+            //         notInitiated = 4,
+            //         onGoing = 1,
+            //         concluded = 4,
+            //         delayed = 3,
+            //         status = StatusEnum.Concluded.Status(),
+            //         closedCancelledDate = DateTime.Now,
+            //     },
+            //     new {
+            //         id = GuidExtensions.GenerateGuid(),
+            //         createdDate = DateTime.Now,
+            //         priority = PriorityEnum.Low.Status(),
+            //         name = "Deviation 4 Vestibulum varius volutpat nulla eu mollis.​",
+            //         cause = "cause text sample",
+            //         notInitiated = 5,
+            //         onGoing = 5,
+            //         concluded = 1,
+            //         delayed = 3,
+            //         status = StatusEnum.Cancelled.Status(),
+            //         closedCancelledDate = DateTime.Now,
+            //     },
+            // };
         }
 
         /// <summary>

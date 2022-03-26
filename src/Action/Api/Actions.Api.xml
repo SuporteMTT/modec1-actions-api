@@ -158,7 +158,7 @@
                  
             </remarks>
         </member>
-        <member name="M:Actions.Api.Controllers.DeviationController.GetActionsAsync(System.String,System.Nullable{Actions.Core.Domain.Shared.Enums.MetadataTypeEnum})">
+        <member name="M:Actions.Api.Controllers.DeviationController.GetActionsAsync(Actions.Core.Domain.Deviations.Handlers.DeviationsQueryHandler,System.String,Actions.Core.Domain.Shared.Enums.MetadataTypeEnum,System.Int32,System.Int32)">
              <summary>
              Retrieve the list of deviation
              </summary>
@@ -227,7 +227,7 @@
                  
             </remarks>
         </member>
-        <member name="M:Actions.Api.Controllers.RiskController.GetAsync(System.String,System.Nullable{Actions.Core.Domain.Shared.Enums.MetadataTypeEnum})">
+        <member name="M:Actions.Api.Controllers.RiskController.GetAsync(Actions.Core.Domain.Risks.Handlers.RisksQueryHandler,System.String,Actions.Core.Domain.Shared.Enums.MetadataTypeEnum,System.Int32,System.Int32)">
              <summary>
              Retrieve the list risks 
              </summary>

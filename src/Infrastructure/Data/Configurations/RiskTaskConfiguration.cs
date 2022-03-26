@@ -14,6 +14,8 @@ namespace Actions.Infrasctructure.Data.Configurations
 
             builder.HasKey(x => new { x.RiskId, x.ProjectTaskId });
 
+            builder.Property(x => x.ProjectTaskId).HasColumnName("TaskId");
+
             builder.HasOne(x => x.Risk).WithMany(x => x.RiskTask).HasForeignKey(x => x.RiskId).IsRequired();
 
             builder.HasOne(x => x.ProjectTask).WithMany(x => x.RiskTask).HasForeignKey(x => x.ProjectTaskId).IsRequired();

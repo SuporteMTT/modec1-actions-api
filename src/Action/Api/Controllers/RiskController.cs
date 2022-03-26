@@ -37,84 +37,19 @@ namespace Actions.Api.Controllers
         [HttpGet]
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public dynamic GetAsync(
-            [FromQuery] string metadataId = null,
-            [FromQuery] MetadataTypeEnum? metadataType = null
+        public async Task<ICollection<RiskListDto>> GetAsync(
+            [FromServices] RisksQueryHandler handler,
+            [FromQuery] string metadataId,
+            [FromQuery] MetadataTypeEnum metadataType,
+            [FromQuery] int page = 1,
+            [FromQuery] int count = 10
         )
         {
-            return new[]
-            {
-                new {
-                    id = "896765e8-4428-444f-aa5f-93024fd8c373",
-                    createdDate = DateTime.Now,
-                    name = "Risk 1",
-                    riskLevel = RiskLevelEnum.High_Risk_High_Impact_X_High_Probability.Status(),
-                    cause = "cause sample text",
-                    owner = "Owner Name",
-                    notInitiated = 5,
-                    onGoing = 2,
-                    concluded = 3,
-                    delayed = 4,
-                    status = StatusEnum.Active.Status(),
-                    closedCancelledDate = DateTime.Now,
-                },
-                new {
-                    id = "1f184b26-34b5-4b6b-8dba-b0ae9116f751",
-                    createdDate = DateTime.Now,
-                    name = "Risk 2",
-                    riskLevel = RiskLevelEnum.High_Risk_High_Impact_X_High_Probability.Status(),
-                    cause = "cause sample text",
-                    owner = "Owner Name",
-                    notInitiated = 2,
-                    onGoing = 1,
-                    concluded = 6,
-                    delayed = 4,
-                    status = StatusEnum.Cancelled.Status(),
-                    closedCancelledDate = DateTime.Now,
-                },
-                new {
-                    id = "b3ba6c94-235c-4500-9868-84f8c3c62539",
-                    createdDate = DateTime.Now,
-                    name = "Risk 3",
-                    riskLevel = RiskLevelEnum.Low_Risk_Medium_Impact_X_Very_Low_Probability.Status(),
-                    cause = "cause sample text",
-                    owner = "Owner Name",
-                    notInitiated = 5,
-                    onGoing = 2,
-                    concluded = 3,
-                    delayed = 4,
-                    status = StatusEnum.Active.Status(),
-                    closedCancelledDate = DateTime.Now,
-                },
-                new {
-                    id = "c5bc25d8-b24b-494c-a20b-92037e3e7271",
-                    createdDate = DateTime.Now,
-                    name = "Risk 4",
-                    riskLevel = RiskLevelEnum.Low_Risk_Medium_Impact_X_Very_Low_Probability.Status(),
-                    cause = "cause sample text",
-                    owner = "Owner Name",
-                    notInitiated = 5,
-                    onGoing = 2,
-                    concluded = 3,
-                    delayed = 4,
-                    status = StatusEnum.Active.Status(),
-                    closedCancelledDate = DateTime.Now,
-                },
-                new {
-                    id = "efe697e1-2ce3-4270-9f06-646c9f0469ec",
-                    createdDate = DateTime.Now,
-                    name = "Risk 5",
-                    riskLevel = RiskLevelEnum.Low_Risk_Medium_Impact_X_Very_Low_Probability.Status(),
-                    cause = "cause sample text",
-                    owner = "Owner Name",
-                    notInitiated = 5,
-                    onGoing = 2,
-                    concluded = 3,
-                    delayed = 4,
-                    status = StatusEnum.Concluded.Status(),
-                    closedCancelledDate = DateTime.Now,
-                }
-            };
+            var risks = await handler.Handle(new ListRisksQuery(metadataId, metadataType, page, count));
+
+            this.Response.Headers.Add("X-Total-Count", risks.Total.ToString());
+
+            return risks.Data;            
         }
 
         /// <summary>

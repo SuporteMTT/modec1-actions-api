@@ -147,14 +147,17 @@ namespace Actions.Core.Domain.Risks.Handlers
                 _riskTaskRepository.Delete(riskTask);
             }
             var listToAdd = tasksIdsDb?.Count() == 0 ? tasksIds : tasksIds.Where(id => !tasksIdsDb.Contains(id));
-            foreach (var taskId in listToAdd)
+            if (listToAdd != null)
             {
-                var projectClient = new RiskTask
+                foreach (var taskId in listToAdd)
                 {
-                    RiskId = riskId,
-                    ProjectTaskId = taskId
-                };
-                _riskTaskRepository.Insert(projectClient);
+                    var projectClient = new RiskTask
+                    {
+                        RiskId = riskId,
+                        ProjectTaskId = taskId
+                    };
+                    _riskTaskRepository.Insert(projectClient);
+                }
             }
         }
     }

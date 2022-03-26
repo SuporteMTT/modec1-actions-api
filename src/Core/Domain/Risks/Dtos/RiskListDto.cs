@@ -11,7 +11,7 @@ namespace Actions.Core.Domain.Risks.Dtos
     public class RiskListDto
     {
         public string Id { get; set; }
-        public DateTime CreateDate { get; set; }
+        public DateTime CreatedDate { get; set; }
         public StatusDTO Level { get; set; }
         public string Name { get; set; }
         public string Cause { get; set; }

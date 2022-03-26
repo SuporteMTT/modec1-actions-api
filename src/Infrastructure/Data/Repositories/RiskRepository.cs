@@ -34,7 +34,7 @@ namespace Actions.Infrastructure.Data.Repositories
                     Data = new RiskListDto()
                     {
                         Id = o.Id,
-                        CreateDate = o.CreatedDate,
+                        CreatedDate = o.CreatedDate,
                         Cause = o.Cause,
                         ClosedCancelledDate = o.ClosedCancelledDate,
                         Name = o.Name,
