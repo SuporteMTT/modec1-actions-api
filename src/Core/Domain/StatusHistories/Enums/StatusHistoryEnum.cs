@@ -18,8 +18,9 @@ namespace Actions.Core.Domain.StatusHistories.Enums
         [Description("Not Initiated")]
         [Color("#a3a5a5")]
         NotInitiated = 11,
+        [Description("On Going")]
         [Color("#486b00")]
-        Started = 12,
+        OnGoing = 12,
         [Color("#c00000")]
         Delayed = 13,
     }

@@ -12,8 +12,8 @@ namespace Actions.Core.Domain.StatusHistories.Helpers
         {
             switch (status)
             {
-                case ActionStatusEnum.Started:
-                    return StatusHistoryEnum.Started;
+                case ActionStatusEnum.OnGoing:
+                    return StatusHistoryEnum.OnGoing;
                 case ActionStatusEnum.NotInitiated:
                     return StatusHistoryEnum.NotInitiated;
                 case ActionStatusEnum.Concluded:

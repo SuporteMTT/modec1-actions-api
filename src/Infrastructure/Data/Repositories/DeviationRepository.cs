@@ -1,4 +1,5 @@
-﻿using Actions.Core.Domain.Departments.Entities;
+﻿using Actions.Core.Domain.Actions.Entities;
+using Actions.Core.Domain.Departments.Entities;
 using Actions.Core.Domain.Deviations.Dtos;
 using Actions.Core.Domain.Deviations.Entities;
 using Actions.Core.Domain.Deviations.Interfaces;
@@ -39,10 +40,10 @@ namespace Actions.Infrastructure.Data.Repositories
                         Name = o.Name,
                         Priority = o.Priority,
                         Status = o.Status.Status(),
-                        NotInitated = null,
-                        OnGoing = null,
-                        Concluded = null,
-                        Delayed = null
+                        NotInitated = context.Set<Action>().Where(x => x.RelatedId == o.Id && x.Status == Core.Domain.Actions.Enums.ActionStatusEnum.NotInitiated).Count(),
+                        OnGoing = context.Set<Action>().Where(x => x.RelatedId == o.Id && x.Status == Core.Domain.Actions.Enums.ActionStatusEnum.OnGoing).Count(),
+                        Concluded = context.Set<Action>().Where(x => x.RelatedId == o.Id && x.Status == Core.Domain.Actions.Enums.ActionStatusEnum.Concluded).Count(),
+                        Delayed = context.Set<Action>().Where(x => x.RelatedId == o.Id && x.Status == Core.Domain.Actions.Enums.ActionStatusEnum.Delayed).Count()
                     },
                     Total = condition.Count()
                 })
