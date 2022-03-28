@@ -15,7 +15,7 @@ namespace Actions.Core.Domain.Deviations.Dtos
         public PriorityEnum Priority { get; set; }
         public string Name { get; set; }
         public string Cause { get; set; }
-        public int? NotInitated { get; set; }
+        public int? NotInitiated { get; set; }
         public int? OnGoing { get; set; }
         public int? Concluded { get; set; }
         public int? Delayed { get; set; }

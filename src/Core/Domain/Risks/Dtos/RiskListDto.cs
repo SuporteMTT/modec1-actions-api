@@ -16,7 +16,7 @@ namespace Actions.Core.Domain.Risks.Dtos
         public string Name { get; set; }
         public string Cause { get; set; }
         public string Owner { get; set; }
-        public int? NotInitated { get; set; }
+        public int? NotInitiated { get; set; }
         public int? OnGoing { get; set; }
         public int? Concluded { get; set; }
         public int? Delayed { get; set; }
