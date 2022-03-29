@@ -43,7 +43,7 @@ namespace Actions.Infrastructure.Data.Repositories
                         Level = o.Level.Status(),
                         Status = o.Status.Status(),
                         
-                        NotInitated = context.Set<Action>().Where(x => x.RelatedId == o.Id && x.Status == Core.Domain.Actions.Enums.ActionStatusEnum.NotInitiated).Count(),
+                        NotInitiated = context.Set<Action>().Where(x => x.RelatedId == o.Id && x.Status == Core.Domain.Actions.Enums.ActionStatusEnum.NotInitiated).Count(),
                         OnGoing = context.Set<Action>().Where(x => x.RelatedId == o.Id && x.Status == Core.Domain.Actions.Enums.ActionStatusEnum.OnGoing).Count(),
                         Concluded = context.Set<Action>().Where(x => x.RelatedId == o.Id && x.Status == Core.Domain.Actions.Enums.ActionStatusEnum.Concluded).Count(),
                         Delayed = context.Set<Action>().Where(x => x.RelatedId == o.Id && x.Status == Core.Domain.Actions.Enums.ActionStatusEnum.Delayed).Count()
