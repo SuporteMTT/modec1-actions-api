@@ -43,46 +43,46 @@ namespace Actions.Core.Domain.Shared.Enums
         [Description("3.2 Strategy")]
         Strategy = 19,
         [Description("3.3 Organizational Structure")]
-        OrganizationalStructure = 19,
+        OrganizationalStructure = 20,
         [Description("3.4 Finances")]
-        Finances = 20,
+        Finances = 21,
         [Description("3.5 Other Projects")]
-        OtherProjects = 21,
+        OtherProjects = 22,
         [Description("3.6 Internal Processes")]
-        InternalProcesses = 22,
+        InternalProcesses = 23,
         [Description("4.1 Customs")]
-        Customs = 23,
+        Customs = 24,
         [Description("4.2 Client")]
-        Client = 24,
+        Client = 25,
         [Description("4.3 Local Community / Society")]
-        LocalCommunitySociety = 25,
+        LocalCommunitySociety = 26,
         [Description("4.4 Competitors")]
-        Competitors = 26,
+        Competitors = 27,
         [Description("4.5 Environmental Conditions")]
-        EnvironmentalConditions = 27,
+        EnvironmentalConditions = 28,
         [Description("4.6 Economy")]
-        Economy = 28,
+        Economy = 29,
         [Description("4.7 Public Events")]
-        PublicEvents = 29,
+        PublicEvents = 30,
         [Description("4.8 Suppliers")]
-        Suppliers = 30,
+        Suppliers = 31,
         [Description("4.9 Laws / Regulations")]
-        LawsRegulations = 31,
+        LawsRegulations = 32,
         [Description("4.10 Market")]
-        Market = 32,
+        Market = 33,
         [Description("4.11 Licensing / Regulatory Bodies")]
-        LicensingRegulatoryBodies = 33,
+        LicensingRegulatoryBodies = 34,
         [Description("4.12 Partnerships")]
-        Partnerships = 34,
+        Partnerships = 35,
         [Description("4.13 Politics")]
-        Politics = 35,
+        Politics = 36,
         [Description("4.14 Labor Unions")]
-        LaborUnions = 36,
+        LaborUnions = 37,
         [Description("4.15 Third Parties")]
-        ThirdParties = 37,
+        ThirdParties = 38,
         [Description("4.16 Taxes")]
-        Taxes = 38,
+        Taxes = 39,
         [Description("4.17 Public Health")]
-        PublicHealth = 39
+        PublicHealth = 40
     }
 }
