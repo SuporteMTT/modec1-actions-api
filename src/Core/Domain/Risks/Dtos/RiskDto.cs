@@ -1,4 +1,5 @@
-﻿using Actions.Core.Domain.Risks.Enums;
+﻿using Actions.Core.Domain.ResponsePlans.Dtos;
+using Actions.Core.Domain.Risks.Enums;
 using Actions.Core.Domain.Shared.Enums;
 using Actions.Core.Domain.Users.Dtos;
 using System;
@@ -28,5 +29,7 @@ namespace Actions.Core.Domain.Risks.Dtos
         public string ClosedCancelledBy { get; set; }
         public RiskJustificationEnum Justification { get; set; }
         public string RealImpact { get; set; }
+        public ICollection<ResponsePlanDto> ResponsePlans { get; set; }
+        
     }
 }

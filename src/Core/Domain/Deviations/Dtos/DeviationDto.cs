@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using Actions.Core.Domain.Deviations.Enums;
+using Actions.Core.Domain.ResponsePlans.Dtos;
 using Actions.Core.Domain.Risks.Dtos;
 using Actions.Core.Domain.Shared.Enums;
 
@@ -20,5 +22,7 @@ namespace Actions.Core.Domain.Deviations.Dtos
         public string CreatedBy { get; set; }
         public DateTime? ClosedCancelledDate { get; set; }
         public string ClosedCancelledBy { get; set; }
+        
+        public ICollection<ResponsePlanDto> ResponsePlans { get; set; }
     }
 }

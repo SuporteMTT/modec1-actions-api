@@ -3,6 +3,8 @@ using Actions.Core.Domain.Departments.Entities;
 using Actions.Core.Domain.Deviations.Dtos;
 using Actions.Core.Domain.Deviations.Entities;
 using Actions.Core.Domain.Deviations.Interfaces;
+using Actions.Core.Domain.ResponsePlans.Dtos;
+using Actions.Core.Domain.ResponsePlans.Entities;
 using Actions.Core.Domain.Shared;
 using Actions.Core.Domain.Shared.Enums;
 using Microsoft.EntityFrameworkCore;
@@ -80,7 +82,30 @@ namespace Actions.Infrastructure.Data.Repositories
                 CreatedDate = deviation.CreatedDate,
                 CreatedBy = deviation.CreatedBy.Name,
                 ClosedCancelledDate = deviation.ClosedCancelledDate,
-                ClosedCancelledBy = deviation.ClosedCancelledBy != null ? deviation.ClosedCancelledBy.Name : null,                                
+                ClosedCancelledBy = deviation.ClosedCancelledBy != null ? deviation.ClosedCancelledBy.Name : null,
+                ResponsePlans = (from responsePlan in context.Set<ResponsePlan>()
+                where responsePlan.MetadataId == deviation.Id
+                select new ResponsePlanDto
+                {
+                    Id = responsePlan.Id,
+                    ActualEndDate = responsePlan.ActualEndDate,
+                    ActualStartDate = responsePlan.ActualStartDate,
+                    ClosedBy = responsePlan.ClosedBy != null ? responsePlan.ClosedBy.Name : null,
+                    ClosedDate = responsePlan.ClosedDate,
+                    Comments = responsePlan.Comments,
+                    Cost = responsePlan.Cost,
+                    CreatedDate = responsePlan.CreatedDate,
+                    Description = responsePlan.ActionDescription,
+                    DueDate = responsePlan.DueDate,
+                    MetadataId = responsePlan.MetadataId,
+                    OriginalDueDate = responsePlan.OriginalDueDate,
+                    Responsible = responsePlan.Responsible != null ? new Core.Domain.Users.Dtos.UserDto
+                    {
+                        Id = responsePlan.Responsible.Id,
+                        Name = responsePlan.Responsible.Name
+                    } : null,
+                    Status = responsePlan.Status.Status()
+                }).ToList()
             }) .FirstOrDefaultAsync();
         }
 

@@ -78,7 +78,40 @@ namespace Actions.Core.Domain.ResponsePlans.Entities
         public string MetadataId { get; set; }
         public DateTime CreatedDate { get; set; }
 
-        public bool HasModified (
+        internal void UpdateData(
+            string actionDescription,
+            string responsibleId,
+            DateTime? dueDate,
+            DateTime? originalDueDate,
+            ActionStatusEnum status,
+            DateTime? actualStartDate,
+            DateTime? actualEndDate,
+            decimal? cost,
+            string comments,
+            string closedById
+        )
+        {
+            if (!OriginalDueDate.HasValue && DueDate != dueDate)
+                OriginalDueDate = DueDate;
+
+            ActionDescription = actionDescription;
+            ResponsibleId = responsibleId;
+            Status = status;
+            DueDate = dueDate;
+            OriginalDueDate = originalDueDate;
+            ActualStartDate = actualStartDate;
+            ActualEndDate = actualEndDate;
+            Cost = cost;
+            Comments = comments;
+
+            if (status == ActionStatusEnum.Concluded && Status != ActionStatusEnum.Concluded)
+            {
+                ClosedDate = DateTime.Now;
+                ClosedById = closedById;
+            }
+        }
+
+        internal bool HasModified (
             string actionDescription,
             string responsibleId,
             DateTime? dueDate,
