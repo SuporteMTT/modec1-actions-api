@@ -90,7 +90,7 @@ namespace Actions.Core.Domain.ResponsePlans.Handlers
                 responsePlan.Cost,
                 responsePlan.Comments,
                 responsePlan.MetadataId,
-                responsePlan.CreatedDate
+                responsePlan.CreatedDate.Value
             );
         }
     }

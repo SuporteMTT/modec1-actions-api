@@ -104,7 +104,8 @@ namespace Actions.Infrastructure.Data.Repositories
                         Id = responsePlan.Responsible.Id,
                         Name = responsePlan.Responsible.Name
                     } : null,
-                    Status = responsePlan.Status.Status()
+                    Status = responsePlan.Status.Status(),
+                    Sync = true
                 }).ToList()
             }) .FirstOrDefaultAsync();
         }

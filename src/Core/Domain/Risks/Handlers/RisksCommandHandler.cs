@@ -99,6 +99,7 @@ namespace Actions.Core.Domain.Risks.Handlers
             if (risk.HasModified(request.Status, request.OwnerId, request.Name, request.Description, request.Cause, request.Impact, request.Category,
                                 request.Level, request.Dimension, request.DimensionDescription, request.ProjectStep, request.Justification, request.RealImpact))
             {
+                var previousStatus = risk.Status;
                 risk.UpdateData(request.Status, request.OwnerId, request.Name, request.Description, request.Cause, request.Impact, request.Category,
                                 request.Level, request.Dimension, request.DimensionDescription, request.ProjectStep, request.Justification, request.RealImpact, _tokenUtil.Id);
                 
@@ -106,7 +107,7 @@ namespace Actions.Core.Domain.Risks.Handlers
 
                 await _repository.SaveChangesAsync();
 
-                if (risk.Status != request.Status)
+                if (previousStatus != request.Status)
                 {
                     await _statusHistoryCommandHandler.Handle(
                         new StatusHistories.Commands.CreateStatusHistoryCommand(

@@ -19,7 +19,8 @@ namespace Actions.Core.Domain.ResponsePlans.Dtos
         public string Comments { get; set; }
         public DateTime? ClosedDate { get; set; }
         public string ClosedBy { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
         public string MetadataId { get; set; }
+        public bool? Sync { get; set; }
     }
 }

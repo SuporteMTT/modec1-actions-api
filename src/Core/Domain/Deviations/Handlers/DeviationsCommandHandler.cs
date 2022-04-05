@@ -84,6 +84,8 @@ namespace Actions.Core.Domain.Deviations.Handlers
             if (deviation.HasModified(request.Name, request.Description, request.Status, request.Category,
                                 request.AssociatedRiskId,request.Cause, request.Priority))
             {
+                var previousStatus = deviation.Status;
+
                 deviation.UpdateData(request.Status, request.Name, request.Description, request.Cause, request.Category,
                                     request.Priority, request.AssociatedRiskId, _tokenUtil.Id);
                 
@@ -91,7 +93,7 @@ namespace Actions.Core.Domain.Deviations.Handlers
 
                 await _repository.SaveChangesAsync();
 
-                if (deviation.Status != request.Status)
+                if (previousStatus != request.Status)
                 {
                     await _statusHistoryCommandHandler.Handle(
                         new StatusHistories.Commands.CreateStatusHistoryCommand(
