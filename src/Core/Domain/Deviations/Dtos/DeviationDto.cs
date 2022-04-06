@@ -24,5 +24,6 @@ namespace Actions.Core.Domain.Deviations.Dtos
         public string ClosedCancelledBy { get; set; }
         
         public ICollection<ResponsePlanDto> ResponsePlans { get; set; }
+        public string CancelledJustification { get; set; }
     }
 }

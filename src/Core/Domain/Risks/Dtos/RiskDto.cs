@@ -30,6 +30,7 @@ namespace Actions.Core.Domain.Risks.Dtos
         public RiskJustificationEnum Justification { get; set; }
         public string RealImpact { get; set; }
         public ICollection<ResponsePlanDto> ResponsePlans { get; set; }
+        public string CancelledJustification { get; set; }
         
     }
 }

@@ -106,7 +106,8 @@ namespace Actions.Infrastructure.Data.Repositories
                     } : null,
                     Status = responsePlan.Status.Status(),
                     Sync = true
-                }).ToList()
+                }).ToList(),
+                CancelledJustification = deviation.CancelledJustification
             }) .FirstOrDefaultAsync();
         }
 
