@@ -87,7 +87,7 @@ namespace Actions.Core.Domain.Deviations.Handlers
                 var previousStatus = deviation.Status;
 
                 deviation.UpdateData(request.Status, request.Name, request.Description, request.Cause, request.Category,
-                                    request.Priority, request.AssociatedRiskId, _tokenUtil.Id);
+                                    request.Priority, request.AssociatedRiskId, _tokenUtil.Id, request.CancelledJustification);
                 
                  _repository.Update(deviation);
 

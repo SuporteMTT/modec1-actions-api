@@ -19,6 +19,7 @@ namespace Actions.Core.Domain.Deviations.Commands
         public MetadataTypeEnum MetadataType { get; set; }
         public string MetadataId { get; set; }
         public ICollection<ResponsePlanDto> ResponsePlans { get; set; }
+        public string CancelledJustification { get; set; }
     }
 
     public class UpdateDeviationCommandValidator : AbstractValidator<UpdateDeviationCommand>

@@ -88,16 +88,18 @@ namespace Actions.Core.Domain.Deviations.Entities
         public string ClosedCancelledById { get; set; }
         public MetadataTypeEnum MetadataType { get; set; }
         public string MetadataId { get; set; }
+        public string CancelledJustification { get; set; }
 
         internal void UpdateData(
             StatusEnum status,
             string name,
             string description,
             string cause,
-            RiskCategoryEnum category,            
+            RiskCategoryEnum category,
             PriorityEnum priority,
             string associatedRiskId,
-            string closedCancelledById
+            string closedCancelledById,
+            string cancelledJustification = null
         )
         {
             Status = status;
@@ -108,6 +110,7 @@ namespace Actions.Core.Domain.Deviations.Entities
             Priority = priority;
             AssociatedRiskId = associatedRiskId;
             ClosedCancelledById = closedCancelledById;
+            CancelledJustification = cancelledJustification;
 
             if ((status == StatusEnum.Concluded || status == StatusEnum.Cancelled) && Status == StatusEnum.Active) 
                 ClosedCancelledDate = DateTime.Now;

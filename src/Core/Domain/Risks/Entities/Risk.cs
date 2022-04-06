@@ -119,6 +119,7 @@ namespace Actions.Core.Domain.Risks.Entities
         public string RealImpact { get; set; }
         public MetadataTypeEnum MetadataType { get; set; }
         public string MetadataId { get; set; }
+        public string CancelledJustification { get; set; }
 
         public ICollection<RiskTask> RiskTask { get; set; }
 
@@ -136,7 +137,8 @@ namespace Actions.Core.Domain.Risks.Entities
             ProjectStepEnum projectStep,
             RiskJustificationEnum justification,
             string realImpact,
-            string closedCancelledById
+            string closedCancelledById,
+            string cancelledJustification = null
         )
         {
             Status = status;
@@ -153,6 +155,7 @@ namespace Actions.Core.Domain.Risks.Entities
             ClosedCancelledById = closedCancelledById;
             Justification = justification;
             RealImpact = realImpact;
+            CancelledJustification = cancelledJustification;
 
             if ((status == StatusEnum.Concluded || status == StatusEnum.Cancelled) && Status == StatusEnum.Active) 
                 ClosedCancelledDate = DateTime.Now;
