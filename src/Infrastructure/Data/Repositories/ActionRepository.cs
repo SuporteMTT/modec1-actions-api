@@ -77,7 +77,8 @@ namespace Actions.Infrastructure.Data.Repositories
                 Cost = action.Cost,               
                 Comments = action.Comments,
                 ClosedDate = action.ClosedDate,
-                ClosedBy = action.ClosedBy != null ? action.ClosedBy.Name : null,                              
+                ClosedBy = action.ClosedBy != null ? action.ClosedBy.Name : null,
+                RelatedId = action.RelatedId
             }) .FirstOrDefaultAsync();
         }
 

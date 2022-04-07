@@ -6,6 +6,7 @@ using Actions.Core.Domain.Risks.Dtos;
 using Actions.Core.Domain.Risks.Entities;
 using Actions.Core.Domain.Risks.Interfaces;
 using Actions.Core.Domain.Shared;
+using Actions.Core.Domain.Shared.Dtos;
 using Actions.Core.Domain.Shared.Enums;
 using Actions.Core.Domain.Users.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -171,6 +172,17 @@ namespace Actions.Infrastructure.Data.Repositories
 
             if (riskToDelete != null && !string.IsNullOrWhiteSpace(riskToDelete.Id))
                 context.Remove(riskToDelete);
+        }
+
+        async Task<ShortObjectDto> IRiskRepository.GetByIdAsync(string id)
+        {
+            return await (from risk in context.Set<Risk>() 
+                            where risk.Id == id
+                            select new ShortObjectDto
+                            {
+                                Id = risk.Id,
+                                Name = $"{risk.Code} {risk.Name}",
+                            }).FirstOrDefaultAsync();
         }
     }
 }

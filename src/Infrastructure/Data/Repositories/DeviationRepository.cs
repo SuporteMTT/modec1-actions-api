@@ -6,6 +6,7 @@ using Actions.Core.Domain.Deviations.Interfaces;
 using Actions.Core.Domain.ResponsePlans.Dtos;
 using Actions.Core.Domain.ResponsePlans.Entities;
 using Actions.Core.Domain.Shared;
+using Actions.Core.Domain.Shared.Dtos;
 using Actions.Core.Domain.Shared.Enums;
 using Microsoft.EntityFrameworkCore;
 using Shared.Core.Domain.Impl.Entity;
@@ -147,6 +148,17 @@ namespace Actions.Infrastructure.Data.Repositories
 
             if (deviationToDelete != null && !string.IsNullOrWhiteSpace(deviationToDelete.Id))
                 context.Remove(deviationToDelete);
+        }
+
+        async Task<ShortObjectDto> IDeviationRepository.GetByIdAsync(string id)
+        {
+            return await (from deviation in context.Set<Deviation>() 
+                            where deviation.Id == id
+                            select new ShortObjectDto
+                            {
+                                Id = deviation.Id,
+                                Name = $"{deviation.Code} {deviation.Name}",
+                            }).FirstOrDefaultAsync();
         }
     }
 }

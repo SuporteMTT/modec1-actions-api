@@ -1,6 +1,7 @@
 ﻿using Actions.Core.Domain.Risks.Dtos;
 using Actions.Core.Domain.Risks.Interfaces;
 using Actions.Core.Domain.Risks.Queries;
+using Actions.Core.Domain.Shared.Dtos;
 using Actions.Core.Domain.Shared.Interfaces.Entities;
 using Shared.Core.Domain.Impl.Validator;
 using Shared.Core.Domain.Interface.Entity;
@@ -44,5 +45,11 @@ namespace Actions.Core.Domain.Risks.Handlers
             return await _repository.GetAsync(query.Search, query.MetadataId);
         }
 
+        public async Task<ShortObjectDto> Handle(GetShortRiskByIdQuery query)
+        {
+            query.ValidateAndThrow();
+
+            return await _repository.GetByIdAsync(query.Id);
+        }
     }
 }

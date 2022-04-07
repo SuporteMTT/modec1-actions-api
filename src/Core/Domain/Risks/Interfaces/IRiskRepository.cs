@@ -1,6 +1,7 @@
 ﻿
 using Actions.Core.Domain.Risks.Dtos;
 using Actions.Core.Domain.Risks.Entities;
+using Actions.Core.Domain.Shared.Dtos;
 using Actions.Core.Domain.Shared.Enums;
 using Actions.Core.Domain.Shared.Interfaces;
 using Shared.Core.Domain.Interface.Entity;
@@ -24,5 +25,6 @@ namespace Actions.Core.Domain.Risks.Interfaces
         Task<ICollection<RiskAutocompleteDto>> GetAsync(string search, string metadataId);
         Task<Risk> GetAsNoTrackingAsync(Expression<System.Func<Risk, bool>> expression);
         Task DeleteById(string id);
+        Task<ShortObjectDto> GetByIdAsync(string id);
     }
 }
