@@ -73,7 +73,7 @@ namespace Actions.Core.Domain.Actions.Handlers
             var action = await _repository.GetAsNoTrackingAsync(x => x.Id == request.Id);
 
             if (action.HasModified(request.Description, request.ResponsibleId, request.DueDate, request.Status, request.ActualStartDate,
-                                request.ActualEndDate,request.Coments, request.RelatedId, request.Cost))
+                                request.ActualEndDate,request.Comments, request.RelatedId, request.Cost))
             {
                 if (action.Status != request.Status)
                 {
@@ -87,7 +87,7 @@ namespace Actions.Core.Domain.Actions.Handlers
                 }
 
                 action.UpdateData(request.Description, request.ResponsibleId, request.DueDate, request.Status, request.ActualStartDate,
-                                request.ActualEndDate,request.Coments, _tokenUtil.Id, request.RelatedId, request.Cost);
+                                request.ActualEndDate,request.Comments, _tokenUtil.Id, request.RelatedId, request.Cost);
                 
                  _repository.Update(action);
 
