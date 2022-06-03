@@ -77,6 +77,17 @@ namespace Actions.Core.Domain.Actions.Handlers
             {
                 if (action.Status != request.Status)
                 {
+                    if (request.Status == Enums.ActionStatusEnum.Concluded)
+                    {
+                        action.ClosedDate = System.DateTime.Now;
+                        action.ClosedById = request.ResponsibleId;
+
+                    }
+                    else
+                    {
+                        action.ClosedDate = null;
+                        action.ClosedById = null;
+                    }
                     await _statusHistoryCommandHandler.Handle(
                         new StatusHistories.Commands.CreateStatusHistoryCommand(
                             System.DateTime.Now, 
