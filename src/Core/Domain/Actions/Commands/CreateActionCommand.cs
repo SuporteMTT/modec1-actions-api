@@ -16,7 +16,7 @@ namespace Actions.Core.Domain.Actions.Commands
         public DateTime? ActualStartDate { get; set; }
         public DateTime? ActualEndDate { get; set; }
         public decimal? Cost { get; set; }
-        public string Coments { get; set; }
+        public string Comments { get; set; }
         public MetadataTypeEnum MetadataType { get; set; }
         public string MetadataId { get; set; }
   }

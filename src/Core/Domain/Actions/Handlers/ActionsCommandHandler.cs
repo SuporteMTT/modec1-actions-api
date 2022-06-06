@@ -40,7 +40,7 @@ namespace Actions.Core.Domain.Actions.Handlers
                 request.Status,
                 request.ActualStartDate,
                 request.ActualEndDate,
-                request.Coments,
+                request.Comments,
                 request.MetadataType,
                 request.MetadataId,
                 request.RelatedId,

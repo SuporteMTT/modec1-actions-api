@@ -5,6 +5,7 @@ using Actions.Core.Domain.ResponsePlans.Entities;
 using Actions.Core.Domain.ResponsePlans.Interfaces;
 using System.Linq;
 using Actions.Core.Domain.Shared;
+using Microsoft.EntityFrameworkCore;
 
 namespace Actions.Infrastructure.Data.Repositories
 {
@@ -18,7 +19,7 @@ namespace Actions.Infrastructure.Data.Repositories
 
         public IEnumerable<ResponsePlanDto> GetByMetadataId(string metadataId)
         {
-            return (from responsePlan in _context.Set<ResponsePlan>()
+            return (from responsePlan in _context.Set<ResponsePlan>().AsNoTracking()
                 where responsePlan.MetadataId == metadataId
                 select new ResponsePlanDto
                 {
