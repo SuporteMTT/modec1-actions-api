@@ -11,7 +11,7 @@ namespace Actions.Core.Domain.Actions.Enums
         [Description("On Going")]
         [Color("#486b00")]
         OnGoing = 2,
-        [Color("#203d57")]
+        [Color("#44ca42")]
         Concluded = 4,
         [Color("#c00000")]
         Delayed = 3,
