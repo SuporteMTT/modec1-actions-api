@@ -38,6 +38,7 @@ namespace Actions.Core.Domain.ResponsePlans.Handlers
                             responsePlan.Description, 
                             responsePlan.Responsible.Id, 
                             responsePlan.DueDate,
+                            responsePlan.DueDate,
                             (ActionStatusEnum)responsePlan.Status.Id,
                             responsePlan.ActualStartDate,
                             responsePlan.ActualEndDate,
