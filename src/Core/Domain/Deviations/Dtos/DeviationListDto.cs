@@ -1,10 +1,5 @@
-﻿using Actions.Core.Domain.Deviations.Enums;
-using Actions.Core.Domain.Shared.Dtos;
+﻿using Actions.Core.Domain.Shared.Dtos;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Actions.Core.Domain.Deviations.Dtos
 {
@@ -12,7 +7,7 @@ namespace Actions.Core.Domain.Deviations.Dtos
     {
         public string Id { get; set; }
         public DateTime CreatedDate { get; set; }
-        public PriorityEnum Priority { get; set; }
+        public PriorityDTO Priority { get; set; }
         public string Name { get; set; }
         public string Cause { get; set; }
         public int? NotInitiated { get; set; }
