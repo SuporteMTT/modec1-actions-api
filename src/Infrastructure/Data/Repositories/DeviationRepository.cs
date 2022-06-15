@@ -43,10 +43,10 @@ namespace Actions.Infrastructure.Data.Repositories
                         Name = o.Name,
                         Priority = o.Priority.Priority(),
                         Status = o.Status.Status(),
-                        NotInitiated = context.Set<Action>().Where(x => x.RelatedId == o.Id && x.Status == Core.Domain.Actions.Enums.ActionStatusEnum.NotInitiated).Count(),
-                        OnGoing = context.Set<Action>().Where(x => x.RelatedId == o.Id && x.Status == Core.Domain.Actions.Enums.ActionStatusEnum.OnGoing).Count(),
-                        Concluded = context.Set<Action>().Where(x => x.RelatedId == o.Id && x.Status == Core.Domain.Actions.Enums.ActionStatusEnum.Concluded).Count(),
-                        Delayed = context.Set<Action>().Where(x => x.RelatedId == o.Id && x.Status == Core.Domain.Actions.Enums.ActionStatusEnum.Delayed).Count()
+                        NotInitiated = context.Set<ResponsePlan>().Where(x => x.MetadataId == o.Id && x.Status == Core.Domain.Actions.Enums.ActionStatusEnum.NotInitiated).Count(),
+                        OnGoing = context.Set<ResponsePlan>().Where(x => x.MetadataId == o.Id && x.Status == Core.Domain.Actions.Enums.ActionStatusEnum.OnGoing).Count(),
+                        Concluded = context.Set<ResponsePlan>().Where(x => x.MetadataId == o.Id && x.Status == Core.Domain.Actions.Enums.ActionStatusEnum.Concluded).Count(),
+                        Delayed = context.Set<ResponsePlan>().Where(x => x.MetadataId == o.Id && x.Status == Core.Domain.Actions.Enums.ActionStatusEnum.Delayed).Count()
                     },
                     Total = condition.Count()
                 })
