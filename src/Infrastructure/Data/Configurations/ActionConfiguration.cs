@@ -21,7 +21,7 @@ namespace Actions.Infrastructure.Data.Configurations
 
             builder.HasOne(x => x.Responsible).WithMany().HasForeignKey(x => x.ResponsibleId);
 
-            builder.Property(x => x.ActualStartDate).IsRequired();
+            builder.Property(x => x.ActualStartDate);
             builder.Property(x => x.ActualEndDate);
 
             builder.Property(x => x.Cost);
