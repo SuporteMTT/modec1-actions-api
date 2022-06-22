@@ -5,7 +5,6 @@ using Actions.Core.Domain.Actions.Handlers;
 using Actions.Core.Domain.Actions.Queries;
 using Actions.Core.Domain.Deviations.Enums;
 using Actions.Core.Domain.Risks.Enums;
-using Actions.Core.Domain.Shared;
 using Actions.Core.Domain.Shared.Dtos;
 using Actions.Core.Domain.Shared.Enums;
 using Microsoft.AspNetCore.Authorization;
@@ -14,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Shared.CrossCutting.Tools;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Actions.Api.Controllers
@@ -71,7 +71,12 @@ namespace Actions.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public dynamic GetActionStatus()
         {
-            return EnumExtensions.ToJson<ActionStatusEnum>();
+            return Enum.GetValues(typeof(ActionStatusEnum))
+                .Cast<Enum>()
+                .Select(item => EnumExtensions.GetAttibutesDetails(item))
+                .OrderBy(x => x.order)
+                .ToList()
+                ;
         }
 
         /// <summary>
@@ -90,7 +95,12 @@ namespace Actions.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public dynamic GetStatus()
         {
-            return EnumExtensions.ToJson<StatusEnum>();
+            return Enum.GetValues(typeof(StatusEnum))
+                .Cast<Enum>()
+                .Select(item => EnumExtensions.GetAttibutesDetails(item))
+                .OrderBy(x => x.order)
+                .ToList()
+                ;
         }
 
         /// <summary>
@@ -147,7 +157,12 @@ namespace Actions.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public dynamic GetProjectStep()
         {
-            return EnumExtensions.ToJson<ProjectStepEnum>();
+            return Enum.GetValues(typeof(ProjectStepEnum))
+                .Cast<Enum>()
+                .Select(item => EnumExtensions.GetAttibutesDetails(item))
+                .OrderBy(x => x.order)
+                .ToList()
+                ;
         }
 
         /// <summary>
@@ -166,7 +181,12 @@ namespace Actions.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public dynamic GetDimension()
         {
-            return EnumExtensions.ToJson<DimensionEnum>();
+            return Enum.GetValues(typeof(DimensionEnum))
+                .Cast<Enum>()
+                .Select(item => EnumExtensions.GetAttibutesDetails(item))
+                .OrderBy(x => x.order)
+                .ToList()
+                ;
         }
         #endregion
 
