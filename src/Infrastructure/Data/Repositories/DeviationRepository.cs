@@ -27,7 +27,7 @@ namespace Actions.Infrastructure.Data.Repositories
             int? page,
             int? count)
         {
-            var condition = context.Set<Deviation>()
+            var condition = context.Set<Deviation>().Include(x => x.CreatedBy).AsNoTracking()
                 .Where(x => x.MetadataId == metadataId && x.MetadataType == metadataType);
 
             var results = await condition
@@ -46,7 +46,8 @@ namespace Actions.Infrastructure.Data.Repositories
                         NotInitiated = context.Set<ResponsePlan>().Where(x => x.MetadataId == o.Id && x.Status == Core.Domain.Actions.Enums.ActionStatusEnum.NotInitiated).Count(),
                         OnGoing = context.Set<ResponsePlan>().Where(x => x.MetadataId == o.Id && x.Status == Core.Domain.Actions.Enums.ActionStatusEnum.OnGoing).Count(),
                         Concluded = context.Set<ResponsePlan>().Where(x => x.MetadataId == o.Id && x.Status == Core.Domain.Actions.Enums.ActionStatusEnum.Concluded).Count(),
-                        Delayed = context.Set<ResponsePlan>().Where(x => x.MetadataId == o.Id && x.Status == Core.Domain.Actions.Enums.ActionStatusEnum.Delayed).Count()
+                        Delayed = context.Set<ResponsePlan>().Where(x => x.MetadataId == o.Id && x.Status == Core.Domain.Actions.Enums.ActionStatusEnum.Delayed).Count(),
+                        Responsible = o.CreatedBy
                     },
                     Total = condition.Count()
                 })

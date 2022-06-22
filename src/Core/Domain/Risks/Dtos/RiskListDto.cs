@@ -1,10 +1,7 @@
-﻿using Actions.Core.Domain.Shared.Dtos;
-using Actions.Core.Domain.Shared.Enums;
+﻿using Actions.Core.Domain.ResponsePlans.Entities;
+using Actions.Core.Domain.Shared.Dtos;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Actions.Core.Domain.Risks.Dtos
 {
@@ -22,5 +19,6 @@ namespace Actions.Core.Domain.Risks.Dtos
         public int? Delayed { get; set; }
         public StatusDTO Status { get; set; }
         public DateTime? ClosedCancelledDate { get; set; }
+        public List<ResponsePlan> ResponsePlans { get; set; }
     }
 }
