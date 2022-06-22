@@ -119,7 +119,12 @@ namespace Actions.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public dynamic GetRiskCategory()
         {
-            return EnumExtensions.ToJson<RiskCategoryEnum>();
+            return Enum.GetValues(typeof(RiskCategoryEnum))
+               .Cast<Enum>()
+               .Select(item => EnumExtensions.GetAttibutesDetails(item))
+               .OrderBy(x => x.order)
+               .ToList()
+               ;
         }
 
         /// <summary>
