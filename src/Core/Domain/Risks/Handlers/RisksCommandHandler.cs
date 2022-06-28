@@ -1,6 +1,9 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Actions.Core.Domain.Actions.Commands;
+using Actions.Core.Domain.Actions.Enums;
+using Actions.Core.Domain.Actions.Handlers;
 using Actions.Core.Domain.ResponsePlans.Handlers;
 using Actions.Core.Domain.Risks.Commands;
 using Actions.Core.Domain.Risks.Dtos;
@@ -20,13 +23,14 @@ namespace Actions.Core.Domain.Risks.Handlers
         private readonly IRiskTaskRepository _riskTaskRepository;
         private readonly StatusHistoriesCommandHandler _statusHistoryCommandHandler;
         private readonly ResponsePlansCommandHandler _responsePlansCommandHandler;
-
+        private readonly ActionsCommandHandler _actionsCommandHandler;
         public RisksCommandHandler(
             IRiskRepository repository,
             IRiskTaskRepository riskTaskRepository,
             ITokenUtil tokenUtil,
             StatusHistoriesCommandHandler statusHistoryCommandHandler,
-            ResponsePlansCommandHandler responsePlansCommandHandler
+            ResponsePlansCommandHandler responsePlansCommandHandler,
+            ActionsCommandHandler actionsCommandHandler
         )
         {
             _tokenUtil = tokenUtil;
@@ -34,6 +38,7 @@ namespace Actions.Core.Domain.Risks.Handlers
             _riskTaskRepository = riskTaskRepository;
             _statusHistoryCommandHandler = statusHistoryCommandHandler;
             _responsePlansCommandHandler = responsePlansCommandHandler;
+            _actionsCommandHandler = actionsCommandHandler;
         }
 
         public async Task<RiskDto> Handle(CreateRiskCommand request)
@@ -70,7 +75,16 @@ namespace Actions.Core.Domain.Risks.Handlers
             if (request.MetadataType == Shared.Enums.MetadataTypeEnum.Project)
                 await ManagerTasks(risk.Id, request.AssociatedTaskIds);
 
-            _responsePlansCommandHandler.Handle(new ResponsePlans.Commands.ProcessListResponsePlan(risk.Id, request.ResponsePlans));
+            foreach (var responsePlan in request.ResponsePlans)
+            {
+                await _actionsCommandHandler.Handle(
+                                            new CreateActionCommand(risk.Id, responsePlan.Description, responsePlan.Responsible?.Id,
+                                                responsePlan.DueDate, (ActionStatusEnum)responsePlan.Status.Id, responsePlan.ActualStartDate, responsePlan.ActualEndDate,
+                                                responsePlan.Cost, responsePlan.Comments, request.MetadataType, risk.Id)
+                                            );
+            }
+
+            //_responsePlansCommandHandler.Handle(new ResponsePlans.Commands.ProcessListResponsePlan(risk.Id, request.ResponsePlans));
             
             await _repository.SaveChangesAsync();
 
@@ -119,7 +133,16 @@ namespace Actions.Core.Domain.Risks.Handlers
                 }
             }
 
-            _responsePlansCommandHandler.Handle(new ResponsePlans.Commands.ProcessListResponsePlan(risk.Id, request.ResponsePlans));
+            foreach (var responsePlan in request.ResponsePlans)
+            {
+                await _actionsCommandHandler.Handle(
+                                            new UpdateActionCommand(responsePlan.Id, risk.Id, responsePlan.Description, responsePlan.Responsible?.Id,
+                                                responsePlan.DueDate.Value, (ActionStatusEnum)responsePlan.Status.Id, responsePlan.ActualStartDate, responsePlan.ActualEndDate,
+                                                responsePlan.Cost, responsePlan.Comments)
+                                            );
+            }
+
+            //_responsePlansCommandHandler.Handle(new ResponsePlans.Commands.ProcessListResponsePlan(risk.Id, request.ResponsePlans));
 
             await _repository.SaveChangesAsync();
         }

@@ -17,7 +17,31 @@ namespace Actions.Core.Domain.Actions.Commands
         public DateTime? ActualEndDate { get; set; }
         public decimal? Cost { get; set; }
         public string Comments { get; set; }
-  }
+
+        public UpdateActionCommand(
+            string id,
+            string relatedId,
+            string description,
+            string responsibleId,
+            DateTime dueDate,
+            ActionStatusEnum status,
+            DateTime? actualStartDate,
+            DateTime? actualEndDate,
+            decimal? cost,
+            string comments)
+        {
+            Id = id;
+            RelatedId = relatedId;
+            Description = description;
+            ResponsibleId = responsibleId;
+            DueDate = dueDate;
+            Status = status;
+            ActualStartDate = actualStartDate;
+            ActualEndDate = actualEndDate;
+            Cost = cost;
+            Comments = comments;
+        }
+    }
 
     public class UpdateActionCommandValidator : AbstractValidator<UpdateActionCommand>
     {

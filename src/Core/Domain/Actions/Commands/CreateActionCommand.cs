@@ -11,7 +11,7 @@ namespace Actions.Core.Domain.Actions.Commands
         public string RelatedId { get; set; }
         public string Description { get; set; }
         public string ResponsibleId { get; set; }
-        public DateTime DueDate { get; set; }
+        public DateTime? DueDate { get; set; }
         public ActionStatusEnum Status { get; set; }
         public DateTime? ActualStartDate { get; set; }
         public DateTime? ActualEndDate { get; set; }
@@ -19,6 +19,32 @@ namespace Actions.Core.Domain.Actions.Commands
         public string Comments { get; set; }
         public MetadataTypeEnum MetadataType { get; set; }
         public string MetadataId { get; set; }
+
+        public CreateActionCommand(
+            string relatedId,
+            string description,
+            string responsibleId,
+            DateTime? dueDate,
+            ActionStatusEnum status,
+            DateTime? actualStartDate,
+            DateTime? actualEndDate,
+            decimal? cost,
+            string comments,
+            MetadataTypeEnum metadataType,
+            string metadataId) 
+        {
+            RelatedId = relatedId;
+            Description = description;
+            ResponsibleId = responsibleId;
+            DueDate = dueDate;
+            Status = status;
+            ActualStartDate = actualStartDate;
+            ActualEndDate = actualEndDate;
+            Cost = cost;
+            Comments = comments;
+            MetadataType = metadataType;
+            MetadataId = metadataId;
+        }
   }
 
     public class CreateActionCommandValidator : AbstractValidator<CreateActionCommand>

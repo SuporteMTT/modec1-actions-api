@@ -85,7 +85,7 @@ namespace Actions.Infrastructure.Data.Repositories
                 CreatedBy = deviation.CreatedBy.Name,
                 ClosedCancelledDate = deviation.ClosedCancelledDate,
                 ClosedCancelledBy = deviation.ClosedCancelledBy != null ? deviation.ClosedCancelledBy.Name : null,
-                ResponsePlans = (from responsePlan in context.Set<ResponsePlan>()
+                ResponsePlans = (from responsePlan in context.Set<Action>()
                 where responsePlan.MetadataId == deviation.Id
                 select new ResponsePlanDto
                 {
@@ -97,7 +97,7 @@ namespace Actions.Infrastructure.Data.Repositories
                     Comments = responsePlan.Comments,
                     Cost = responsePlan.Cost,
                     CreatedDate = responsePlan.CreatedDate,
-                    Description = responsePlan.ActionDescription,
+                    Description = responsePlan.Description,
                     DueDate = responsePlan.DueDate,
                     MetadataId = responsePlan.MetadataId,
                     OriginalDueDate = responsePlan.OriginalDueDate,

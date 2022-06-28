@@ -26,8 +26,17 @@ namespace Actions.Infrastructure.Data.Repositories
             int? page,
             int? count)
         {
+            var deviationsIds = await (from deviation in context.Set<Deviation>().AsNoTracking().Where(r => r.MetadataId == metadataId)
+                                       select deviation.Id).ToArrayAsync();
+
+            var risksIds = await (from risk in context.Set<Risk>().AsNoTracking().Where(r => r.MetadataId == metadataId)
+                                  select risk.Id).ToArrayAsync();
+
             var condition = context.Set<Core.Domain.Actions.Entities.Action>()
-                .Where(x => x.MetadataId == metadataId && x.MetadataType == metadataType);
+                .Where(x => (x.MetadataId == metadataId ||
+                            deviationsIds.Contains(x.MetadataId) ||
+                            risksIds.Contains(x.MetadataId)) &&
+                            x.MetadataType == metadataType);
 
             var results = await condition
                 .OrderBy(r => r.DueDate)

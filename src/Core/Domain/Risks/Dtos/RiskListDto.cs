@@ -19,6 +19,6 @@ namespace Actions.Core.Domain.Risks.Dtos
         public int? Delayed { get; set; }
         public StatusDTO Status { get; set; }
         public DateTime? ClosedCancelledDate { get; set; }
-        public List<ResponsePlan> ResponsePlans { get; set; }
+        public List<Actions.Entities.Action> ResponsePlans { get; set; }
     }
 }

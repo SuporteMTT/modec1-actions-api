@@ -36,7 +36,7 @@ namespace Actions.Core.Domain.Actions.Handlers
             var action = new Core.Domain.Actions.Entities.Action(
                 request.Description,
                 request.ResponsibleId,
-                request.DueDate,
+                request.DueDate.Value,
                 request.Status,
                 request.ActualStartDate,
                 request.ActualEndDate,
