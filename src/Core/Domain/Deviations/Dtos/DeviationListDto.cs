@@ -1,6 +1,7 @@
 ﻿using Actions.Core.Domain.Shared.Dtos;
 using Actions.Core.Domain.Users.Entities;
 using System;
+using System.Collections.Generic;
 
 namespace Actions.Core.Domain.Deviations.Dtos
 {
@@ -18,5 +19,6 @@ namespace Actions.Core.Domain.Deviations.Dtos
         public StatusDTO Status { get; set; }
         public DateTime? ClosedCancelledDate { get; set; }
         public User Responsible { get; set; }
+        public List<Actions.Entities.Action> ResponsePlans { get; set; }
     }
 }

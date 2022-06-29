@@ -91,7 +91,7 @@ namespace Actions.Infrastructure.Data.Repositories
                 ClosedCancelledBy = risk.ClosedCancelledBy != null ? risk.ClosedCancelledBy.Name : null,
                 Justification = risk.Justification,
                 RealImpact = risk.RealImpact,
-                ResponsePlans = (from responsePlan in context.Set<ResponsePlan>()
+                ResponsePlans = (from responsePlan in context.Set<Action>()
                 where responsePlan.MetadataId == risk.Id
                 select new ResponsePlanDto
                 {
@@ -103,7 +103,7 @@ namespace Actions.Infrastructure.Data.Repositories
                     Comments = responsePlan.Comments,
                     Cost = responsePlan.Cost,
                     CreatedDate = responsePlan.CreatedDate,
-                    Description = responsePlan.ActionDescription,
+                    Description = responsePlan.Description,
                     DueDate = responsePlan.DueDate,
                     MetadataId = responsePlan.MetadataId,
                     OriginalDueDate = responsePlan.OriginalDueDate,
