@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Actions.Core.Domain.Actions.Commands;
 using Actions.Core.Domain.Actions.Enums;
 using Actions.Core.Domain.Actions.Handlers;
+using Actions.Core.Domain.Actions.Queries;
 using Actions.Core.Domain.ResponsePlans.Handlers;
 using Actions.Core.Domain.Risks.Commands;
 using Actions.Core.Domain.Risks.Dtos;
@@ -24,13 +25,15 @@ namespace Actions.Core.Domain.Risks.Handlers
         private readonly StatusHistoriesCommandHandler _statusHistoryCommandHandler;
         private readonly ResponsePlansCommandHandler _responsePlansCommandHandler;
         private readonly ActionsCommandHandler _actionsCommandHandler;
+        private readonly ActionsQueryHandler _actionsQueryHandler;
         public RisksCommandHandler(
             IRiskRepository repository,
             IRiskTaskRepository riskTaskRepository,
             ITokenUtil tokenUtil,
             StatusHistoriesCommandHandler statusHistoryCommandHandler,
             ResponsePlansCommandHandler responsePlansCommandHandler,
-            ActionsCommandHandler actionsCommandHandler
+            ActionsCommandHandler actionsCommandHandler,
+            ActionsQueryHandler actionsQueryHandler
         )
         {
             _tokenUtil = tokenUtil;
@@ -39,6 +42,7 @@ namespace Actions.Core.Domain.Risks.Handlers
             _statusHistoryCommandHandler = statusHistoryCommandHandler;
             _responsePlansCommandHandler = responsePlansCommandHandler;
             _actionsCommandHandler = actionsCommandHandler;
+            _actionsQueryHandler = actionsQueryHandler;
         }
 
         public async Task<RiskDto> Handle(CreateRiskCommand request)
@@ -133,16 +137,23 @@ namespace Actions.Core.Domain.Risks.Handlers
                 }
             }
 
-            foreach (var responsePlan in request.ResponsePlans)
+            var existingActions = await _actionsQueryHandler.Handle(new GetActionByMetadataIdQuery(risk.Id));
+            var toAdd = request.ResponsePlans.Where(x => !(existingActions.Where(y => y.Id == x.Id).Count() > 0));
+            var toUpdate = request.ResponsePlans.Where(x => existingActions.Where(y => y.Id == x.Id).Count() > 0);
+
+            foreach (var responsePlan in toUpdate)
             {
-                await _actionsCommandHandler.Handle(
-                                            new UpdateActionCommand(responsePlan.Id, risk.Id, responsePlan.Description, responsePlan.Responsible?.Id,
+                await _actionsCommandHandler.Handle(new UpdateActionCommand(responsePlan.Id, risk.Id, responsePlan.Description, responsePlan.Responsible?.Id,
                                                 responsePlan.DueDate.Value, (ActionStatusEnum)responsePlan.Status.Id, responsePlan.ActualStartDate, responsePlan.ActualEndDate,
-                                                responsePlan.Cost, responsePlan.Comments)
-                                            );
+                                                responsePlan.Cost, responsePlan.Comments));
             }
 
-            //_responsePlansCommandHandler.Handle(new ResponsePlans.Commands.ProcessListResponsePlan(risk.Id, request.ResponsePlans));
+            foreach (var responsePlan in toAdd)
+            {
+                await _actionsCommandHandler.Handle(new CreateActionCommand(risk.Id, responsePlan.Description, responsePlan.Responsible?.Id,
+                                               responsePlan.DueDate, (ActionStatusEnum)responsePlan.Status.Id, responsePlan.ActualStartDate, responsePlan.ActualEndDate,
+                                               responsePlan.Cost, responsePlan.Comments, request.MetadataType, risk.Id));
+            }
 
             await _repository.SaveChangesAsync();
         }

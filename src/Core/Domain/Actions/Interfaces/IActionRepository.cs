@@ -22,5 +22,6 @@ namespace Actions.Core.Domain.Actions.Interfaces
         Task<ICollection<ShortObjectDto>> GetAsync(string search, string metadataId);
         Task<Action> GetAsNoTrackingAsync(Expression<System.Func<Action, bool>> expression);
         Task DeleteById(string id);
+        Task<ICollection<ActionDto>> GetByMetadataId(string metadataId);
     }
 }

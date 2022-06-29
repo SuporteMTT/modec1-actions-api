@@ -64,5 +64,14 @@ namespace Actions.Core.Domain.Actions.Handlers
 
             return await _repository.GetAsync(query.Search, query.MetadataId);
         }
+
+        public async Task<ICollection<ActionDto>> Handle(GetActionByMetadataIdQuery query)
+        {
+            query.ValidateAndThrow();
+
+            var action = await _repository.GetByMetadataId(query.MetadataId);
+
+            return action;
+        }
     }
 }

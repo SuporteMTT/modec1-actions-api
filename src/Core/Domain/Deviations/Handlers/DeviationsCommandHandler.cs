@@ -1,8 +1,10 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Actions.Core.Domain.Actions.Commands;
 using Actions.Core.Domain.Actions.Enums;
 using Actions.Core.Domain.Actions.Handlers;
+using Actions.Core.Domain.Actions.Queries;
 using Actions.Core.Domain.Deviations.Commands;
 using Actions.Core.Domain.Deviations.Dtos;
 using Actions.Core.Domain.Deviations.Entities;
@@ -22,6 +24,7 @@ namespace Actions.Core.Domain.Deviations.Handlers
         private readonly StatusHistoriesCommandHandler _statusHistoryCommandHandler;
         private readonly ResponsePlansCommandHandler _responsePlansCommandHandler;
         private readonly ActionsCommandHandler _actionsCommandHandler;
+        private readonly ActionsQueryHandler _actionsQueryHandler;
 
         public DeviationsCommandHandler
         (
@@ -29,7 +32,8 @@ namespace Actions.Core.Domain.Deviations.Handlers
             ITokenUtil tokenUtil,
             StatusHistoriesCommandHandler statusHistoryCommandHandler,
             ResponsePlansCommandHandler responsePlansCommandHandler,
-            ActionsCommandHandler actionsCommandHandler
+            ActionsCommandHandler actionsCommandHandler,
+            ActionsQueryHandler actionsQueryHandler
         )
         {
             _tokenUtil = tokenUtil;
@@ -37,6 +41,7 @@ namespace Actions.Core.Domain.Deviations.Handlers
             _statusHistoryCommandHandler = statusHistoryCommandHandler;
             _responsePlansCommandHandler = responsePlansCommandHandler;
             _actionsCommandHandler = actionsCommandHandler;
+            _actionsQueryHandler = actionsQueryHandler;
         }
 
         public async Task<DeviationDto> Handle(CreateDeviationCommand request)
@@ -67,12 +72,10 @@ namespace Actions.Core.Domain.Deviations.Handlers
             foreach(var responsePlan in request.ResponsePlans){
                 await _actionsCommandHandler.Handle(
                                             new CreateActionCommand(deviation.Id, responsePlan.Description, responsePlan.Responsible?.Id,
-                                                responsePlan.DueDate, (ActionStatusEnum)responsePlan.Status.Id, responsePlan.ActualStartDate, responsePlan.ActualEndDate,
+                                                responsePlan.DueDate, (ActionStatusEnum)responsePlan.Status, responsePlan.ActualStartDate, responsePlan.ActualEndDate,
                                                 responsePlan.Cost, responsePlan.Comments, request.MetadataType, deviation.Id)
                                             );
             }
-
-            //_responsePlansCommandHandler.Handle(new ResponsePlans.Commands.ProcessListResponsePlan(deviation.Id, request.ResponsePlans));
             
             await _repository.SaveChangesAsync();
 
@@ -105,8 +108,6 @@ namespace Actions.Core.Domain.Deviations.Handlers
                 
                  _repository.Update(deviation);
 
-                
-
                 await _repository.SaveChangesAsync();
 
                 if (previousStatus != request.Status)
@@ -121,16 +122,23 @@ namespace Actions.Core.Domain.Deviations.Handlers
                 }
             }
 
-            foreach (var responsePlan in request.ResponsePlans)
+            var existingActions = await _actionsQueryHandler.Handle(new GetActionByMetadataIdQuery(deviation.Id));
+            var toAdd = request.ResponsePlans.Where(x => !(existingActions.Where(y => y.Id == x.Id).Count() > 0));
+            var toUpdate = request.ResponsePlans.Where(x => existingActions.Where(y => y.Id == x.Id).Count() > 0);
+
+            foreach (var responsePlan in toUpdate)
             {
-                await _actionsCommandHandler.Handle(
-                                            new UpdateActionCommand(responsePlan.Id, deviation.Id, responsePlan.Description, responsePlan.Responsible?.Id,
+                await _actionsCommandHandler.Handle(new UpdateActionCommand(responsePlan.Id, deviation.Id, responsePlan.Description, responsePlan.Responsible?.Id,
                                                 responsePlan.DueDate.Value, (ActionStatusEnum)responsePlan.Status.Id, responsePlan.ActualStartDate, responsePlan.ActualEndDate,
-                                                responsePlan.Cost, responsePlan.Comments)
-                                            );
+                                                responsePlan.Cost, responsePlan.Comments));
             }
 
-            //_responsePlansCommandHandler.Handle(new ResponsePlans.Commands.ProcessListResponsePlan(deviation.Id, request.ResponsePlans));
+            foreach (var responsePlan in toAdd)
+            {
+                await _actionsCommandHandler.Handle(new CreateActionCommand(deviation.Id, responsePlan.Description, responsePlan.Responsible?.Id,
+                                               responsePlan.DueDate, (ActionStatusEnum)responsePlan.Status.Id, responsePlan.ActualStartDate, responsePlan.ActualEndDate,
+                                               responsePlan.Cost, responsePlan.Comments, request.MetadataType, deviation.Id));
+            }
 
             await _repository.SaveChangesAsync();
         }
