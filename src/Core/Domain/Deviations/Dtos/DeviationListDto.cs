@@ -20,5 +20,6 @@ namespace Actions.Core.Domain.Deviations.Dtos
         public DateTime? ClosedCancelledDate { get; set; }
         public User Responsible { get; set; }
         public List<Actions.Entities.Action> ResponsePlans { get; set; }
+        public string Code { get; set; }
     }
 }

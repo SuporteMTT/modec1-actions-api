@@ -48,7 +48,8 @@ namespace Actions.Infrastructure.Data.Repositories
                         Concluded = context.Set<Action>().Where(x => x.MetadataId == o.Id && x.Status == Core.Domain.Actions.Enums.ActionStatusEnum.Concluded).Count(),
                         Delayed = context.Set<Action>().Where(x => x.MetadataId == o.Id && x.Status == Core.Domain.Actions.Enums.ActionStatusEnum.Delayed).Count(),
                         ResponsePlans = context.Set<Action>().Include(x => x.Responsible).AsNoTracking().Where(x => x.MetadataId == o.Id).ToList(),
-                        Responsible = o.CreatedBy
+                        Responsible = o.CreatedBy,
+                        Code = o.Code,
                     },
                     Total = condition.Count()
                 })
