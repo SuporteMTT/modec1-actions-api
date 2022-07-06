@@ -116,7 +116,10 @@ namespace Actions.Infrastructure.Data.Repositories
                     Status = responsePlan.Status.Status(),
                     Sync = true
                 }).ToList(),
-                CancelledJustification = risk.CancelledJustification
+                CancelledJustification = risk.CancelledJustification,
+                AssociatedTaskIds = (from riskTask in context.Set<RiskTask>() 
+                                    where riskTask.RiskId == risk.Id
+                                    select riskTask.ProjectTaskId).ToList()
             }) .FirstOrDefaultAsync();
         }
 
