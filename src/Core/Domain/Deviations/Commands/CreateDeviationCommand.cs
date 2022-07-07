@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Actions.Core.Domain.Deviations.Enums;
 using Actions.Core.Domain.ResponsePlans.Dtos;
-using Actions.Core.Domain.Risks.Enums;
 using Actions.Core.Domain.Shared.Enums;
 using FluentValidation;
 
@@ -18,7 +17,7 @@ namespace Actions.Core.Domain.Deviations.Commands
         public MetadataTypeEnum MetadataType { get; set; }
         public string MetadataId { get; set; }
         public string DepartmentId { get; set; }
-        public ICollection<Actions.Dtos.ActionDto> ResponsePlans { get; set; }
+        public ICollection<ResponsePlanDto> ResponsePlans { get; set; }
     }
 
     public class CreateDeviationCommandValidator : AbstractValidator<CreateDeviationCommand>

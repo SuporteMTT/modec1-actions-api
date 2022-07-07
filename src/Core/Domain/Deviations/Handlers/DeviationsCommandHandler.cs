@@ -72,7 +72,7 @@ namespace Actions.Core.Domain.Deviations.Handlers
             foreach(var responsePlan in request.ResponsePlans){
                 await _actionsCommandHandler.Handle(
                                             new CreateActionCommand(deviation.Id, responsePlan.Description, responsePlan.Responsible?.Id,
-                                                responsePlan.DueDate, (ActionStatusEnum)responsePlan.Status, responsePlan.ActualStartDate, responsePlan.ActualEndDate,
+                                                responsePlan.DueDate, (ActionStatusEnum)responsePlan.Status?.Id, responsePlan.ActualStartDate, responsePlan.ActualEndDate,
                                                 responsePlan.Cost, responsePlan.Comments, request.MetadataType, deviation.Id)
                                             );
             }
