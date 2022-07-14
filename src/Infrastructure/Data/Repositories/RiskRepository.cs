@@ -46,7 +46,6 @@ namespace Actions.Infrastructure.Data.Repositories
                         Owner = o.Owner.Name,
                         Level = o.Level.Status(),
                         Status = o.Status.Status(),
-                        
                         NotInitiated = context.Set<Action>().Where(x => x.RelatedId == o.Id && x.Status == Core.Domain.Actions.Enums.ActionStatusEnum.NotInitiated).Count(),
                         OnGoing = context.Set<Action>().Where(x => x.RelatedId == o.Id && x.Status == Core.Domain.Actions.Enums.ActionStatusEnum.OnGoing).Count(),
                         Concluded = context.Set<Action>().Where(x => x.RelatedId == o.Id && x.Status == Core.Domain.Actions.Enums.ActionStatusEnum.Concluded).Count(),

@@ -112,7 +112,7 @@ namespace Actions.Core.Domain.Deviations.Entities
             ClosedCancelledById = closedCancelledById;
             CancelledJustification = cancelledJustification;
 
-            if ((status == StatusEnum.Concluded || status == StatusEnum.Cancelled) && Status == StatusEnum.Active) 
+            if (status == StatusEnum.Concluded || status == StatusEnum.Cancelled) 
                 ClosedCancelledDate = DateTime.Now;
         }
 

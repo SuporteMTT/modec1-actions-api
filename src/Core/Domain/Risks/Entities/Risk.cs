@@ -157,7 +157,7 @@ namespace Actions.Core.Domain.Risks.Entities
             RealImpact = realImpact;
             CancelledJustification = cancelledJustification;
 
-            if ((status == StatusEnum.Concluded || status == StatusEnum.Cancelled) && Status == StatusEnum.Active) 
+            if (status == StatusEnum.Concluded || status == StatusEnum.Cancelled) 
                 ClosedCancelledDate = DateTime.Now;
         }
 
