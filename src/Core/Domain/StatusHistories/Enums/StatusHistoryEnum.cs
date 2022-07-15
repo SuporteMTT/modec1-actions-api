@@ -12,7 +12,7 @@ namespace Actions.Core.Domain.StatusHistories.Enums
         [Color("#44ca42")]
         Concluded = 2,
         [Description("Cancelled")]
-        [Color("#ddd")]
+        [Color("#888")]
         Cancelled = 3,
 
         [Description("Not Initiated")]
