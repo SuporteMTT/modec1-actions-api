@@ -79,7 +79,7 @@ namespace Actions.Core.Domain.Deviations.Entities
         public Risk AssociatedRisk { get; set; }
         public string AssociatedRiskId { get; set; }
         public string Cause { get; set; }
-        public PriorityEnum Priority { get; set; }
+        public PriorityEnum? Priority { get; set; }
         public DateTime CreatedDate { get; set; }
         public User CreatedBy { get; set; }
         public string CreatedById { get; set; }

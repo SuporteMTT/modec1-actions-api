@@ -12,8 +12,8 @@ namespace Actions.Core.Domain.Shared
             return new PriorityDTO()
             {
                 Id = Convert.ToInt16(priority),
-                Text = priority.Description(),
-                Color = priority.GetAttribute<ColorAttribute>().Value,
+                Text = priority.ValorNumerico() != 0 ? priority.Description() : "",
+                Color = priority.ValorNumerico() != 0 ? priority.GetAttribute<ColorAttribute>().Value : "",
             };
         }
     }

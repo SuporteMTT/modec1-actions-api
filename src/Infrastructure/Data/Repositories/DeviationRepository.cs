@@ -41,7 +41,7 @@ namespace Actions.Infrastructure.Data.Repositories
                         Cause = o.Cause,
                         ClosedCancelledDate = o.ClosedCancelledDate,
                         Name = o.Name,
-                        Priority = o.Priority.Priority(),
+                        Priority = o.Priority.HasValue ? o.Priority.Priority() : new PriorityDTO(),
                         Status = o.Status.Status(),
                         NotInitiated = context.Set<Action>().Where(x => x.MetadataId == o.Id && x.Status == Core.Domain.Actions.Enums.ActionStatusEnum.NotInitiated).Count(),
                         OnGoing = context.Set<Action>().Where(x => x.MetadataId == o.Id && x.Status == Core.Domain.Actions.Enums.ActionStatusEnum.OnGoing).Count(),
@@ -82,7 +82,7 @@ namespace Actions.Infrastructure.Data.Repositories
                     Id = deviation.AssociatedRisk.Id, 
                     Name = $"{deviation.AssociatedRisk.Code} {deviation.AssociatedRisk.Name}"
                 } : null,                
-                Priority = deviation.Priority,
+                Priority = deviation.Priority.HasValue ? deviation.Priority : null,
                 CreatedDate = deviation.CreatedDate,
                 CreatedBy = deviation.CreatedBy.Name,
                 ClosedCancelledDate = deviation.ClosedCancelledDate,

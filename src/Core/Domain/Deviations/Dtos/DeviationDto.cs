@@ -17,7 +17,7 @@ namespace Actions.Core.Domain.Deviations.Dtos
         public string Cause { get; set; }
         public RiskCategoryEnum Category { get; set; }
         public RiskDto AssociatedRisk { get; set; }
-        public PriorityEnum Priority { get; set; }      
+        public PriorityEnum? Priority { get; set; }      
         public DateTime CreatedDate { get; set; }
         public string CreatedBy { get; set; }
         public DateTime? ClosedCancelledDate { get; set; }
